@@ -1,7 +1,7 @@
 import { MainLayout } from "@/components/layout";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { CheckCircle, Users, Award, Clock } from "lucide-react";
+import { CheckCircle, Users, Award, Clock, ArrowUpRight } from "lucide-react";
 import aboutTeam from "@/assets/about-team.jpg";
 
 const stats = [
@@ -11,27 +11,59 @@ const stats = [
   { icon: Award, value: "50+", label: "Awards Won" },
 ];
 
+const values = [
+  { title: "Quality First", description: "We never compromise on construction quality and materials." },
+  { title: "Transparency", description: "Clear communication and honest pricing throughout the project." },
+  { title: "Innovation", description: "Modern techniques and sustainable building practices." },
+  { title: "Reliability", description: "On-time delivery with budget adherence guaranteed." },
+];
+
 const About = () => {
   return (
     <MainLayout>
       {/* Hero */}
-      <section className="pt-32 pb-20 bg-primary">
-        <div className="container mx-auto px-4 text-center">
-          <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-primary-foreground mb-6">
-            About <span className="text-accent">Real Enterprises</span>
-          </h1>
-          <p className="text-primary-foreground/80 text-lg max-w-2xl mx-auto">
-            25 years of building trust, quality, and excellence across Pakistan.
-          </p>
+      <section className="pt-32 pb-16 bg-background">
+        <div className="container mx-auto px-4 lg:px-8">
+          <div className="max-w-3xl">
+            <span className="text-sm font-medium text-muted-foreground uppercase tracking-wider mb-3 block animate-fade-up">
+              About Us
+            </span>
+            <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6 animate-fade-up animation-delay-100">
+              25 Years of Building
+              <br />
+              <span className="text-muted-foreground">Trust & Excellence</span>
+            </h1>
+            <p className="text-lg text-muted-foreground animate-fade-up animation-delay-200">
+              From humble beginnings to becoming one of Pakistan's most trusted construction companies.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Stats */}
+      <section className="py-12 bg-background">
+        <div className="container mx-auto px-4 lg:px-8">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+            {stats.map((stat) => (
+              <div key={stat.label} className="bg-card rounded-2xl p-6 border border-border text-center">
+                <stat.icon className="w-6 h-6 text-accent mx-auto mb-3" />
+                <div className="font-display text-3xl font-bold text-foreground mb-1">{stat.value}</div>
+                <div className="text-sm text-muted-foreground">{stat.label}</div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
       {/* Story */}
-      <section className="py-20 bg-background">
-        <div className="container mx-auto px-4">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
+      <section className="py-20 bg-card">
+        <div className="container mx-auto px-4 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+            <div className="relative">
+              <img src={aboutTeam} alt="Real Enterprises team" className="rounded-2xl shadow-card w-full" loading="lazy" />
+            </div>
             <div>
-              <span className="text-accent font-medium text-sm tracking-widest uppercase mb-4 block">Our Story</span>
+              <span className="text-sm font-medium text-muted-foreground uppercase tracking-wider mb-3 block">Our Story</span>
               <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-6">
                 Building Dreams Since 1999
               </h2>
@@ -42,25 +74,30 @@ const About = () => {
                 Our commitment to excellence, transparent communication, and client satisfaction has earned us the trust of hundreds of families and businesses across the nation.
               </p>
               <Link to="/contact">
-                <Button variant="premium" size="lg">Start Your Project</Button>
+                <Button variant="hero" size="lg">
+                  Start Your Project
+                  <ArrowUpRight className="w-4 h-4" />
+                </Button>
               </Link>
-            </div>
-            <div className="relative">
-              <img src={aboutTeam} alt="Real Enterprises team" className="rounded-lg shadow-strong w-full" loading="lazy" />
             </div>
           </div>
         </div>
       </section>
 
-      {/* Stats */}
-      <section className="py-16 bg-secondary">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {stats.map((stat) => (
-              <div key={stat.label} className="text-center">
-                <stat.icon className="w-8 h-8 text-accent mx-auto mb-4" />
-                <div className="font-display text-3xl font-bold text-foreground mb-1">{stat.value}</div>
-                <div className="text-muted-foreground text-sm">{stat.label}</div>
+      {/* Values */}
+      <section className="py-20 bg-background">
+        <div className="container mx-auto px-4 lg:px-8">
+          <div className="text-center max-w-2xl mx-auto mb-12">
+            <span className="text-sm font-medium text-muted-foreground uppercase tracking-wider mb-3 block">Our Values</span>
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground">
+              What We Stand For
+            </h2>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+            {values.map((value) => (
+              <div key={value.title} className="bg-card rounded-2xl p-6 border border-border">
+                <h3 className="font-display text-lg font-semibold text-foreground mb-2">{value.title}</h3>
+                <p className="text-sm text-muted-foreground">{value.description}</p>
               </div>
             ))}
           </div>

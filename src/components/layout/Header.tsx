@@ -19,7 +19,7 @@ export function Header() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+      setIsScrolled(window.scrollY > 20);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -33,114 +33,107 @@ export function Header() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         isScrolled
-          ? "bg-background/95 backdrop-blur-md shadow-soft"
-          : "bg-transparent"
+          ? "bg-card/90 backdrop-blur-xl shadow-card py-3"
+          : "bg-transparent py-5"
       }`}
     >
-      <div className="container mx-auto px-4">
-        <nav className="flex items-center justify-between h-20">
+      <div className="container mx-auto px-4 lg:px-8">
+        <nav className="flex items-center justify-between">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2">
-            <div className="relative">
-              <div className="w-10 h-10 bg-accent rounded-sm flex items-center justify-center">
-                <span className="font-display font-bold text-accent-foreground text-xl">R</span>
-              </div>
+          <Link to="/" className="flex items-center gap-3 group">
+            <div className="relative w-10 h-10 bg-primary rounded-xl flex items-center justify-center group-hover:scale-105 transition-transform">
+              <span className="font-display font-bold text-primary-foreground text-lg">R</span>
             </div>
-            <div className="flex flex-col">
-              <span className={`font-display font-bold text-lg leading-tight ${isScrolled ? 'text-foreground' : 'text-primary-foreground'}`}>
+            <div className="hidden sm:flex flex-col">
+              <span className="font-display font-bold text-lg leading-tight text-foreground">
                 Real Enterprises
               </span>
-              <span className={`text-xs tracking-widest uppercase ${isScrolled ? 'text-muted-foreground' : 'text-primary-foreground/70'}`}>
-                Since 1999
+              <span className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground font-medium">
+                Est. 1999
               </span>
             </div>
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-8">
+          <div className="hidden lg:flex items-center gap-1 bg-secondary/80 backdrop-blur-sm rounded-full px-2 py-1.5">
             {navLinks.map((link) => (
               <Link
                 key={link.path}
                 to={link.path}
-                className={`text-sm font-medium transition-colors relative group ${
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
                   isActive(link.path)
-                    ? isScrolled ? "text-accent" : "text-accent"
-                    : isScrolled
-                    ? "text-foreground hover:text-accent"
-                    : "text-primary-foreground/90 hover:text-accent"
+                    ? "bg-primary text-primary-foreground"
+                    : "text-muted-foreground hover:text-foreground hover:bg-card"
                 }`}
               >
                 {link.name}
-                <span
-                  className={`absolute -bottom-1 left-0 h-0.5 bg-accent transition-all duration-300 ${
-                    isActive(link.path) ? "w-full" : "w-0 group-hover:w-full"
-                  }`}
-                />
               </Link>
             ))}
           </div>
 
-          {/* CTA Button */}
+          {/* CTA */}
           <div className="hidden lg:flex items-center gap-4">
-            <a href="tel:+923001234567" className={`flex items-center gap-2 text-sm ${isScrolled ? 'text-foreground' : 'text-primary-foreground'}`}>
-              <Phone className="w-4 h-4" />
-              +92 300 123 4567
+            <a href="tel:+923001234567" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
+              <div className="w-9 h-9 rounded-full bg-secondary flex items-center justify-center">
+                <Phone className="w-4 h-4" />
+              </div>
+              <span className="hidden xl:inline">+92 300 123 4567</span>
             </a>
             <Link to="/contact">
-              <Button variant="hero" size="lg">
-                Get a Quote
+              <Button variant="hero">
+                Get Quote
               </Button>
             </Link>
           </div>
 
           {/* Mobile Menu Button */}
           <button
-            className="lg:hidden p-2"
+            className="lg:hidden w-10 h-10 rounded-full bg-secondary flex items-center justify-center"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-label="Toggle menu"
           >
             {isMenuOpen ? (
-              <X className={`w-6 h-6 ${isScrolled ? 'text-foreground' : 'text-primary-foreground'}`} />
+              <X className="w-5 h-5 text-foreground" />
             ) : (
-              <Menu className={`w-6 h-6 ${isScrolled ? 'text-foreground' : 'text-primary-foreground'}`} />
+              <Menu className="w-5 h-5 text-foreground" />
             )}
           </button>
         </nav>
 
         {/* Mobile Menu */}
         <div
-          className={`lg:hidden absolute top-20 left-0 right-0 bg-background border-b border-border shadow-medium transition-all duration-300 ${
-            isMenuOpen ? "opacity-100 visible" : "opacity-0 invisible"
+          className={`lg:hidden absolute top-full left-4 right-4 mt-2 bg-card rounded-2xl shadow-elevated border border-border overflow-hidden transition-all duration-300 ${
+            isMenuOpen ? "opacity-100 visible translate-y-0" : "opacity-0 invisible -translate-y-4"
           }`}
         >
-          <div className="container mx-auto px-4 py-6">
-            <div className="flex flex-col gap-4">
+          <div className="p-4">
+            <div className="flex flex-col gap-1">
               {navLinks.map((link) => (
                 <Link
                   key={link.path}
                   to={link.path}
-                  className={`text-base font-medium py-2 transition-colors ${
+                  className={`px-4 py-3 rounded-xl text-base font-medium transition-colors ${
                     isActive(link.path)
-                      ? "text-accent"
-                      : "text-foreground hover:text-accent"
+                      ? "bg-primary text-primary-foreground"
+                      : "text-foreground hover:bg-secondary"
                   }`}
                 >
                   {link.name}
                 </Link>
               ))}
-              <div className="pt-4 border-t border-border mt-2">
-                <a href="tel:+923001234567" className="flex items-center gap-2 text-sm text-muted-foreground mb-4">
-                  <Phone className="w-4 h-4" />
-                  +92 300 123 4567
-                </a>
-                <Link to="/contact">
-                  <Button variant="hero" className="w-full">
-                    Get a Quote
-                  </Button>
-                </Link>
-              </div>
+            </div>
+            <div className="mt-4 pt-4 border-t border-border">
+              <a href="tel:+923001234567" className="flex items-center gap-3 text-sm text-muted-foreground mb-4">
+                <Phone className="w-4 h-4" />
+                +92 300 123 4567
+              </a>
+              <Link to="/contact">
+                <Button variant="hero" className="w-full">
+                  Get a Quote
+                </Button>
+              </Link>
             </div>
           </div>
         </div>

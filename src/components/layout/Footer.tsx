@@ -26,44 +26,44 @@ export function Footer() {
   return (
     <footer className="bg-primary text-primary-foreground">
       {/* Main Footer */}
-      <div className="container mx-auto px-4 py-16">
+      <div className="container mx-auto px-4 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Company Info */}
           <div className="space-y-6">
-            <div className="flex items-center gap-2">
-              <div className="w-10 h-10 bg-accent rounded-sm flex items-center justify-center">
-                <span className="font-display font-bold text-accent-foreground text-xl">R</span>
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-accent rounded-xl flex items-center justify-center">
+                <span className="font-display font-bold text-accent-foreground text-lg">R</span>
               </div>
               <div className="flex flex-col">
                 <span className="font-display font-bold text-lg leading-tight">Real Enterprises</span>
-                <span className="text-xs tracking-widest uppercase text-primary-foreground/60">Since 1999</span>
+                <span className="text-[10px] tracking-[0.2em] uppercase text-primary-foreground/50">Est. 1999</span>
               </div>
             </div>
-            <p className="text-primary-foreground/80 text-sm leading-relaxed">
-              Building trust and excellence across Pakistan for over 25 years. From residential dreams to commercial landmarks, we deliver quality construction.
+            <p className="text-primary-foreground/70 text-sm leading-relaxed">
+              Building trust and excellence across Pakistan for over 25 years. From residential dreams to commercial landmarks.
             </p>
-            <div className="flex gap-4">
+            <div className="flex gap-3">
               <a href="#" className="w-10 h-10 rounded-full bg-primary-foreground/10 flex items-center justify-center hover:bg-accent hover:text-accent-foreground transition-colors">
-                <Facebook className="w-5 h-5" />
+                <Facebook className="w-4 h-4" />
               </a>
               <a href="#" className="w-10 h-10 rounded-full bg-primary-foreground/10 flex items-center justify-center hover:bg-accent hover:text-accent-foreground transition-colors">
-                <Instagram className="w-5 h-5" />
+                <Instagram className="w-4 h-4" />
               </a>
               <a href="#" className="w-10 h-10 rounded-full bg-primary-foreground/10 flex items-center justify-center hover:bg-accent hover:text-accent-foreground transition-colors">
-                <Linkedin className="w-5 h-5" />
+                <Linkedin className="w-4 h-4" />
               </a>
             </div>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h3 className="font-display text-lg font-semibold mb-6">Quick Links</h3>
+            <h3 className="font-display text-base font-semibold mb-6">Quick Links</h3>
             <ul className="space-y-3">
               {quickLinks.map((link) => (
                 <li key={link.path}>
                   <Link
                     to={link.path}
-                    className="text-primary-foreground/80 hover:text-accent transition-colors text-sm"
+                    className="text-primary-foreground/70 hover:text-accent transition-colors text-sm"
                   >
                     {link.name}
                   </Link>
@@ -74,13 +74,13 @@ export function Footer() {
 
           {/* Services */}
           <div>
-            <h3 className="font-display text-lg font-semibold mb-6">Our Services</h3>
+            <h3 className="font-display text-base font-semibold mb-6">Our Services</h3>
             <ul className="space-y-3">
               {services.map((service) => (
                 <li key={service}>
                   <Link
                     to="/services"
-                    className="text-primary-foreground/80 hover:text-accent transition-colors text-sm"
+                    className="text-primary-foreground/70 hover:text-accent transition-colors text-sm"
                   >
                     {service}
                   </Link>
@@ -91,18 +91,18 @@ export function Footer() {
 
           {/* Contact Info */}
           <div>
-            <h3 className="font-display text-lg font-semibold mb-6">Contact Us</h3>
+            <h3 className="font-display text-base font-semibold mb-6">Contact Us</h3>
             <div className="space-y-4">
-              <a href="tel:+923001234567" className="flex items-start gap-3 text-primary-foreground/80 hover:text-accent transition-colors">
-                <Phone className="w-5 h-5 mt-0.5 flex-shrink-0" />
+              <a href="tel:+923001234567" className="flex items-start gap-3 text-primary-foreground/70 hover:text-accent transition-colors">
+                <Phone className="w-4 h-4 mt-0.5 flex-shrink-0" />
                 <span className="text-sm">+92 300 123 4567</span>
               </a>
-              <a href="mailto:info@realenterprises.pk" className="flex items-start gap-3 text-primary-foreground/80 hover:text-accent transition-colors">
-                <Mail className="w-5 h-5 mt-0.5 flex-shrink-0" />
+              <a href="mailto:info@realenterprises.pk" className="flex items-start gap-3 text-primary-foreground/70 hover:text-accent transition-colors">
+                <Mail className="w-4 h-4 mt-0.5 flex-shrink-0" />
                 <span className="text-sm">info@realenterprises.pk</span>
               </a>
-              <div className="flex items-start gap-3 text-primary-foreground/80">
-                <MapPin className="w-5 h-5 mt-0.5 flex-shrink-0" />
+              <div className="flex items-start gap-3 text-primary-foreground/70">
+                <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0" />
                 <span className="text-sm">
                   Office 12, Blue Area<br />
                   Islamabad, Pakistan
@@ -115,21 +115,21 @@ export function Footer() {
 
       {/* Bottom Bar */}
       <div className="border-t border-primary-foreground/10">
-        <div className="container mx-auto px-4 py-6">
+        <div className="container mx-auto px-4 lg:px-8 py-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <p className="text-sm text-primary-foreground/60">
+            <p className="text-sm text-primary-foreground/50">
               © {new Date().getFullYear()} Real Enterprises. All rights reserved.
             </p>
             <div className="flex items-center gap-6">
-              <Link to="/admin" className="text-sm text-primary-foreground/60 hover:text-accent transition-colors">
-                Admin Login
+              <Link to="/admin" className="text-sm text-primary-foreground/50 hover:text-accent transition-colors">
+                Admin
               </Link>
               <button
                 onClick={scrollToTop}
                 className="w-10 h-10 rounded-full bg-accent flex items-center justify-center text-accent-foreground hover:bg-accent/90 transition-colors"
                 aria-label="Scroll to top"
               >
-                <ArrowUp className="w-5 h-5" />
+                <ArrowUp className="w-4 h-4" />
               </button>
             </div>
           </div>
