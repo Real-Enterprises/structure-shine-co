@@ -1,9 +1,12 @@
+import { useState } from "react";
 import { MainLayout } from "@/components/layout";
 import { MapPin } from "lucide-react";
 import projectCommercial from "@/assets/project-commercial.jpg";
 import projectInterior from "@/assets/project-interior.jpg";
 import projectResidential from "@/assets/project-residential.jpg";
 import projectGreyStructure from "@/assets/project-grey-structure.jpg";
+
+const categories = ["All", "Residential", "Commercial", "Interior", "Grey Structure"];
 
 const projects = [
   { id: 1, title: "Lahore Office Tower", category: "Commercial", location: "Lahore", image: projectCommercial, status: "Completed" },
@@ -13,33 +16,66 @@ const projects = [
 ];
 
 const Portfolio = () => {
+  const [activeCategory, setActiveCategory] = useState("All");
+
+  const filteredProjects = activeCategory === "All" 
+    ? projects 
+    : projects.filter(p => p.category === activeCategory);
+
   return (
     <MainLayout>
-      <section className="pt-32 pb-20 bg-primary">
-        <div className="container mx-auto px-4 text-center">
-          <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-primary-foreground mb-6">
-            Our <span className="text-accent">Portfolio</span>
-          </h1>
-          <p className="text-primary-foreground/80 text-lg max-w-2xl mx-auto">
-            Explore our completed and ongoing projects across Pakistan.
-          </p>
+      {/* Hero */}
+      <section className="pt-32 pb-16 bg-background">
+        <div className="container mx-auto px-4 lg:px-8">
+          <div className="max-w-3xl">
+            <span className="text-sm font-medium text-muted-foreground uppercase tracking-wider mb-3 block animate-fade-up">
+              Portfolio
+            </span>
+            <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6 animate-fade-up animation-delay-100">
+              Our Completed
+              <br />
+              <span className="text-muted-foreground">Projects</span>
+            </h1>
+          </div>
         </div>
       </section>
 
-      <section className="py-20 bg-background">
-        <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-2 gap-8">
-            {projects.map((project) => (
-              <div key={project.id} className="group relative overflow-hidden rounded-lg aspect-[4/3]">
+      {/* Filters */}
+      <section className="pb-8 bg-background">
+        <div className="container mx-auto px-4 lg:px-8">
+          <div className="flex flex-wrap gap-2">
+            {categories.map((cat) => (
+              <button
+                key={cat}
+                onClick={() => setActiveCategory(cat)}
+                className={`px-5 py-2.5 rounded-full text-sm font-medium transition-all ${
+                  activeCategory === cat
+                    ? "bg-primary text-primary-foreground"
+                    : "bg-secondary text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Projects Grid */}
+      <section className="py-12 bg-background">
+        <div className="container mx-auto px-4 lg:px-8">
+          <div className="grid md:grid-cols-2 gap-6">
+            {filteredProjects.map((project) => (
+              <div key={project.id} className="group relative rounded-2xl overflow-hidden aspect-[4/3]">
                 <img src={project.image} alt={project.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy" />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-dark via-slate-dark/50 to-transparent opacity-80" />
-                <div className="absolute top-4 right-4">
-                  <span className={`px-3 py-1 rounded-full text-xs font-medium ${project.status === "Completed" ? "bg-green-500/20 text-green-300" : "bg-accent/20 text-accent"}`}>{project.status}</span>
+                <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/40 to-transparent opacity-70" />
+                <div className="absolute top-4 left-4">
+                  <span className={`px-3 py-1.5 rounded-full text-xs font-medium backdrop-blur-sm ${project.status === "Completed" ? "bg-green-500/20 text-green-100" : "bg-accent/30 text-accent"}`}>{project.status}</span>
                 </div>
                 <div className="absolute bottom-0 left-0 right-0 p-6">
-                  <span className="text-accent text-sm font-medium mb-2 block">{project.category}</span>
+                  <span className="text-primary-foreground/60 text-xs font-medium uppercase tracking-wider mb-2 block">{project.category}</span>
                   <h3 className="font-display text-xl font-semibold text-primary-foreground mb-2">{project.title}</h3>
-                  <div className="flex items-center gap-2 text-primary-foreground/70 text-sm"><MapPin className="w-4 h-4" />{project.location}</div>
+                  <div className="flex items-center gap-2 text-primary-foreground/60 text-sm"><MapPin className="w-3.5 h-3.5" />{project.location}</div>
                 </div>
               </div>
             ))}

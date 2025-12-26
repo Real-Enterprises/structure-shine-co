@@ -1,77 +1,137 @@
 import { Link } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, MapPin, Building, Calendar, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import heroImage from "@/assets/hero-construction.jpg";
 
 export function HeroSection() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background Image */}
-      <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: `url(${heroImage})` }}
-      >
-        <div className="absolute inset-0 bg-gradient-hero" />
-      </div>
+    <section className="relative min-h-screen pt-24 pb-12 overflow-hidden">
+      {/* Background */}
+      <div className="absolute inset-0 bg-background" />
+      
+      {/* Content Container */}
+      <div className="relative z-10 container mx-auto px-4 lg:px-8">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center min-h-[calc(100vh-120px)]">
+          
+          {/* Left Content */}
+          <div className="space-y-8 pt-8 lg:pt-0">
+            {/* Badge */}
+            <div className="inline-flex items-center gap-2 bg-secondary rounded-full px-4 py-2 animate-fade-up">
+              <span className="w-2 h-2 bg-accent rounded-full" />
+              <span className="text-sm font-medium text-muted-foreground">25+ Years of Excellence</span>
+            </div>
 
-      {/* Content */}
-      <div className="relative z-10 container mx-auto px-4 pt-20">
-        <div className="max-w-4xl mx-auto text-center">
-          {/* Badge */}
-          <div className="inline-flex items-center gap-2 bg-accent/20 backdrop-blur-sm border border-accent/30 rounded-full px-4 py-2 mb-8 animate-fade-up">
-            <span className="w-2 h-2 bg-accent rounded-full animate-pulse" />
-            <span className="text-accent text-sm font-medium">25+ Years of Excellence</span>
-          </div>
+            {/* Heading */}
+            <h1 className="font-display text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-foreground leading-[1.1] animate-fade-up animation-delay-100">
+              Building Your
+              <br />
+              <span className="text-muted-foreground">Dream Spaces</span>
+            </h1>
 
-          {/* Heading */}
-          <h1 className="font-display text-4xl md:text-5xl lg:text-7xl font-bold text-primary-foreground mb-6 animate-fade-up animation-delay-100">
-            Building Trust{" "}
-            <span className="text-accent">Across Pakistan</span>
-          </h1>
+            {/* Description */}
+            <p className="text-lg text-muted-foreground max-w-md animate-fade-up animation-delay-200">
+              From luxury homes to commercial landmarks, we transform visions into exceptional construction across Pakistan.
+            </p>
 
-          {/* Subheading */}
-          <p className="text-lg md:text-xl text-primary-foreground/80 max-w-2xl mx-auto mb-10 animate-fade-up animation-delay-200">
-            From dream homes to commercial landmarks, Real Enterprises delivers exceptional construction with unmatched quality and timeless craftsmanship.
-          </p>
+            {/* CTAs */}
+            <div className="flex flex-wrap gap-4 animate-fade-up animation-delay-300">
+              <Link to="/portfolio">
+                <Button variant="hero" size="lg">
+                  View Projects
+                  <ArrowRight className="w-4 h-4" />
+                </Button>
+              </Link>
+              <Link to="/contact">
+                <Button variant="heroLight" size="lg">
+                  Free Consultation
+                </Button>
+              </Link>
+            </div>
 
-          {/* CTAs */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-up animation-delay-300">
-            <Link to="/portfolio">
-              <Button variant="hero" size="xl">
-                View Our Projects
-                <ArrowRight className="w-5 h-5" />
-              </Button>
-            </Link>
-            <Link to="/contact">
-              <Button variant="heroOutline" size="xl">
-                Get Free Consultation
-              </Button>
-            </Link>
-          </div>
-
-          {/* Stats */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-20 animate-fade-up animation-delay-400">
-            {[
-              { value: "25+", label: "Years Experience" },
-              { value: "500+", label: "Projects Completed" },
-              { value: "200+", label: "Happy Clients" },
-              { value: "15+", label: "Cities Covered" },
-            ].map((stat) => (
-              <div key={stat.label} className="text-center">
-                <div className="font-display text-3xl md:text-4xl font-bold text-accent mb-1">
-                  {stat.value}
+            {/* Stats Row */}
+            <div className="flex flex-wrap gap-6 pt-4 animate-fade-up animation-delay-400">
+              {[
+                { value: "500+", label: "Projects" },
+                { value: "200+", label: "Clients" },
+                { value: "15+", label: "Cities" },
+              ].map((stat) => (
+                <div key={stat.label} className="flex items-center gap-3">
+                  <span className="font-display text-2xl font-bold text-foreground">{stat.value}</span>
+                  <span className="text-sm text-muted-foreground">{stat.label}</span>
                 </div>
-                <div className="text-sm text-primary-foreground/70">{stat.label}</div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
-      </div>
 
-      {/* Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
-        <div className="w-6 h-10 border-2 border-primary-foreground/30 rounded-full flex items-start justify-center p-2">
-          <div className="w-1 h-2 bg-accent rounded-full animate-pulse" />
+          {/* Right - Hero Image Card */}
+          <div className="relative animate-fade-up animation-delay-200">
+            {/* Main Image */}
+            <div className="relative rounded-3xl overflow-hidden shadow-elevated">
+              <img
+                src={heroImage}
+                alt="Modern construction project"
+                className="w-full aspect-[4/3] object-cover"
+              />
+              
+              {/* Overlay gradient */}
+              <div className="absolute inset-0 bg-gradient-to-t from-primary/60 via-transparent to-transparent" />
+
+              {/* Floating Info Card */}
+              <div className="absolute bottom-4 left-4 right-4 md:bottom-6 md:left-6 md:right-6">
+                <div className="bg-card/95 backdrop-blur-xl rounded-2xl p-4 md:p-5 shadow-elevated">
+                  <div className="flex items-center justify-between mb-4">
+                    <div>
+                      <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">Featured Project</p>
+                      <h3 className="font-display font-semibold text-foreground text-lg">Bahria Town Villa</h3>
+                    </div>
+                    <span className="px-3 py-1 bg-green-500/10 text-green-600 text-xs font-medium rounded-full">
+                      Completed
+                    </span>
+                  </div>
+                  
+                  <div className="grid grid-cols-3 gap-4">
+                    <div className="flex items-center gap-2">
+                      <div className="w-8 h-8 rounded-lg bg-secondary flex items-center justify-center">
+                        <MapPin className="w-4 h-4 text-muted-foreground" />
+                      </div>
+                      <div>
+                        <p className="text-[10px] text-muted-foreground uppercase">Location</p>
+                        <p className="text-xs font-medium text-foreground">Islamabad</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-8 h-8 rounded-lg bg-secondary flex items-center justify-center">
+                        <Building className="w-4 h-4 text-muted-foreground" />
+                      </div>
+                      <div>
+                        <p className="text-[10px] text-muted-foreground uppercase">Type</p>
+                        <p className="text-xs font-medium text-foreground">Residential</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-8 h-8 rounded-lg bg-secondary flex items-center justify-center">
+                        <Calendar className="w-4 h-4 text-muted-foreground" />
+                      </div>
+                      <div>
+                        <p className="text-[10px] text-muted-foreground uppercase">Year</p>
+                        <p className="text-xs font-medium text-foreground">2024</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Side Thumbnails */}
+              <div className="absolute top-4 right-4 md:top-6 md:right-6 flex flex-col gap-2">
+                <div className="w-12 h-12 md:w-14 md:h-14 rounded-xl bg-card/90 backdrop-blur-sm border-2 border-card overflow-hidden shadow-card">
+                  <img src={heroImage} alt="" className="w-full h-full object-cover" />
+                </div>
+                <div className="w-12 h-12 md:w-14 md:h-14 rounded-xl bg-primary flex items-center justify-center text-primary-foreground font-semibold text-sm shadow-card">
+                  +12
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
