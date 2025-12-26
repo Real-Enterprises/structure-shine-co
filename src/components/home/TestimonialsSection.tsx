@@ -40,7 +40,7 @@ export function TestimonialsSection() {
   };
 
   return (
-    <section className="py-24 bg-card">
+    <section className="py-24 bg-gradient-sky">
       <div className="container mx-auto px-4 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           {/* Left - Header */}

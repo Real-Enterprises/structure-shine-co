@@ -5,9 +5,7 @@ import heroImage from "@/assets/hero-construction.jpg";
 
 export function HeroSection() {
   return (
-    <section className="relative min-h-screen pt-24 pb-12 overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 bg-background" />
+    <section className="relative min-h-screen pt-24 pb-12 overflow-hidden bg-gradient-sky">
       
       {/* Content Container */}
       <div className="relative z-10 container mx-auto px-4 lg:px-8">
