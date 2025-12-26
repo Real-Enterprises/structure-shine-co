@@ -6,8 +6,8 @@
 
 @layer base {
   :root {
-    /* Clean Modern Theme - Light & Airy */
-    --background: 0 0% 97%;
+    /* Blue-tinted Modern Theme */
+    --background: 210 40% 96%;
     --foreground: 220 20% 10%;
 
     --card: 0 0% 100%;
@@ -17,14 +17,14 @@
     --popover-foreground: 220 20% 10%;
 
     /* Deep charcoal primary */
-    --primary: 220 15% 15%;
+    --primary: 220 20% 18%;
     --primary-foreground: 0 0% 100%;
 
-    /* Soft gray secondary */
-    --secondary: 220 10% 94%;
+    /* Soft blue secondary */
+    --secondary: 210 30% 92%;
     --secondary-foreground: 220 20% 10%;
 
-    --muted: 220 10% 92%;
+    --muted: 210 25% 88%;
     --muted-foreground: 220 10% 45%;
 
     /* Warm accent */
@@ -34,33 +34,34 @@
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 220 10% 90%;
-    --input: 220 10% 90%;
-    --ring: 220 15% 15%;
+    --border: 210 20% 88%;
+    --input: 210 20% 88%;
+    --ring: 220 20% 18%;
 
     --radius: 1rem;
 
     /* Extended palette */
-    --charcoal: 220 15% 15%;
-    --charcoal-light: 220 10% 25%;
-    --warm-white: 40 20% 98%;
-    --soft-gray: 220 10% 94%;
-    --medium-gray: 220 10% 60%;
+    --charcoal: 220 20% 18%;
+    --charcoal-light: 220 15% 28%;
+    --sky-light: 210 60% 95%;
+    --sky: 210 50% 90%;
+    --sky-dark: 210 40% 85%;
+    --soft-blue: 210 35% 92%;
 
     /* Shadows */
-    --shadow-sm: 0 2px 8px -2px hsl(220 15% 15% / 0.06);
-    --shadow-md: 0 8px 24px -6px hsl(220 15% 15% / 0.1);
-    --shadow-lg: 0 16px 48px -12px hsl(220 15% 15% / 0.15);
-    --shadow-xl: 0 24px 64px -16px hsl(220 15% 15% / 0.2);
+    --shadow-sm: 0 2px 8px -2px hsl(210 40% 30% / 0.08);
+    --shadow-md: 0 8px 24px -6px hsl(210 40% 30% / 0.12);
+    --shadow-lg: 0 16px 48px -12px hsl(210 40% 30% / 0.18);
+    --shadow-xl: 0 24px 64px -16px hsl(210 40% 30% / 0.24);
 
     /* Admin sidebar */
-    --sidebar-background: 220 15% 12%;
+    --sidebar-background: 220 20% 12%;
     --sidebar-foreground: 0 0% 95%;
     --sidebar-primary: 35 90% 55%;
     --sidebar-primary-foreground: 220 15% 10%;
-    --sidebar-accent: 220 12% 18%;
+    --sidebar-accent: 220 15% 18%;
     --sidebar-accent-foreground: 0 0% 95%;
-    --sidebar-border: 220 12% 20%;
+    --sidebar-border: 220 15% 22%;
     --sidebar-ring: 35 90% 55%;
 
     /* Typography */
@@ -137,6 +138,23 @@
 
   .glass-card {
     @apply bg-card/80 backdrop-blur-xl border border-border/50;
+  }
+
+  /* Blue gradient backgrounds */
+  .bg-gradient-sky {
+    background: linear-gradient(180deg, hsl(210 50% 97%) 0%, hsl(210 40% 92%) 100%);
+  }
+
+  .bg-gradient-sky-reverse {
+    background: linear-gradient(180deg, hsl(210 40% 92%) 0%, hsl(210 50% 97%) 100%);
+  }
+
+  .bg-section-dark {
+    @apply bg-primary text-primary-foreground;
+  }
+
+  .bg-section-light {
+    @apply bg-card;
   }
 }
 

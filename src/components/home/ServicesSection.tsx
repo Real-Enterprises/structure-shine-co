@@ -37,20 +37,20 @@ const services = [
 
 export function ServicesSection() {
   return (
-    <section className="py-24 bg-card">
+    <section className="py-24 bg-primary text-primary-foreground">
       <div className="container mx-auto px-4 lg:px-8">
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-16">
           <div className="max-w-xl">
-            <span className="text-sm font-medium text-muted-foreground uppercase tracking-wider mb-3 block">
+            <span className="text-sm font-medium text-primary-foreground/60 uppercase tracking-wider mb-3 block">
               What We Do
             </span>
-            <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-foreground">
+            <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-primary-foreground">
               Our Services
             </h2>
           </div>
           <Link to="/services">
-            <Button variant="heroLight" size="lg">
+            <Button variant="accent" size="lg">
               All Services
               <ArrowUpRight className="w-4 h-4" />
             </Button>
@@ -63,25 +63,25 @@ export function ServicesSection() {
             <Link
               key={service.title}
               to="/services"
-              className="group relative p-6 bg-background rounded-2xl border border-border hover:border-primary/20 hover:shadow-card transition-all duration-300"
+              className="group relative p-6 bg-primary-foreground/5 rounded-2xl border border-primary-foreground/10 hover:bg-primary-foreground/10 hover:border-primary-foreground/20 transition-all duration-300"
             >
               <div className="flex items-start justify-between mb-6">
-                <div className="w-12 h-12 rounded-xl bg-secondary flex items-center justify-center group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
+                <div className="w-12 h-12 rounded-xl bg-primary-foreground/10 flex items-center justify-center text-primary-foreground group-hover:bg-accent group-hover:text-accent-foreground transition-colors">
                   <service.icon className="w-5 h-5" />
                 </div>
-                <span className="text-2xl font-bold text-muted-foreground/30 font-display">
+                <span className="text-2xl font-bold text-primary-foreground/20 font-display">
                   {service.count}
                 </span>
               </div>
 
-              <h3 className="font-display text-lg font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
+              <h3 className="font-display text-lg font-semibold text-primary-foreground mb-2">
                 {service.title}
               </h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">
+              <p className="text-sm text-primary-foreground/60 leading-relaxed">
                 {service.description}
               </p>
 
-              <div className="mt-4 flex items-center gap-2 text-sm font-medium text-muted-foreground group-hover:text-primary transition-colors">
+              <div className="mt-4 flex items-center gap-2 text-sm font-medium text-primary-foreground/60 group-hover:text-accent transition-colors">
                 Learn more
                 <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
               </div>

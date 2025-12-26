@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 
 export function CTASection() {
   return (
-    <section className="py-24 bg-background">
+    <section className="py-24 bg-card">
       <div className="container mx-auto px-4 lg:px-8">
         <div className="relative overflow-hidden rounded-3xl bg-primary p-8 md:p-16">
           {/* Background Pattern */}
