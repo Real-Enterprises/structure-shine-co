@@ -1,11 +1,27 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, MapPin, Building, Calendar, Users } from "lucide-react";
+import { ArrowRight, MapPin, Building, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import heroImage from "@/assets/hero-construction.jpg";
+import heroVideo from "@/assets/hero-video.mp4";
 
 export function HeroSection() {
   return (
-    <section className="relative min-h-screen pt-24 pb-12 overflow-hidden bg-gradient-sky">
+    <section className="relative min-h-screen pt-24 pb-12 overflow-hidden">
+      
+      {/* Background Video */}
+      <div className="absolute inset-0 z-0">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="w-full h-full object-cover"
+        >
+          <source src={heroVideo} type="video/mp4" />
+        </video>
+        {/* Dark muted overlay */}
+        <div className="absolute inset-0 bg-primary/70" />
+      </div>
       
       {/* Content Container */}
       <div className="relative z-10 container mx-auto px-4 lg:px-8">
@@ -14,20 +30,20 @@ export function HeroSection() {
           {/* Left Content */}
           <div className="space-y-8 pt-8 lg:pt-0">
             {/* Badge */}
-            <div className="inline-flex items-center gap-2 bg-secondary rounded-full px-4 py-2 animate-fade-up">
+            <div className="inline-flex items-center gap-2 bg-primary-foreground/10 backdrop-blur-sm border border-primary-foreground/20 rounded-full px-4 py-2 animate-fade-up">
               <span className="w-2 h-2 bg-accent rounded-full" />
-              <span className="text-sm font-medium text-muted-foreground">25+ Years of Excellence</span>
+              <span className="text-sm font-medium text-primary-foreground/90">25+ Years of Excellence</span>
             </div>
 
             {/* Heading */}
-            <h1 className="font-display text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-foreground leading-[1.1] animate-fade-up animation-delay-100">
+            <h1 className="font-display text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-primary-foreground leading-[1.1] animate-fade-up animation-delay-100">
               Building Your
               <br />
-              <span className="text-muted-foreground">Dream Spaces</span>
+              <span className="text-primary-foreground/70">Dream Spaces</span>
             </h1>
 
             {/* Description */}
-            <p className="text-lg text-muted-foreground max-w-md animate-fade-up animation-delay-200">
+            <p className="text-lg text-primary-foreground/80 max-w-md animate-fade-up animation-delay-200">
               From luxury homes to commercial landmarks, we transform visions into exceptional construction across Pakistan.
             </p>
 
@@ -54,8 +70,8 @@ export function HeroSection() {
                 { value: "15+", label: "Cities" },
               ].map((stat) => (
                 <div key={stat.label} className="flex items-center gap-3">
-                  <span className="font-display text-2xl font-bold text-foreground">{stat.value}</span>
-                  <span className="text-sm text-muted-foreground">{stat.label}</span>
+                  <span className="font-display text-2xl font-bold text-primary-foreground">{stat.value}</span>
+                  <span className="text-sm text-primary-foreground/70">{stat.label}</span>
                 </div>
               ))}
             </div>
