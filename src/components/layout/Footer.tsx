@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { Phone, Mail, MapPin, Facebook, Instagram, Linkedin, ArrowUp } from "lucide-react";
 
 const quickLinks = [
@@ -44,13 +44,16 @@ export function Footer() {
               Building trust and excellence across Pakistan for over 25 years. From residential dreams to commercial landmarks.
             </p>
             <div className="flex gap-3">
-              <a href="#" className="w-10 h-10 rounded-full bg-primary-foreground/10 flex items-center justify-center hover:bg-accent hover:text-accent-foreground transition-colors">
+              {/* TODO: Update with real social URL */}
+              <a href="https://facebook.com/realenterprises" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-primary-foreground/10 flex items-center justify-center hover:bg-accent hover:text-accent-foreground transition-colors">
                 <Facebook className="w-4 h-4" />
               </a>
-              <a href="#" className="w-10 h-10 rounded-full bg-primary-foreground/10 flex items-center justify-center hover:bg-accent hover:text-accent-foreground transition-colors">
+              {/* TODO: Update with real social URL */}
+              <a href="https://instagram.com/realenterprises" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-primary-foreground/10 flex items-center justify-center hover:bg-accent hover:text-accent-foreground transition-colors">
                 <Instagram className="w-4 h-4" />
               </a>
-              <a href="#" className="w-10 h-10 rounded-full bg-primary-foreground/10 flex items-center justify-center hover:bg-accent hover:text-accent-foreground transition-colors">
+              {/* TODO: Update with real social URL */}
+              <a href="https://linkedin.com/company/realenterprises" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-primary-foreground/10 flex items-center justify-center hover:bg-accent hover:text-accent-foreground transition-colors">
                 <Linkedin className="w-4 h-4" />
               </a>
             </div>
@@ -63,7 +66,7 @@ export function Footer() {
               {quickLinks.map((link) => (
                 <li key={link.path}>
                   <Link
-                    to={link.path}
+                    href={link.path}
                     className="text-primary-foreground/70 hover:text-accent transition-colors text-sm"
                   >
                     {link.name}
@@ -80,7 +83,7 @@ export function Footer() {
               {services.map((service) => (
                 <li key={service}>
                   <Link
-                    to="/services"
+                    href="/services"
                     className="text-primary-foreground/70 hover:text-accent transition-colors text-sm"
                   >
                     {service}
@@ -94,19 +97,22 @@ export function Footer() {
           <div>
             <h3 className="font-display text-base font-semibold mb-6">Contact Us</h3>
             <div className="space-y-4">
-              <a href="tel:+923001234567" className="flex items-start gap-3 text-primary-foreground/70 hover:text-accent transition-colors">
+              {/* TODO: Replace with real number */}
+              <a href="tel:+923000000000" className="flex items-start gap-3 text-primary-foreground/70 hover:text-accent transition-colors">
                 <Phone className="w-4 h-4 mt-0.5 flex-shrink-0" />
-                <span className="text-sm">+92 300 123 4567</span>
+                <span className="text-sm">+92 300 000 0000</span>
               </a>
+              {/* TODO: Confirm real email */}
               <a href="mailto:info@realenterprises.pk" className="flex items-start gap-3 text-primary-foreground/70 hover:text-accent transition-colors">
                 <Mail className="w-4 h-4 mt-0.5 flex-shrink-0" />
                 <span className="text-sm">info@realenterprises.pk</span>
               </a>
+              {/* TODO: Replace with real office address */}
               <div className="flex items-start gap-3 text-primary-foreground/70">
                 <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0" />
                 <span className="text-sm">
-                  Office 12, Blue Area<br />
-                  Islamabad, Pakistan
+                  123 Main Boulevard, DHA Phase 5<br />
+                  Lahore, Punjab, Pakistan
                 </span>
               </div>
             </div>
@@ -122,7 +128,7 @@ export function Footer() {
               © {new Date().getFullYear()} Real Enterprises. All rights reserved.
             </p>
             <div className="flex items-center gap-6">
-              <Link to="/admin" className="text-sm text-primary-foreground/50 hover:text-accent transition-colors">
+              <Link href="/admin" className="text-sm text-primary-foreground/50 hover:text-accent transition-colors">
                 Admin
               </Link>
               <button

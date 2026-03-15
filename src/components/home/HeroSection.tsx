@@ -1,26 +1,38 @@
-import { Link } from "react-router-dom";
+"use client";
+
+import Link from "next/link";
 import { ArrowRight, MapPin, Building, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import heroImage from "@/assets/hero-construction.jpg";
-import heroVideo from "@/assets/hero-video.mp4";
+
+const heroImage = "/assets/hero-construction.jpg";
+
+// VideoEmbed component — replaces the bundled hero-video.mp4 with a Streamable embed
+const VideoEmbed = ({ streamableId }: { streamableId: string }) => (
+  <div className="absolute inset-0 w-full h-full overflow-hidden">
+    <iframe
+      src={`https://streamable.com/e/${streamableId}?autoplay=1&muted=1&loop=1&controls=0`}
+      className="absolute inset-0 w-full h-full"
+      style={{ border: "none", pointerEvents: "none" }}
+      allowFullScreen
+      allow="autoplay; fullscreen"
+      title="Real Enterprises — Construction Excellence"
+    />
+    {/* Dark overlay to maintain text readability */}
+    <div className="absolute inset-0 bg-black/50" />
+  </div>
+);
 
 export function HeroSection() {
   return (
-    <section className="relative min-h-screen pt-24 pb-12 overflow-hidden">
+    // Static fallback background image shows while iframe loads
+    <section
+      className="relative min-h-screen pt-24 pb-12 overflow-hidden"
+      style={{ backgroundImage: `url(${heroImage})`, backgroundSize: "cover", backgroundPosition: "center" }}
+    >
       
-      {/* Background Video */}
+      {/* Background Video — TODO: Replace PLACEHOLDER with real Streamable video ID once video is uploaded */}
       <div className="absolute inset-0 z-0">
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="w-full h-full object-cover"
-        >
-          <source src={heroVideo} type="video/mp4" />
-        </video>
-        {/* Dark muted overlay */}
-        <div className="absolute inset-0 bg-primary/70" />
+        <VideoEmbed streamableId="PLACEHOLDER" />
       </div>
       
       {/* Content Container */}
@@ -49,13 +61,13 @@ export function HeroSection() {
 
             {/* CTAs */}
             <div className="flex flex-wrap gap-4 animate-fade-up animation-delay-300">
-              <Link to="/portfolio">
+              <Link href="/portfolio">
                 <Button variant="hero" size="lg">
                   View Projects
                   <ArrowRight className="w-4 h-4" />
                 </Button>
               </Link>
-              <Link to="/contact">
+              <Link href="/contact">
                 <Button variant="heroLight" size="lg">
                   Free Consultation
                 </Button>

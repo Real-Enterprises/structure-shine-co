@@ -1,4 +1,7 @@
-import { Link, useLocation } from "react-router-dom";
+"use client";
+
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { Menu, X, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -16,7 +19,7 @@ const navLinks = [
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const location = useLocation();
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -28,9 +31,9 @@ export function Header() {
 
   useEffect(() => {
     setIsMenuOpen(false);
-  }, [location]);
+  }, [pathname]);
 
-  const isActive = (path: string) => location.pathname === path;
+  const isActive = (path: string) => pathname === path;
 
   return (
     <header
@@ -43,7 +46,7 @@ export function Header() {
       <div className="container mx-auto px-4 lg:px-8">
         <nav className="flex items-center justify-between">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-3 group">
+          <Link href="/" className="flex items-center gap-3 group">
             <div className="relative w-10 h-10 bg-primary rounded-xl flex items-center justify-center group-hover:scale-105 transition-transform">
               <span className="font-display font-bold text-primary-foreground text-lg">R</span>
             </div>
@@ -62,7 +65,7 @@ export function Header() {
             {navLinks.map((link) => (
               <Link
                 key={link.path}
-                to={link.path}
+                href={link.path}
                 className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
                   isActive(link.path)
                     ? "bg-primary text-primary-foreground"
@@ -76,13 +79,13 @@ export function Header() {
 
           {/* CTA */}
           <div className="hidden lg:flex items-center gap-4">
-            <a href="tel:+923001234567" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
+            <a href="tel:+923000000000" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
               <div className="w-9 h-9 rounded-full bg-secondary flex items-center justify-center">
                 <Phone className="w-4 h-4" />
               </div>
-              <span className="hidden xl:inline">+92 300 123 4567</span>
+              <span className="hidden xl:inline">+92 300 000 0000</span>
             </a>
-            <Link to="/contact">
+            <Link href="/contact">
               <Button variant="hero">
                 Get Quote
               </Button>
@@ -114,7 +117,7 @@ export function Header() {
               {navLinks.map((link) => (
                 <Link
                   key={link.path}
-                  to={link.path}
+                  href={link.path}
                   className={`px-4 py-3 rounded-xl text-base font-medium transition-colors ${
                     isActive(link.path)
                       ? "bg-primary text-primary-foreground"
@@ -126,11 +129,11 @@ export function Header() {
               ))}
             </div>
             <div className="mt-4 pt-4 border-t border-border">
-              <a href="tel:+923001234567" className="flex items-center gap-3 text-sm text-muted-foreground mb-4">
+              <a href="tel:+923000000000" className="flex items-center gap-3 text-sm text-muted-foreground mb-4">
                 <Phone className="w-4 h-4" />
-                +92 300 123 4567
+                +92 300 000 0000
               </a>
-              <Link to="/contact">
+              <Link href="/contact">
                 <Button variant="hero" className="w-full">
                   Get a Quote
                 </Button>

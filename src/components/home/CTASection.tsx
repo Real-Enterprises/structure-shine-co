@@ -1,4 +1,6 @@
-import { Link } from "react-router-dom";
+"use client";
+
+import Link from "next/link";
 import { ArrowRight, Phone, Mail, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -29,13 +31,14 @@ export function CTASection() {
                 Contact us today for a free consultation. Our experts will help you bring your vision to life.
               </p>
               <div className="flex flex-wrap gap-4">
-                <Link to="/contact">
+                <Link href="/contact">
                   <Button variant="accent" size="xl">
                     Get Free Quote
                     <ArrowRight className="w-4 h-4" />
                   </Button>
                 </Link>
-                <a href="tel:+923001234567">
+                {/* TODO: Replace +923000000000 with real WhatsApp/phone number */}
+                <a href="tel:+923000000000">
                   <Button size="xl" className="bg-primary-foreground/10 text-primary-foreground hover:bg-primary-foreground/20 rounded-full">
                     <Phone className="w-4 h-4" />
                     Call Now
@@ -52,7 +55,7 @@ export function CTASection() {
                 </div>
                 <div>
                   <div className="text-primary-foreground/60 text-sm">Call Us</div>
-                  <div className="text-primary-foreground font-semibold">+92 300 123 4567</div>
+                  <div className="text-primary-foreground font-semibold">+92 300 000 0000</div>
                 </div>
               </div>
               <div className="flex items-center gap-4 bg-primary-foreground/10 rounded-2xl p-5">
@@ -70,7 +73,7 @@ export function CTASection() {
                 </div>
                 <div>
                   <div className="text-primary-foreground/60 text-sm">Visit Us</div>
-                  <div className="text-primary-foreground font-semibold">Blue Area, Islamabad</div>
+                  <div className="text-primary-foreground font-semibold">123 Main Boulevard, DHA Phase 5, Lahore</div>
                 </div>
               </div>
             </div>
