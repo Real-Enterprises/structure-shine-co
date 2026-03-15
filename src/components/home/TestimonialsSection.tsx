@@ -2,36 +2,18 @@
 
 import { useState } from "react";
 import { ChevronLeft, ChevronRight, Star } from "lucide-react";
+import type { Testimonial } from "@/lib/content";
 
-const testimonials = [
-  {
-    id: 1,
-    name: "Ahmed Hassan",
-    company: "Hassan Developers",
-    text: "Real Enterprises transformed our vision into reality. Their attention to detail and commitment to quality is unmatched. The commercial plaza they built exceeded all expectations.",
-    rating: 5,
-    image: "AH",
-  },
-  {
-    id: 2,
-    name: "Fatima Khan",
-    company: "Private Residence",
-    text: "Building our dream home was a seamless experience with Real Enterprises. From design to final handover, they kept us informed every step. Highly recommended!",
-    rating: 5,
-    image: "FK",
-  },
-  {
-    id: 3,
-    name: "Muhammad Ali",
-    company: "Ali & Sons Trading",
-    text: "Professional, reliable, and efficient. Real Enterprises delivered our office building on time and within budget. The quality of construction is exceptional.",
-    rating: 5,
-    image: "MA",
-  },
-];
+interface Props {
+  testimonials: Testimonial[];
+}
 
-export function TestimonialsSection() {
+export function TestimonialsSection({ testimonials }: Props) {
   const [currentIndex, setCurrentIndex] = useState(0);
+
+  if (testimonials.length === 0) return null;
+
+  const current = testimonials[currentIndex];
 
   const nextTestimonial = () => {
     setCurrentIndex((prev) => (prev + 1) % testimonials.length);
@@ -54,7 +36,7 @@ export function TestimonialsSection() {
               What Our Clients Say
             </h2>
             <p className="text-muted-foreground text-lg mb-8">
-              Don't just take our word for it. Here's what our satisfied clients have to say about working with Real Enterprises.
+              Don&apos;t just take our word for it. Here&apos;s what our satisfied clients have to say about working with Real Enterprises.
             </p>
 
             {/* Stats */}
@@ -79,29 +61,39 @@ export function TestimonialsSection() {
             <div className="bg-background rounded-2xl p-8 shadow-card border border-border">
               {/* Rating */}
               <div className="flex gap-1 mb-6">
-                {Array.from({ length: testimonials[currentIndex].rating }).map((_, i) => (
+                {Array.from({ length: parseInt(current.rating, 10) }).map((_, i) => (
                   <Star key={i} className="w-5 h-5 fill-accent text-accent" />
                 ))}
               </div>
 
               {/* Quote */}
               <blockquote className="text-lg text-foreground leading-relaxed mb-8">
-                "{testimonials[currentIndex].text}"
+                &ldquo;{current.body}&rdquo;
               </blockquote>
 
               {/* Author */}
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-primary-foreground font-semibold">
-                    {testimonials[currentIndex].image}
-                  </div>
+                  {current.photo ? (
+                    <img
+                      src={current.photo}
+                      alt={current.clientName}
+                      className="w-12 h-12 rounded-full object-cover"
+                    />
+                  ) : (
+                    <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-primary-foreground font-semibold">
+                      {current.clientName
+                        .split(" ")
+                        .map((n) => n[0])
+                        .join("")
+                        .slice(0, 2)}
+                    </div>
+                  )}
                   <div>
-                    <div className="font-semibold text-foreground">
-                      {testimonials[currentIndex].name}
-                    </div>
-                    <div className="text-sm text-muted-foreground">
-                      {testimonials[currentIndex].company}
-                    </div>
+                    <div className="font-semibold text-foreground">{current.clientName}</div>
+                    {current.company && (
+                      <div className="text-sm text-muted-foreground">{current.company}</div>
+                    )}
                   </div>
                 </div>
 

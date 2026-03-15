@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import { Phone, Mail, MapPin, Facebook, Instagram, Linkedin, ArrowUp } from "lucide-react";
+import type { CompanyInfo } from "@/lib/content";
 
 const quickLinks = [
   { name: "Home", path: "/" },
@@ -11,7 +14,7 @@ const quickLinks = [
   { name: "Contact", path: "/contact" },
 ];
 
-const services = [
+const servicesList = [
   "Residential Construction",
   "Commercial Projects",
   "Interior Design",
@@ -19,7 +22,11 @@ const services = [
   "Turnkey Solutions",
 ];
 
-export function Footer() {
+interface Props {
+  companyInfo: CompanyInfo;
+}
+
+export function Footer({ companyInfo }: Props) {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -44,18 +51,21 @@ export function Footer() {
               Building trust and excellence across Pakistan for over 25 years. From residential dreams to commercial landmarks.
             </p>
             <div className="flex gap-3">
-              {/* TODO: Update with real social URL */}
-              <a href="https://facebook.com/realenterprises" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-primary-foreground/10 flex items-center justify-center hover:bg-accent hover:text-accent-foreground transition-colors">
-                <Facebook className="w-4 h-4" />
-              </a>
-              {/* TODO: Update with real social URL */}
-              <a href="https://instagram.com/realenterprises" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-primary-foreground/10 flex items-center justify-center hover:bg-accent hover:text-accent-foreground transition-colors">
-                <Instagram className="w-4 h-4" />
-              </a>
-              {/* TODO: Update with real social URL */}
-              <a href="https://linkedin.com/company/realenterprises" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-primary-foreground/10 flex items-center justify-center hover:bg-accent hover:text-accent-foreground transition-colors">
-                <Linkedin className="w-4 h-4" />
-              </a>
+              {companyInfo.facebookUrl && (
+                <a href={companyInfo.facebookUrl} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-primary-foreground/10 flex items-center justify-center hover:bg-accent hover:text-accent-foreground transition-colors">
+                  <Facebook className="w-4 h-4" />
+                </a>
+              )}
+              {companyInfo.instagramUrl && (
+                <a href={companyInfo.instagramUrl} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-primary-foreground/10 flex items-center justify-center hover:bg-accent hover:text-accent-foreground transition-colors">
+                  <Instagram className="w-4 h-4" />
+                </a>
+              )}
+              {companyInfo.linkedinUrl && (
+                <a href={companyInfo.linkedinUrl} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-primary-foreground/10 flex items-center justify-center hover:bg-accent hover:text-accent-foreground transition-colors">
+                  <Linkedin className="w-4 h-4" />
+                </a>
+              )}
             </div>
           </div>
 
@@ -80,7 +90,7 @@ export function Footer() {
           <div>
             <h3 className="font-display text-base font-semibold mb-6">Our Services</h3>
             <ul className="space-y-3">
-              {services.map((service) => (
+              {servicesList.map((service) => (
                 <li key={service}>
                   <Link
                     href="/services"
@@ -97,23 +107,17 @@ export function Footer() {
           <div>
             <h3 className="font-display text-base font-semibold mb-6">Contact Us</h3>
             <div className="space-y-4">
-              {/* TODO: Replace with real number */}
-              <a href="tel:+923000000000" className="flex items-start gap-3 text-primary-foreground/70 hover:text-accent transition-colors">
+              <a href={`tel:${companyInfo.phone.replace(/\s/g, "")}`} className="flex items-start gap-3 text-primary-foreground/70 hover:text-accent transition-colors">
                 <Phone className="w-4 h-4 mt-0.5 flex-shrink-0" />
-                <span className="text-sm">+92 300 000 0000</span>
+                <span className="text-sm">{companyInfo.phone}</span>
               </a>
-              {/* TODO: Confirm real email */}
-              <a href="mailto:info@realenterprises.pk" className="flex items-start gap-3 text-primary-foreground/70 hover:text-accent transition-colors">
+              <a href={`mailto:${companyInfo.email}`} className="flex items-start gap-3 text-primary-foreground/70 hover:text-accent transition-colors">
                 <Mail className="w-4 h-4 mt-0.5 flex-shrink-0" />
-                <span className="text-sm">info@realenterprises.pk</span>
+                <span className="text-sm">{companyInfo.email}</span>
               </a>
-              {/* TODO: Replace with real office address */}
               <div className="flex items-start gap-3 text-primary-foreground/70">
                 <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0" />
-                <span className="text-sm">
-                  123 Main Boulevard, DHA Phase 5<br />
-                  Lahore, Punjab, Pakistan
-                </span>
+                <span className="text-sm whitespace-pre-line">{companyInfo.address}</span>
               </div>
             </div>
           </div>
@@ -128,7 +132,7 @@ export function Footer() {
               © {new Date().getFullYear()} Real Enterprises. All rights reserved.
             </p>
             <div className="flex items-center gap-6">
-              <Link href="/admin" className="text-sm text-primary-foreground/50 hover:text-accent transition-colors">
+              <Link href="/keystatic" className="text-sm text-primary-foreground/50 hover:text-accent transition-colors">
                 Admin
               </Link>
               <button

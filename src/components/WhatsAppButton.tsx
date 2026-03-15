@@ -1,10 +1,15 @@
-// TODO: Replace 923001234567 with real WhatsApp Business number
 import { MessageCircle } from "lucide-react";
 
-export function WhatsAppButton() {
+interface Props {
+  whatsappNumber: string;
+}
+
+export function WhatsAppButton({ whatsappNumber }: Props) {
+  const waUrl = `https://wa.me/${whatsappNumber}?text=Hi%2C%20I%27d%20like%20to%20enquire%20about%20a%20construction%20project`;
+
   return (
     <a
-      href="https://wa.me/923001234567?text=Hi%2C%20I%27d%20like%20to%20enquire%20about%20a%20construction%20project"
+      href={waUrl}
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Chat with us on WhatsApp"

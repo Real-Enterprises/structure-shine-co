@@ -1,53 +1,38 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { ArrowLeft, Calendar, Clock, User } from "lucide-react";
+import { ArrowLeft, Calendar, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { blogPosts } from "@/data/blogPosts";
+import {
+  getAllBlogPosts,
+  getBlogPostBySlug,
+  getBlogPostsByCategory,
+} from "@/lib/content";
 
 interface Props {
   params: { slug: string };
 }
 
 export async function generateStaticParams() {
-  return blogPosts.map((post) => ({ slug: post.slug }));
+  return getAllBlogPosts().map((post) => ({ slug: post.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const post = blogPosts.find((p) => p.slug === params.slug);
+  const post = getBlogPostBySlug(params.slug);
   if (!post) return {};
   return {
-    title: post.title,
-    description: post.excerpt,
+    title: post.seoTitle || post.title,
+    description: post.seoDescription || post.excerpt,
+    openGraph: { images: [post.coverImage] },
   };
 }
 
-function renderContent(content: string) {
-  return content.split("\n\n").map((block, i) => {
-    if (block.startsWith("## ")) {
-      return (
-        <h2
-          key={i}
-          className="font-display text-xl md:text-2xl font-bold text-foreground mt-10 mb-4"
-        >
-          {block.replace("## ", "")}
-        </h2>
-      );
-    }
-    return (
-      <p key={i} className="text-muted-foreground leading-relaxed mb-4">
-        {block}
-      </p>
-    );
-  });
-}
-
 export default function BlogPostPage({ params }: Props) {
-  const post = blogPosts.find((p) => p.slug === params.slug);
+  const post = getBlogPostBySlug(params.slug);
   if (!post) notFound();
 
-  const relatedPosts = blogPosts
-    .filter((p) => p.slug !== post.slug && p.category === post.category)
+  const relatedPosts = getBlogPostsByCategory(post.category)
+    .filter((p) => p.slug !== post.slug)
     .slice(0, 2);
 
   return (
@@ -75,15 +60,11 @@ export default function BlogPostPage({ params }: Props) {
               </span>
               <span className="flex items-center gap-2">
                 <Calendar className="w-4 h-4" />
-                {new Date(post.date).toLocaleDateString("en-US", {
+                {new Date(post.publishedDate).toLocaleDateString("en-US", {
                   month: "long",
                   day: "numeric",
                   year: "numeric",
                 })}
-              </span>
-              <span className="flex items-center gap-2">
-                <Clock className="w-4 h-4" />
-                {post.readTime}
               </span>
             </div>
           </div>
@@ -95,7 +76,7 @@ export default function BlogPostPage({ params }: Props) {
         <div className="container mx-auto px-4 lg:px-8 -mt-2">
           <div className="max-w-4xl mx-auto">
             <img
-              src={post.image}
+              src={post.coverImage}
               alt={post.title}
               className="w-full aspect-[2/1] object-cover rounded-2xl shadow-elevated"
             />
@@ -106,8 +87,8 @@ export default function BlogPostPage({ params }: Props) {
       {/* Content */}
       <section className="py-16 bg-background">
         <div className="container mx-auto px-4 lg:px-8">
-          <article className="max-w-3xl mx-auto">
-            {renderContent(post.content)}
+          <article className="max-w-3xl mx-auto prose prose-lg dark:prose-invert">
+            <p className="text-muted-foreground leading-relaxed">{post.excerpt}</p>
           </article>
         </div>
       </section>
@@ -128,7 +109,7 @@ export default function BlogPostPage({ params }: Props) {
                 >
                   <div className="aspect-[16/10] overflow-hidden">
                     <img
-                      src={rp.image}
+                      src={rp.coverImage}
                       alt={rp.title}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       loading="lazy"

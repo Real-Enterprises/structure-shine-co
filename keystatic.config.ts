@@ -1,0 +1,263 @@
+import { config, fields, collection, singleton } from '@keystatic/core';
+
+export default config({
+  storage: {
+    kind: 'local',
+  },
+
+  ui: {
+    brand: { name: 'Real Enterprises' },
+  },
+
+  collections: {
+
+    // ── PROJECTS ───────────────────────────────
+    projects: collection({
+      label: 'Projects',
+      slugField: 'title',
+      path: 'src/content/projects/*',
+      format: { data: 'json' },
+      schema: {
+        title: fields.text({
+          label: 'Project Title',
+          validation: { isRequired: true },
+        }),
+        category: fields.select({
+          label: 'Category',
+          options: [
+            { label: 'Residential',    value: 'residential'    },
+            { label: 'Commercial',     value: 'commercial'     },
+            { label: 'Interior',       value: 'interior'       },
+            { label: 'Grey Structure', value: 'grey-structure' },
+            { label: 'Turnkey',        value: 'turnkey'        },
+          ],
+          defaultValue: 'residential',
+        }),
+        status: fields.select({
+          label: 'Status',
+          options: [
+            { label: 'Completed', value: 'completed' },
+            { label: 'Ongoing',   value: 'ongoing'   },
+          ],
+          defaultValue: 'completed',
+        }),
+        location: fields.text({
+          label: 'Location (e.g. DHA Phase 6, Lahore)',
+          validation: { isRequired: true },
+        }),
+        startDate: fields.date({
+          label: 'Start Date',
+          validation: { isRequired: true },
+        }),
+        completionDate: fields.date({
+          label: 'Completion Date (leave blank if ongoing)',
+        }),
+        isFeatured: fields.checkbox({
+          label: 'Show on Homepage (Featured)',
+          defaultValue: false,
+        }),
+        coverImage: fields.text({
+          label: 'Cover Image URL (Cloudinary)',
+          description: 'Upload to Cloudinary first, paste URL here',
+          validation: { isRequired: true },
+        }),
+        images: fields.array(
+          fields.object({
+            url: fields.text({
+              label: 'Image URL (Cloudinary)',
+              validation: { isRequired: true },
+            }),
+            alt: fields.text({ label: 'Image Description' }),
+          }),
+          {
+            label: 'Project Gallery',
+            description: 'Upload images to Cloudinary, paste URLs here',
+            itemLabel: props => props.fields.alt.value || 'Image',
+          }
+        ),
+        youtubeId: fields.text({
+          label: 'YouTube Video ID (optional)',
+          description:
+            'Paste only the ID from the YouTube URL. E.g. for ' +
+            'youtube.com/watch?v=abc123 paste: abc123',
+        }),
+        description: fields.text({
+          label: 'Project Description',
+          multiline: true,
+          validation: { isRequired: true },
+        }),
+        seoTitle: fields.text({ label: 'SEO Title (optional)' }),
+        seoDescription: fields.text({
+          label: 'SEO Description (optional)',
+          multiline: true,
+        }),
+      },
+    }),
+
+    // ── BLOG POSTS ─────────────────────────────
+    blogPosts: collection({
+      label: 'Blog Posts',
+      slugField: 'title',
+      path: 'src/content/blog/*',
+      format: { data: 'json' },
+      schema: {
+        title: fields.text({
+          label: 'Post Title',
+          validation: { isRequired: true },
+        }),
+        category: fields.select({
+          label: 'Category',
+          options: [
+            { label: 'Construction Tips',  value: 'construction-tips'  },
+            { label: 'Design Inspiration', value: 'design-inspiration' },
+            { label: 'Industry News',      value: 'industry-news'      },
+            { label: 'Project Spotlight',  value: 'project-spotlight'  },
+            { label: 'Lahore Real Estate', value: 'lahore-real-estate' },
+          ],
+          defaultValue: 'construction-tips',
+        }),
+        status: fields.select({
+          label: 'Status',
+          options: [
+            { label: 'Published', value: 'published' },
+            { label: 'Draft',     value: 'draft'     },
+          ],
+          defaultValue: 'draft',
+        }),
+        author: fields.text({
+          label: 'Author',
+          defaultValue: 'Real Enterprises Team',
+        }),
+        publishedDate: fields.date({
+          label: 'Published Date',
+          validation: { isRequired: true },
+        }),
+        coverImage: fields.text({
+          label: 'Cover Image URL (Cloudinary)',
+          validation: { isRequired: true },
+        }),
+        excerpt: fields.text({
+          label: 'Excerpt (shown on blog listing)',
+          multiline: true,
+          validation: { isRequired: true },
+        }),
+        body: fields.document({
+          label: 'Post Content',
+          formatting: true,
+          dividers: true,
+          links: true,
+          images: {
+            directory: 'public/blog-images',
+            publicPath: '/blog-images/',
+          },
+        }),
+        seoTitle: fields.text({ label: 'SEO Title (optional)' }),
+        seoDescription: fields.text({
+          label: 'SEO Description (optional)',
+          multiline: true,
+        }),
+      },
+    }),
+
+    // ── TESTIMONIALS ───────────────────────────
+    testimonials: collection({
+      label: 'Testimonials',
+      slugField: 'clientName',
+      path: 'src/content/testimonials/*',
+      format: { data: 'json' },
+      schema: {
+        clientName: fields.text({
+          label: 'Client Name',
+          validation: { isRequired: true },
+        }),
+        company: fields.text({ label: 'Company or Project (optional)' }),
+        body: fields.text({
+          label: 'Testimonial',
+          multiline: true,
+          validation: { isRequired: true },
+        }),
+        rating: fields.select({
+          label: 'Star Rating',
+          options: [
+            { label: '⭐⭐⭐⭐⭐  5 stars', value: '5' },
+            { label: '⭐⭐⭐⭐    4 stars', value: '4' },
+            { label: '⭐⭐⭐      3 stars', value: '3' },
+          ],
+          defaultValue: '5',
+        }),
+        photo: fields.text({
+          label: 'Client Photo URL (Cloudinary, optional)',
+        }),
+        isVisible: fields.checkbox({
+          label: 'Show on website',
+          defaultValue: true,
+        }),
+      },
+    }),
+  },
+
+  // ── SINGLETONS (one-off editable sections) ──
+  singletons: {
+
+    services: singleton({
+      label: 'Services',
+      path: 'src/content/singletons/services',
+      format: { data: 'json' },
+      schema: {
+        items: fields.array(
+          fields.object({
+            slug: fields.text({
+              label: 'Slug (do not change)',
+              validation: { isRequired: true },
+            }),
+            title: fields.text({
+              label: 'Service Title',
+              validation: { isRequired: true },
+            }),
+            description: fields.text({
+              label: 'Description',
+              multiline: true,
+              validation: { isRequired: true },
+            }),
+            iconName: fields.text({
+              label: 'Icon Name (Lucide)',
+              description: 'e.g. Home, Building2, Paintbrush, HardHat, Key',
+            }),
+            isVisible: fields.checkbox({
+              label: 'Show on website',
+              defaultValue: true,
+            }),
+          }),
+          {
+            label: 'Services List',
+            itemLabel: props => props.fields.title.value || 'Service',
+          }
+        ),
+      },
+    }),
+
+    companyInfo: singleton({
+      label: 'Company Info',
+      path: 'src/content/singletons/company-info',
+      format: { data: 'json' },
+      schema: {
+        phone: fields.text({ label: 'Phone Number' }),
+        email: fields.text({ label: 'Email Address' }),
+        address: fields.text({ label: 'Office Address', multiline: true }),
+        whatsappNumber: fields.text({
+          label: 'WhatsApp Number (digits only, with country code)',
+          description: 'e.g. 923001234567',
+        }),
+        facebookUrl:  fields.text({ label: 'Facebook URL'  }),
+        instagramUrl: fields.text({ label: 'Instagram URL' }),
+        linkedinUrl:  fields.text({ label: 'LinkedIn URL'  }),
+        googleMapsEmbedUrl: fields.text({
+          label: 'Google Maps Embed URL',
+          description: 'From Google Maps → Share → Embed a map → copy the src URL only',
+          multiline: true,
+        }),
+      },
+    }),
+
+  },
+});

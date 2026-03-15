@@ -1,0 +1,39 @@
+{
+  "items": [
+    {
+      "slug": "residential",
+      "title": "Residential & Real Estate Construction",
+      "description": "We deliver high-quality residential construction projects across Lahore and Pakistan, from single-family homes to large housing schemes. Our team manages every stage from design to handover.",
+      "iconName": "Home",
+      "isVisible": true
+    },
+    {
+      "slug": "commercial",
+      "title": "Commercial Construction",
+      "description": "From plazas and offices to shopping malls, Real Enterprises has the expertise to deliver large-scale commercial projects on time and within budget.",
+      "iconName": "Building2",
+      "isVisible": true
+    },
+    {
+      "slug": "interior",
+      "title": "Interior Design",
+      "description": "Our interior design team creates functional and beautiful spaces for residential and commercial clients. We handle everything from concept to final installation.",
+      "iconName": "Paintbrush",
+      "isVisible": true
+    },
+    {
+      "slug": "grey-structure",
+      "title": "Grey Structure Contracting",
+      "description": "We provide expert grey structure services including foundation, columns, beams, brickwork, and roof. Solid structural work is the foundation of every great build.",
+      "iconName": "HardHat",
+      "isVisible": true
+    },
+    {
+      "slug": "turnkey",
+      "title": "Turnkey Construction Solutions",
+      "description": "Our turnkey service covers the complete construction journey — design, permits, build, and finishing — delivered as a single seamless package.",
+      "iconName": "Key",
+      "isVisible": true
+    }
+  ]
+}

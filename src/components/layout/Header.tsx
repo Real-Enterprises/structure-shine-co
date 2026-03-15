@@ -16,7 +16,11 @@ const navLinks = [
   { name: "Contact", path: "/contact" },
 ];
 
-export function Header() {
+interface Props {
+  phone: string;
+}
+
+export function Header({ phone }: Props) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const pathname = usePathname();
@@ -79,11 +83,11 @@ export function Header() {
 
           {/* CTA */}
           <div className="hidden lg:flex items-center gap-4">
-            <a href="tel:+923000000000" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
+            <a href={`tel:${phone.replace(/\s/g, "")}`} className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
               <div className="w-9 h-9 rounded-full bg-secondary flex items-center justify-center">
                 <Phone className="w-4 h-4" />
               </div>
-              <span className="hidden xl:inline">+92 300 000 0000</span>
+              <span className="hidden xl:inline">{phone}</span>
             </a>
             <Link href="/contact">
               <Button variant="hero">
@@ -129,9 +133,9 @@ export function Header() {
               ))}
             </div>
             <div className="mt-4 pt-4 border-t border-border">
-              <a href="tel:+923000000000" className="flex items-center gap-3 text-sm text-muted-foreground mb-4">
+              <a href={`tel:${phone.replace(/\s/g, "")}`} className="flex items-center gap-3 text-sm text-muted-foreground mb-4">
                 <Phone className="w-4 h-4" />
-                +92 300 000 0000
+                {phone}
               </a>
               <Link href="/contact">
                 <Button variant="hero" className="w-full">

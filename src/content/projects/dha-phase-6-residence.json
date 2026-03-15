@@ -1,0 +1,20 @@
+{
+  "title": "DHA Phase 6 Residence",
+  "category": "residential",
+  "status": "completed",
+  "location": "DHA Phase 6, Lahore",
+  "startDate": "2023-03-01",
+  "completionDate": "2024-01-15",
+  "isFeatured": true,
+  "coverImage": "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800",
+  "images": [
+    {
+      "url": "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1200",
+      "alt": "Front elevation of DHA Phase 6 residence"
+    }
+  ],
+  "youtubeId": "",
+  "description": "A premium 10-marla residential project in DHA Phase 6, Lahore. Delivered as a complete turnkey solution including grey structure, finishing, and interior design.",
+  "seoTitle": "",
+  "seoDescription": ""
+}

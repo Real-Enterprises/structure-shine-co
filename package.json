@@ -11,6 +11,9 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
+    "@keystatic/core": "^0.5.48",
+    "@keystatic/next": "^5.0.4",
+    "@markdoc/markdoc": "^0.4.0",
     "@radix-ui/react-accordion": "^1.2.12",
     "@radix-ui/react-alert-dialog": "^1.1.15",
     "@radix-ui/react-aspect-ratio": "^1.1.8",
@@ -48,6 +51,7 @@
     "react-dom": "^18.3.1",
     "react-hook-form": "^7.71.2",
     "react-resizable-panels": "^2.1.9",
+    "resend": "^6.9.3",
     "sonner": "^1.7.4",
     "tailwind-merge": "^2.6.1",
     "tailwindcss-animate": "^1.0.7",

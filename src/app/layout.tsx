@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Providers } from "./providers";
-import { MainLayout } from "@/components/layout";
 import { Toaster } from "@/components/ui/sonner";
 
 // TASK 2 — Root metadata
@@ -61,7 +60,7 @@ export default function RootLayout({
     <html lang="en">
       <body className="font-sans antialiased">
         <Providers>
-          <MainLayout>{children}</MainLayout>
+          {children}
         </Providers>
         <Toaster />
       </body>

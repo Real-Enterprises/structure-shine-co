@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { BlogClient } from "./BlogClient";
+import { getAllBlogPosts } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Blog",
@@ -8,6 +9,8 @@ export const metadata: Metadata = {
 };
 
 export default function BlogPage() {
+  const posts = getAllBlogPosts();
+
   return (
     <>
       {/* Hero */}
@@ -25,7 +28,7 @@ export default function BlogPage() {
           </p>
         </div>
       </section>
-      <BlogClient />
+      <BlogClient posts={posts} />
     </>
   );
 }

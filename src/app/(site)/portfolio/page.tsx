@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { PortfolioClient } from "./PortfolioClient";
+import { getAllProjects } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Portfolio",
@@ -8,6 +9,8 @@ export const metadata: Metadata = {
 };
 
 export default function PortfolioPage() {
+  const projects = getAllProjects();
+
   return (
     <>
       {/* Hero */}
@@ -25,7 +28,7 @@ export default function PortfolioPage() {
           </div>
         </div>
       </section>
-      <PortfolioClient />
+      <PortfolioClient projects={projects} />
     </>
   );
 }

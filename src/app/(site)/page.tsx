@@ -1,8 +1,25 @@
-import { HeroSection, ServicesSection, FeaturedProjects, TestimonialsSection, CTASection } from "@/components/home";
+import { HeroSection, CTASection } from "@/components/home";
+import { ServicesSection } from "@/components/home/ServicesSection";
+import { FeaturedProjects } from "@/components/home/FeaturedProjects";
+import { TestimonialsSection } from "@/components/home/TestimonialsSection";
+import { BlogTeaserSection } from "@/components/home/BlogTeaserSection";
+import {
+  getFeaturedProjects,
+  getAllTestimonials,
+  getServices,
+  getLatestBlogPosts,
+  getCompanyInfo,
+} from "@/lib/content";
 
 // TASK 8 — Local Business JSON-LD Schema
 // TODO: Update address, phone, geo coordinates with real data before launch
 export default function HomePage() {
+  const projects = getFeaturedProjects();
+  const testimonials = getAllTestimonials();
+  const services = getServices();
+  const posts = getLatestBlogPosts(3);
+  const companyInfo = getCompanyInfo();
+
   return (
     <>
       <script
@@ -62,10 +79,11 @@ export default function HomePage() {
         }}
       />
       <HeroSection />
-      <ServicesSection />
-      <FeaturedProjects />
-      <TestimonialsSection />
-      <CTASection />
+      <ServicesSection services={services} />
+      <FeaturedProjects projects={projects} />
+      <TestimonialsSection testimonials={testimonials} />
+      <BlogTeaserSection posts={posts} />
+      <CTASection companyInfo={companyInfo} />
     </>
   );
 }

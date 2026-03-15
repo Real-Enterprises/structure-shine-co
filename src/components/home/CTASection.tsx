@@ -3,8 +3,13 @@
 import Link from "next/link";
 import { ArrowRight, Phone, Mail, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import type { CompanyInfo } from "@/lib/content";
 
-export function CTASection() {
+interface Props {
+  companyInfo: CompanyInfo;
+}
+
+export function CTASection({ companyInfo }: Props) {
   return (
     <section className="py-24 bg-card">
       <div className="container mx-auto px-4 lg:px-8">
@@ -37,8 +42,7 @@ export function CTASection() {
                     <ArrowRight className="w-4 h-4" />
                   </Button>
                 </Link>
-                {/* TODO: Replace +923000000000 with real WhatsApp/phone number */}
-                <a href="tel:+923000000000">
+                <a href={`tel:${companyInfo.phone.replace(/\s/g, "")}`}>
                   <Button size="xl" className="bg-primary-foreground/10 text-primary-foreground hover:bg-primary-foreground/20 rounded-full">
                     <Phone className="w-4 h-4" />
                     Call Now
@@ -55,7 +59,7 @@ export function CTASection() {
                 </div>
                 <div>
                   <div className="text-primary-foreground/60 text-sm">Call Us</div>
-                  <div className="text-primary-foreground font-semibold">+92 300 000 0000</div>
+                  <div className="text-primary-foreground font-semibold">{companyInfo.phone}</div>
                 </div>
               </div>
               <div className="flex items-center gap-4 bg-primary-foreground/10 rounded-2xl p-5">
@@ -64,7 +68,7 @@ export function CTASection() {
                 </div>
                 <div>
                   <div className="text-primary-foreground/60 text-sm">Email Us</div>
-                  <div className="text-primary-foreground font-semibold">info@realenterprises.pk</div>
+                  <div className="text-primary-foreground font-semibold">{companyInfo.email}</div>
                 </div>
               </div>
               <div className="flex items-center gap-4 bg-primary-foreground/10 rounded-2xl p-5">
@@ -73,7 +77,7 @@ export function CTASection() {
                 </div>
                 <div>
                   <div className="text-primary-foreground/60 text-sm">Visit Us</div>
-                  <div className="text-primary-foreground font-semibold">123 Main Boulevard, DHA Phase 5, Lahore</div>
+                  <div className="text-primary-foreground font-semibold">{companyInfo.address.replace('\n', ', ')}</div>
                 </div>
               </div>
             </div>

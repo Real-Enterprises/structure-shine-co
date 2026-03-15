@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Star } from "lucide-react";
+import { getAllTestimonials } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Testimonials",
@@ -7,16 +8,8 @@ export const metadata: Metadata = {
     "See what clients say about Real Enterprises. Hundreds of satisfied homeowners and businesses across Lahore and Pakistan trust us for quality construction.",
 };
 
-const testimonials = [
-  { id: 1, name: "Ahmed Hassan", company: "Hassan Developers", text: "Real Enterprises transformed our vision into reality. Their attention to detail and commitment to quality is unmatched. The commercial plaza they built exceeded all expectations.", rating: 5 },
-  { id: 2, name: "Fatima Khan", company: "Private Residence", text: "Building our dream home was a seamless experience with Real Enterprises. From the initial design to the final handover, they kept us informed every step. Highly recommended!", rating: 5 },
-  { id: 3, name: "Muhammad Ali", company: "Ali & Sons Trading", text: "Professional, reliable, and efficient. Real Enterprises delivered our office building on time and within budget. The quality of construction is exceptional.", rating: 5 },
-  { id: 4, name: "Sara Malik", company: "Interior Boutique", text: "The interior design team at Real Enterprises has incredible taste. They completely redesigned our showroom and the results are stunning. Our customers love the new space!", rating: 5 },
-  { id: 5, name: "Imran Sheikh", company: "Sheikh Properties", text: "We've worked with Real Enterprises on multiple projects. Their consistency and professionalism make them our go-to construction partner.", rating: 5 },
-  { id: 6, name: "Ayesha Rani", company: "Private Villa", text: "From start to finish, the team was professional and dedicated. Our villa turned out exactly as we imagined. Thank you Real Enterprises!", rating: 5 },
-];
-
 export default function TestimonialsPage() {
+  const testimonials = getAllTestimonials();
   return (
     <>
       {/* Hero */}
@@ -58,20 +51,24 @@ export default function TestimonialsPage() {
         <div className="container mx-auto px-4 lg:px-8">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {testimonials.map((t) => (
-              <div key={t.id} className="bg-background rounded-2xl p-6 border border-border">
+              <div key={t.slug} className="bg-background rounded-2xl p-6 border border-border">
                 <div className="flex gap-1 mb-4">
-                  {Array.from({ length: t.rating }).map((_, i) => (
+                  {Array.from({ length: parseInt(t.rating, 10) }).map((_, i) => (
                     <Star key={i} className="w-4 h-4 fill-accent text-accent" />
                   ))}
                 </div>
-                <p className="text-foreground mb-6 leading-relaxed">&ldquo;{t.text}&rdquo;</p>
+                <p className="text-foreground mb-6 leading-relaxed">&ldquo;{t.body}&rdquo;</p>
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-primary-foreground font-semibold text-sm">
-                    {t.name.split(" ").map(n => n[0]).join("")}
-                  </div>
+                  {t.photo ? (
+                    <img src={t.photo} alt={t.clientName} className="w-10 h-10 rounded-full object-cover" />
+                  ) : (
+                    <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-primary-foreground font-semibold text-sm">
+                      {t.clientName.split(" ").map(n => n[0]).join("")}
+                    </div>
+                  )}
                   <div>
-                    <div className="font-semibold text-foreground text-sm">{t.name}</div>
-                    <div className="text-xs text-muted-foreground">{t.company}</div>
+                    <div className="font-semibold text-foreground text-sm">{t.clientName}</div>
+                    {t.company && <div className="text-xs text-muted-foreground">{t.company}</div>}
                   </div>
                 </div>
               </div>
