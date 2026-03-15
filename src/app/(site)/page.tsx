@@ -3,12 +3,14 @@ import { ServicesSection } from "@/components/home/ServicesSection";
 import { FeaturedProjects } from "@/components/home/FeaturedProjects";
 import { TestimonialsSection } from "@/components/home/TestimonialsSection";
 import { BlogTeaserSection } from "@/components/home/BlogTeaserSection";
+import CostEstimator from "@/components/CostEstimator";
 import {
   getFeaturedProjects,
   getAllTestimonials,
   getServices,
   getLatestBlogPosts,
   getCompanyInfo,
+  getPricingConfig,
 } from "@/lib/content";
 
 // TASK 8 — Local Business JSON-LD Schema
@@ -19,6 +21,7 @@ export default function HomePage() {
   const services = getServices();
   const posts = getLatestBlogPosts(3);
   const companyInfo = getCompanyInfo();
+  const pricingConfig = getPricingConfig();
 
   return (
     <>
@@ -80,6 +83,25 @@ export default function HomePage() {
       />
       <HeroSection />
       <ServicesSection services={services} />
+      {pricingConfig.isEnabled && (
+        <section className="py-16 bg-gray-50">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-10">
+              <h2 className="text-3xl font-bold text-[#1A3C5E] mb-3">
+                Estimate Your Construction Cost
+              </h2>
+              <p className="text-gray-500 max-w-xl mx-auto">
+                Use our instant calculator to get a ballpark figure
+                for your project. Updated{' '}
+                {new Date(pricingConfig.lastUpdated).toLocaleDateString('en-PK', {
+                  month: 'long', year: 'numeric'
+                })}.
+              </p>
+            </div>
+            <CostEstimator config={pricingConfig} />
+          </div>
+        </section>
+      )}
       <FeaturedProjects projects={projects} />
       <TestimonialsSection testimonials={testimonials} />
       <BlogTeaserSection posts={posts} />

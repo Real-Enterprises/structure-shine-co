@@ -10,6 +10,7 @@ const navLinks = [
   { name: "Home", path: "/" },
   { name: "About", path: "/about" },
   { name: "Services", path: "/services" },
+  { name: "Estimate Cost", path: "/estimate" },
   { name: "Portfolio", path: "/portfolio" },
   { name: "Testimonials", path: "/testimonials" },
   { name: "Blog", path: "/blog" },
@@ -73,6 +74,8 @@ export function Header({ phone }: Props) {
                 className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
                   isActive(link.path)
                     ? "bg-primary text-primary-foreground"
+                    : link.path === "/estimate"
+                    ? "text-[#C8A951] font-semibold hover:text-[#b8952f] hover:bg-card"
                     : "text-muted-foreground hover:text-foreground hover:bg-card"
                 }`}
               >

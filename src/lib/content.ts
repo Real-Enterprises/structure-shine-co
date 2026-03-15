@@ -70,6 +70,20 @@ export type CompanyInfo = {
   googleMapsEmbedUrl: string;
 };
 
+export type PricingTier = {
+  label: string;
+  pricePerSqFt: number;
+  description: string;
+  isPopular: boolean;
+};
+
+export type PricingConfig = {
+  isEnabled: boolean;
+  lastUpdated: string;
+  disclaimer: string;
+  tiers: PricingTier[];
+};
+
 // ── Helpers ────────────────────────────────────────
 
 function readJsonDir<T>(dir: string, withSlug = true): T[] {
@@ -150,4 +164,10 @@ export function getServices(): Service[] {
 
 export function getCompanyInfo(): CompanyInfo {
   return readSingleton<CompanyInfo>('company-info.json');
+}
+
+// ── Pricing Config ─────────────────────────────────
+
+export function getPricingConfig(): PricingConfig {
+  return readSingleton<PricingConfig>('pricing-config.json');
 }

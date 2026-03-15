@@ -259,5 +259,52 @@ export default config({
       },
     }),
 
+    pricingConfig: singleton({
+      label: 'Cost Estimator Pricing',
+      path: 'src/content/singletons/pricing-config',
+      format: { data: 'json' },
+      schema: {
+        isEnabled: fields.checkbox({
+          label: 'Show Cost Estimator on website',
+          defaultValue: true,
+        }),
+        lastUpdated: fields.date({
+          label: 'Prices Last Updated',
+        }),
+        disclaimer: fields.text({
+          label: 'Disclaimer text (shown below estimate)',
+          defaultValue: 'This is an approximate estimate only. Final costs depend on design, materials, location, and site conditions. Contact us for a detailed quote.',
+          multiline: true,
+        }),
+        tiers: fields.array(
+          fields.object({
+            label: fields.text({
+              label: 'Construction Type Label',
+              description: 'e.g. Grey Structure, Standard Finishing, Premium Finishing, Turnkey',
+              validation: { isRequired: true },
+            }),
+            pricePerSqFt: fields.number({
+              label: 'Price per Square Foot (PKR)',
+              validation: { isRequired: true, min: 1 },
+            }),
+            description: fields.text({
+              label: 'Short description',
+              description: 'e.g. Foundation, columns, brickwork, and roof only',
+              multiline: true,
+            }),
+            isPopular: fields.checkbox({
+              label: 'Mark as Most Popular',
+              defaultValue: false,
+            }),
+          }),
+          {
+            label: 'Pricing Tiers',
+            description: 'Add one row per construction type. Admin can update prices anytime.',
+            itemLabel: props => props.fields.label.value || 'Tier',
+          }
+        ),
+      },
+    }),
+
   },
 });

@@ -1,0 +1,16 @@
+{
+  "isEnabled": true,
+  "disclaimer": "This is an approximate estimate only. Final costs depend on design, materials, location, and site conditions. Contact us for a detailed quote.",
+  "tiers": [
+    {
+      "label": "Grey Structure",
+      "pricePerSqFt": 2500,
+      "isPopular": true
+    },
+    {
+      "label": "Standard Finishing",
+      "pricePerSqFt": 3500,
+      "isPopular": false
+    }
+  ]
+}
