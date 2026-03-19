@@ -11,6 +11,11 @@
       "label": "Standard Finishing",
       "pricePerSqFt": 3500,
       "isPopular": false
+    },
+    {
+      "label": "Premium Finishing",
+      "pricePerSqFt": 4500,
+      "isPopular": true
     }
   ]
 }

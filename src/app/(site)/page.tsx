@@ -2,11 +2,13 @@ import { HeroSection, CTASection } from "@/components/home";
 import { ServicesSection } from "@/components/home/ServicesSection";
 import { FeaturedProjects } from "@/components/home/FeaturedProjects";
 import { TestimonialsSection } from "@/components/home/TestimonialsSection";
+import { VideoTestimonialsSection } from "@/components/home/VideoTestimonialsSection";
 import { BlogTeaserSection } from "@/components/home/BlogTeaserSection";
 import CostEstimator from "@/components/CostEstimator";
 import {
   getFeaturedProjects,
   getAllTestimonials,
+  getClientInterviews,
   getServices,
   getLatestBlogPosts,
   getCompanyInfo,
@@ -18,6 +20,7 @@ import {
 export default function HomePage() {
   const projects = getFeaturedProjects();
   const testimonials = getAllTestimonials();
+  const clientInterviews = getClientInterviews();
   const services = getServices();
   const posts = getLatestBlogPosts(3);
   const companyInfo = getCompanyInfo();
@@ -81,8 +84,12 @@ export default function HomePage() {
           }),
         }}
       />
-      <HeroSection />
+      <HeroSection videoPublicId={companyInfo.heroVideoPublicId} />
       <ServicesSection services={services} />
+      {clientInterviews.length > 0 && (
+        <VideoTestimonialsSection interviews={clientInterviews} />
+      )}
+      <FeaturedProjects projects={projects} />
       {pricingConfig.isEnabled && (
         <section className="py-16 bg-gray-50">
           <div className="container mx-auto px-4">
@@ -91,18 +98,22 @@ export default function HomePage() {
                 Estimate Your Construction Cost
               </h2>
               <p className="text-gray-500 max-w-xl mx-auto">
-                Use our instant calculator to get a ballpark figure
-                for your project. Updated{' '}
-                {new Date(pricingConfig.lastUpdated).toLocaleDateString('en-PK', {
-                  month: 'long', year: 'numeric'
-                })}.
+                Use our instant calculator to get a ballpark figure for your
+                project. Updated{" "}
+                {new Date(pricingConfig.lastUpdated).toLocaleDateString(
+                  "en-PK",
+                  {
+                    month: "long",
+                    year: "numeric",
+                  },
+                )}
+                .
               </p>
             </div>
             <CostEstimator config={pricingConfig} />
           </div>
         </section>
       )}
-      <FeaturedProjects projects={projects} />
       <TestimonialsSection testimonials={testimonials} />
       <BlogTeaserSection posts={posts} />
       <CTASection companyInfo={companyInfo} />
