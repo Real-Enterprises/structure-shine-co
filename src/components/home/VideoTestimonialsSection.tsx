@@ -1,7 +1,14 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { ChevronLeft, ChevronRight, Volume2, VolumeX } from "lucide-react";
+import {
+  ChevronLeft,
+  ChevronRight,
+  Pause,
+  Play,
+  Volume2,
+  VolumeX,
+} from "lucide-react";
 import type { ClientInterview } from "@/lib/content";
 import { cldHeroVideo } from "@/lib/cloudinary";
 
@@ -12,6 +19,7 @@ interface Props {
 export function VideoTestimonialsSection({ interviews }: Props) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [muted, setMuted] = useState(true);
+  const [playing, setPlaying] = useState(true);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   if (interviews.length === 0) return null;
@@ -37,9 +45,25 @@ export function VideoTestimonialsSection({ interviews }: Props) {
     if (videoRef.current) videoRef.current.muted = muted;
   }, [currentIndex, muted]);
 
+  // Reset to playing when switching videos
+  useEffect(() => {
+    setPlaying(true);
+  }, [currentIndex]);
+
   const toggleMute = () => {
     if (videoRef.current) videoRef.current.muted = !videoRef.current.muted;
     setMuted((m) => !m);
+  };
+
+  const togglePlay = () => {
+    if (!videoRef.current) return;
+    if (videoRef.current.paused) {
+      videoRef.current.play();
+      setPlaying(true);
+    } else {
+      videoRef.current.pause();
+      setPlaying(false);
+    }
   };
 
   return (
@@ -99,6 +123,19 @@ export function VideoTestimonialsSection({ interviews }: Props) {
                   <VolumeX className="w-5 h-5" />
                 ) : (
                   <Volume2 className="w-5 h-5" />
+                )}
+              </button>
+
+              {/* Play / Pause */}
+              <button
+                onClick={togglePlay}
+                className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/35 transition-colors"
+                aria-label={playing ? "Pause" : "Play"}
+              >
+                {playing ? (
+                  <Pause className="w-5 h-5" />
+                ) : (
+                  <Play className="w-5 h-5" />
                 )}
               </button>
 
