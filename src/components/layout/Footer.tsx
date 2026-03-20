@@ -193,12 +193,6 @@ export function Footer({ companyInfo }: Props) {
               reserved.
             </p>
             <div className="flex items-center gap-6">
-              <Link
-                href="/keystatic"
-                className="text-sm text-primary-foreground/50 hover:text-accent transition-colors"
-              >
-                Admin
-              </Link>
               <button
                 onClick={scrollToTop}
                 className="w-10 h-10 rounded-full bg-accent flex items-center justify-center text-accent-foreground hover:bg-accent/90 transition-colors"
