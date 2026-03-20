@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { ArrowLeft, MapPin, Calendar, CheckCircle2 } from "lucide-react";
+import { PremiumIcon, premiumIcons } from "@/components/icons/premium-icons";
 import { Button } from "@/components/ui/button";
 import {
   getAllProjects,
@@ -168,7 +168,11 @@ export default function ProjectDetailPage({ params }: Props) {
                 variant="ghost"
                 className="h-10 rounded-full px-4 text-foreground/75 hover:text-foreground hover:bg-background/70"
               >
-                <ArrowLeft className="w-4 h-4 mr-2" />
+                <PremiumIcon
+                  icon={premiumIcons.arrowLeft}
+                  className="w-4 h-4 mr-2"
+                  strokeWidth={1.9}
+                />
                 Back to Portfolio
               </Button>
             </Link>
@@ -184,18 +188,30 @@ export default function ProjectDetailPage({ params }: Props) {
 
               <div className="mt-4 flex flex-wrap items-center gap-5 text-sm text-muted-foreground">
                 <span className="inline-flex items-center gap-2">
-                  <MapPin className="h-4 w-4" />
+                  <PremiumIcon
+                    icon={premiumIcons.mapPin}
+                    className="h-4 w-4"
+                    strokeWidth={1.85}
+                  />
                   {project.location}
                 </span>
                 <span className="inline-flex items-center gap-2">
-                  <Calendar className="h-4 w-4" />
+                  <PremiumIcon
+                    icon={premiumIcons.calendar}
+                    className="h-4 w-4"
+                    strokeWidth={1.85}
+                  />
                   {project.startDate}
                   {project.completionDate
                     ? ` – ${project.completionDate}`
                     : " – Ongoing"}
                 </span>
                 <span className="inline-flex items-center gap-2 capitalize">
-                  <CheckCircle2 className="h-4 w-4" />
+                  <PremiumIcon
+                    icon={premiumIcons.checkBadge}
+                    className="h-4 w-4"
+                    strokeWidth={1.85}
+                  />
                   {project.status}
                 </span>
               </div>

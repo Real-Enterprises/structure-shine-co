@@ -1,10 +1,10 @@
 "use client";
 
 import { useState } from "react";
+import { PremiumIcon, premiumIcons } from "@/components/icons/premium-icons";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { ArrowUpRight, CheckCircle2, AlertCircle, Loader2 } from "lucide-react";
 
 type FormData = {
   name: string;
@@ -15,11 +15,20 @@ type FormData = {
   message: string;
 };
 
-const INITIAL: FormData = { name: "", email: "", phone: "", city: "", projectType: "", message: "" };
+const INITIAL: FormData = {
+  name: "",
+  email: "",
+  phone: "",
+  city: "",
+  projectType: "",
+  message: "",
+};
 
 export function ContactClient() {
   const [formData, setFormData] = useState<FormData>(INITIAL);
-  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [status, setStatus] = useState<
+    "idle" | "loading" | "success" | "error"
+  >("idle");
   const [errorMsg, setErrorMsg] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -38,20 +47,36 @@ export function ContactClient() {
       setFormData(INITIAL);
     } catch (err) {
       setStatus("error");
-      setErrorMsg(err instanceof Error ? err.message : "Failed to send. Please try again.");
+      setErrorMsg(
+        err instanceof Error
+          ? err.message
+          : "Failed to send. Please try again.",
+      );
     }
   };
 
-  const set = (field: keyof FormData) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) =>
-    setFormData((prev) => ({ ...prev, [field]: e.target.value }));
+  const set =
+    (field: keyof FormData) =>
+    (
+      e: React.ChangeEvent<
+        HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+      >,
+    ) =>
+      setFormData((prev) => ({ ...prev, [field]: e.target.value }));
 
   return (
     <div className="bg-card rounded-2xl p-6 md:p-8 border border-border">
-      <h2 className="font-display text-2xl font-bold text-foreground mb-6">Send a Message</h2>
+      <h2 className="font-display text-2xl font-bold text-foreground mb-6">
+        Send a Message
+      </h2>
 
       {status === "success" && (
         <div className="flex items-start gap-3 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-xl p-4 mb-6">
-          <CheckCircle2 className="w-5 h-5 text-green-600 dark:text-green-400 mt-0.5 shrink-0" />
+          <PremiumIcon
+            icon={premiumIcons.checkBadge}
+            className="w-5 h-5 text-green-600 dark:text-green-400 mt-0.5 shrink-0"
+            strokeWidth={1.9}
+          />
           <p className="text-sm text-green-800 dark:text-green-300 font-medium">
             Message sent! We&apos;ll get back to you within 24 hours.
           </p>
@@ -60,8 +85,14 @@ export function ContactClient() {
 
       {status === "error" && (
         <div className="flex items-start gap-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl p-4 mb-6">
-          <AlertCircle className="w-5 h-5 text-red-600 dark:text-red-400 mt-0.5 shrink-0" />
-          <p className="text-sm text-red-800 dark:text-red-300 font-medium">{errorMsg}</p>
+          <PremiumIcon
+            icon={premiumIcons.alert}
+            className="w-5 h-5 text-red-600 dark:text-red-400 mt-0.5 shrink-0"
+            strokeWidth={1.9}
+          />
+          <p className="text-sm text-red-800 dark:text-red-300 font-medium">
+            {errorMsg}
+          </p>
         </div>
       )}
 
@@ -132,13 +163,21 @@ export function ContactClient() {
         >
           {status === "loading" ? (
             <>
-              <Loader2 className="w-4 h-4 animate-spin" />
+              <PremiumIcon
+                icon={premiumIcons.loader}
+                className="w-4 h-4 animate-spin"
+                strokeWidth={2}
+              />
               Sending…
             </>
           ) : (
             <>
               Send Message
-              <ArrowUpRight className="w-4 h-4" />
+              <PremiumIcon
+                icon={premiumIcons.arrowUpRight}
+                className="w-4 h-4"
+                strokeWidth={1.8}
+              />
             </>
           )}
         </Button>
@@ -146,4 +185,3 @@ export function ContactClient() {
     </div>
   );
 }
-

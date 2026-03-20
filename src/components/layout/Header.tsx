@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
-import { Menu, X, Phone } from "lucide-react";
+import { PremiumIcon, premiumIcons } from "@/components/icons/premium-icons";
 import { Button } from "@/components/ui/button";
 
 const navLinks = [
@@ -53,7 +53,9 @@ export function Header({ phone }: Props) {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 group">
             <div className="relative w-10 h-10 bg-primary rounded-xl flex items-center justify-center group-hover:scale-105 transition-transform">
-              <span className="font-display font-bold text-primary-foreground text-lg">R</span>
+              <span className="font-display font-bold text-primary-foreground text-lg">
+                R
+              </span>
             </div>
             <div className="hidden sm:flex flex-col">
               <span className="font-display font-bold text-lg leading-tight text-foreground">
@@ -75,8 +77,8 @@ export function Header({ phone }: Props) {
                   isActive(link.path)
                     ? "bg-primary text-primary-foreground"
                     : link.path === "/estimate"
-                    ? "text-[#C8A951] font-semibold hover:text-[#b8952f] hover:bg-card"
-                    : "text-muted-foreground hover:text-foreground hover:bg-card"
+                      ? "text-[#C8A951] font-semibold hover:text-[#b8952f] hover:bg-card"
+                      : "text-muted-foreground hover:text-foreground hover:bg-card"
                 }`}
               >
                 {link.name}
@@ -86,16 +88,21 @@ export function Header({ phone }: Props) {
 
           {/* CTA */}
           <div className="hidden lg:flex items-center gap-4">
-            <a href={`tel:${phone.replace(/\s/g, "")}`} className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
+            <a
+              href={`tel:${phone.replace(/\s/g, "")}`}
+              className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+            >
               <div className="w-9 h-9 rounded-full bg-secondary flex items-center justify-center">
-                <Phone className="w-4 h-4" />
+                <PremiumIcon
+                  icon={premiumIcons.call}
+                  className="w-4 h-4"
+                  strokeWidth={1.95}
+                />
               </div>
               <span className="hidden xl:inline">{phone}</span>
             </a>
             <Link href="/contact">
-              <Button variant="hero">
-                Get Quote
-              </Button>
+              <Button variant="hero">Get Quote</Button>
             </Link>
           </div>
 
@@ -106,9 +113,17 @@ export function Header({ phone }: Props) {
             aria-label="Toggle menu"
           >
             {isMenuOpen ? (
-              <X className="w-5 h-5 text-foreground" />
+              <PremiumIcon
+                icon={premiumIcons.close}
+                className="w-5 h-5 text-foreground"
+                strokeWidth={1.95}
+              />
             ) : (
-              <Menu className="w-5 h-5 text-foreground" />
+              <PremiumIcon
+                icon={premiumIcons.menu}
+                className="w-5 h-5 text-foreground"
+                strokeWidth={1.95}
+              />
             )}
           </button>
         </nav>
@@ -116,7 +131,9 @@ export function Header({ phone }: Props) {
         {/* Mobile Menu */}
         <div
           className={`lg:hidden absolute top-full left-4 right-4 mt-2 bg-card rounded-2xl shadow-elevated border border-border overflow-hidden transition-all duration-300 ${
-            isMenuOpen ? "opacity-100 visible translate-y-0" : "opacity-0 invisible -translate-y-4"
+            isMenuOpen
+              ? "opacity-100 visible translate-y-0"
+              : "opacity-0 invisible -translate-y-4"
           }`}
         >
           <div className="p-4">
@@ -136,8 +153,15 @@ export function Header({ phone }: Props) {
               ))}
             </div>
             <div className="mt-4 pt-4 border-t border-border">
-              <a href={`tel:${phone.replace(/\s/g, "")}`} className="flex items-center gap-3 text-sm text-muted-foreground mb-4">
-                <Phone className="w-4 h-4" />
+              <a
+                href={`tel:${phone.replace(/\s/g, "")}`}
+                className="flex items-center gap-3 text-sm text-muted-foreground mb-4"
+              >
+                <PremiumIcon
+                  icon={premiumIcons.call}
+                  className="w-4 h-4"
+                  strokeWidth={1.95}
+                />
                 {phone}
               </a>
               <Link href="/contact">

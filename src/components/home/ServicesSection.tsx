@@ -1,21 +1,17 @@
 "use client";
 
 import Link from "next/link";
-import { Home, Building2, Paintbrush, HardHat, Key, ArrowUpRight, type LucideIcon } from "lucide-react";
+import {
+  PremiumIcon,
+  premiumIcons,
+  serviceIconMap,
+} from "@/components/icons/premium-icons";
 import { Button } from "@/components/ui/button";
 import type { Service } from "@/lib/content";
 
 interface Props {
   services: Service[];
 }
-
-const iconMap: Record<string, LucideIcon> = {
-  Home,
-  Building2,
-  Paintbrush,
-  HardHat,
-  Key,
-};
 
 export function ServicesSection({ services }: Props) {
   return (
@@ -29,7 +25,11 @@ export function ServicesSection({ services }: Props) {
           <Link href="/services">
             <Button variant="accent" size="sm">
               View All
-              <ArrowUpRight className="w-3.5 h-3.5" />
+              <PremiumIcon
+                icon={premiumIcons.arrowUpRight}
+                className="w-3.5 h-3.5"
+                strokeWidth={1.85}
+              />
             </Button>
           </Link>
         </div>
@@ -37,7 +37,10 @@ export function ServicesSection({ services }: Props) {
         {/* Compact horizontal scroll on mobile, grid on desktop */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
           {services.map((service) => {
-            const Icon = service.iconName ? (iconMap[service.iconName] ?? Home) : Home;
+            const icon = service.iconName
+              ? (serviceIconMap[service.iconName] ?? premiumIcons.home)
+              : premiumIcons.home;
+
             return (
               <Link
                 key={service.slug}
@@ -45,7 +48,11 @@ export function ServicesSection({ services }: Props) {
                 className="group p-4 bg-primary-foreground/5 rounded-xl border border-primary-foreground/10 hover:bg-primary-foreground/10 hover:border-primary-foreground/20 transition-all duration-300 text-center"
               >
                 <div className="w-10 h-10 rounded-lg bg-primary-foreground/10 flex items-center justify-center text-primary-foreground group-hover:bg-accent group-hover:text-accent-foreground transition-colors mx-auto mb-3">
-                  <Icon className="w-4 h-4" />
+                  <PremiumIcon
+                    icon={icon}
+                    className="w-4 h-4"
+                    strokeWidth={1.9}
+                  />
                 </div>
                 <h3 className="font-display text-sm font-semibold text-primary-foreground mb-1">
                   {service.title}

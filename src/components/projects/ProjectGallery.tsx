@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { Expand } from "lucide-react";
+import { PremiumIcon, premiumIcons } from "@/components/icons/premium-icons";
 import Lightbox from "yet-another-react-lightbox";
 import Zoom from "yet-another-react-lightbox/plugins/zoom";
 
@@ -58,7 +58,11 @@ export function ProjectGallery({ title, images }: ProjectGalleryProps) {
           className="aspect-[16/10] w-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
         />
         <span className="pointer-events-none absolute bottom-3 right-3 inline-flex min-h-9 items-center gap-2 rounded-full border border-border/60 bg-background/85 px-3 text-xs font-semibold text-foreground shadow-soft">
-          <Expand className="h-3.5 w-3.5" />
+          <PremiumIcon
+            icon={premiumIcons.expand}
+            className="h-3.5 w-3.5"
+            strokeWidth={1.95}
+          />
           Zoom
         </span>
       </button>

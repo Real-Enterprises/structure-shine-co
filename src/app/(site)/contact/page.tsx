@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { ContactClient } from "./ContactClient";
-import { Phone, Mail, MapPin, Clock } from "lucide-react";
+import { PremiumIcon, premiumIcons } from "@/components/icons/premium-icons";
 
 export const metadata: Metadata = {
   title: "Contact Us",
@@ -44,12 +44,21 @@ export default function ContactPage() {
               <div className="bg-card rounded-2xl p-6 border border-border">
                 <div className="flex items-center gap-4 mb-4">
                   <div className="w-12 h-12 rounded-xl bg-secondary flex items-center justify-center">
-                    <Phone className="w-5 h-5 text-foreground" />
+                    <PremiumIcon
+                      icon={premiumIcons.call}
+                      className="w-5 h-5 text-foreground"
+                      strokeWidth={1.9}
+                    />
                   </div>
                   <div>
                     <p className="text-sm text-muted-foreground">Phone</p>
                     {/* TODO: Replace with real number */}
-                    <a href="tel:+923000000000" className="font-medium text-foreground hover:text-accent transition-colors">+92 300 000 0000</a>
+                    <a
+                      href="tel:+923000000000"
+                      className="font-medium text-foreground hover:text-accent transition-colors"
+                    >
+                      +92 300 000 0000
+                    </a>
                   </div>
                 </div>
               </div>
@@ -57,12 +66,21 @@ export default function ContactPage() {
               <div className="bg-card rounded-2xl p-6 border border-border">
                 <div className="flex items-center gap-4 mb-4">
                   <div className="w-12 h-12 rounded-xl bg-secondary flex items-center justify-center">
-                    <Mail className="w-5 h-5 text-foreground" />
+                    <PremiumIcon
+                      icon={premiumIcons.mail}
+                      className="w-5 h-5 text-foreground"
+                      strokeWidth={1.9}
+                    />
                   </div>
                   <div>
                     <p className="text-sm text-muted-foreground">Email</p>
                     {/* TODO: Confirm real email */}
-                    <a href="mailto:info@realenterprises.pk" className="font-medium text-foreground hover:text-accent transition-colors">info@realenterprises.pk</a>
+                    <a
+                      href="mailto:info@realenterprises.pk"
+                      className="font-medium text-foreground hover:text-accent transition-colors"
+                    >
+                      info@realenterprises.pk
+                    </a>
                   </div>
                 </div>
               </div>
@@ -70,12 +88,18 @@ export default function ContactPage() {
               <div className="bg-card rounded-2xl p-6 border border-border">
                 <div className="flex items-center gap-4 mb-4">
                   <div className="w-12 h-12 rounded-xl bg-secondary flex items-center justify-center">
-                    <MapPin className="w-5 h-5 text-foreground" />
+                    <PremiumIcon
+                      icon={premiumIcons.mapPin}
+                      className="w-5 h-5 text-foreground"
+                      strokeWidth={1.9}
+                    />
                   </div>
                   <div>
                     <p className="text-sm text-muted-foreground">Office</p>
                     {/* TODO: Replace with real office address */}
-                    <p className="font-medium text-foreground">123 Main Boulevard, DHA Phase 5, Lahore</p>
+                    <p className="font-medium text-foreground">
+                      123 Main Boulevard, DHA Phase 5, Lahore
+                    </p>
                   </div>
                 </div>
               </div>
@@ -83,11 +107,19 @@ export default function ContactPage() {
               <div className="bg-card rounded-2xl p-6 border border-border">
                 <div className="flex items-center gap-4 mb-4">
                   <div className="w-12 h-12 rounded-xl bg-secondary flex items-center justify-center">
-                    <Clock className="w-5 h-5 text-foreground" />
+                    <PremiumIcon
+                      icon={premiumIcons.clock}
+                      className="w-5 h-5 text-foreground"
+                      strokeWidth={1.9}
+                    />
                   </div>
                   <div>
-                    <p className="text-sm text-muted-foreground">Working Hours</p>
-                    <p className="font-medium text-foreground">Mon - Sat: 9AM - 6PM</p>
+                    <p className="text-sm text-muted-foreground">
+                      Working Hours
+                    </p>
+                    <p className="font-medium text-foreground">
+                      Mon - Sat: 9AM - 6PM
+                    </p>
                   </div>
                 </div>
               </div>

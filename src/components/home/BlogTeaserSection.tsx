@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, Calendar } from "lucide-react";
+import { PremiumIcon, premiumIcons } from "@/components/icons/premium-icons";
 import { Button } from "@/components/ui/button";
 import type { BlogPost } from "@/lib/content";
 
@@ -26,7 +26,11 @@ export function BlogTeaserSection({ posts }: Props) {
           <Link href="/blog">
             <Button variant="heroLight">
               View All Posts
-              <ArrowRight className="w-4 h-4" />
+              <PremiumIcon
+                icon={premiumIcons.arrowRight}
+                className="w-4 h-4"
+                strokeWidth={1.8}
+              />
             </Button>
           </Link>
         </div>
@@ -53,9 +57,15 @@ export function BlogTeaserSection({ posts }: Props) {
                 <h3 className="font-display text-lg font-bold text-foreground group-hover:text-primary transition-colors line-clamp-2">
                   {post.title}
                 </h3>
-                <p className="text-sm text-muted-foreground line-clamp-2">{post.excerpt}</p>
+                <p className="text-sm text-muted-foreground line-clamp-2">
+                  {post.excerpt}
+                </p>
                 <div className="flex items-center gap-1 text-xs text-muted-foreground pt-2 border-t border-border">
-                  <Calendar className="w-3 h-3" />
+                  <PremiumIcon
+                    icon={premiumIcons.calendar}
+                    className="w-3 h-3"
+                    strokeWidth={1.9}
+                  />
                   {new Date(post.publishedDate).toLocaleDateString("en-US", {
                     month: "short",
                     day: "numeric",

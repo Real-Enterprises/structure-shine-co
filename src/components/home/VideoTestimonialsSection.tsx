@@ -1,14 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import {
-  ChevronLeft,
-  ChevronRight,
-  Pause,
-  Play,
-  Volume2,
-  VolumeX,
-} from "lucide-react";
+import { PremiumIcon, premiumIcons } from "@/components/icons/premium-icons";
 import type { ClientInterview } from "@/lib/content";
 import { cldHeroVideo } from "@/lib/cloudinary";
 
@@ -110,7 +103,11 @@ export function VideoTestimonialsSection({ interviews }: Props) {
                 disabled={interviews.length < 2}
                 aria-label="Previous video"
               >
-                <ChevronLeft className="w-5 h-5" />
+                <PremiumIcon
+                  icon={premiumIcons.chevronLeft}
+                  className="w-5 h-5"
+                  strokeWidth={1.95}
+                />
               </button>
 
               {/* Mute / Unmute */}
@@ -120,9 +117,17 @@ export function VideoTestimonialsSection({ interviews }: Props) {
                 aria-label={muted ? "Unmute" : "Mute"}
               >
                 {muted ? (
-                  <VolumeX className="w-5 h-5" />
+                  <PremiumIcon
+                    icon={premiumIcons.volumeOff}
+                    className="w-5 h-5"
+                    strokeWidth={1.95}
+                  />
                 ) : (
-                  <Volume2 className="w-5 h-5" />
+                  <PremiumIcon
+                    icon={premiumIcons.volumeOn}
+                    className="w-5 h-5"
+                    strokeWidth={1.95}
+                  />
                 )}
               </button>
 
@@ -133,9 +138,17 @@ export function VideoTestimonialsSection({ interviews }: Props) {
                 aria-label={playing ? "Pause" : "Play"}
               >
                 {playing ? (
-                  <Pause className="w-5 h-5" />
+                  <PremiumIcon
+                    icon={premiumIcons.pause}
+                    className="w-5 h-5"
+                    strokeWidth={1.95}
+                  />
                 ) : (
-                  <Play className="w-5 h-5" />
+                  <PremiumIcon
+                    icon={premiumIcons.play}
+                    className="w-5 h-5"
+                    strokeWidth={1.95}
+                  />
                 )}
               </button>
 
@@ -146,7 +159,11 @@ export function VideoTestimonialsSection({ interviews }: Props) {
                 disabled={interviews.length < 2}
                 aria-label="Next video"
               >
-                <ChevronRight className="w-5 h-5" />
+                <PremiumIcon
+                  icon={premiumIcons.chevronRight}
+                  className="w-5 h-5"
+                  strokeWidth={1.95}
+                />
               </button>
             </div>
           </div>

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { ArrowRight, Calendar } from "lucide-react";
+import { PremiumIcon, premiumIcons } from "@/components/icons/premium-icons";
 import type { BlogPost } from "@/lib/content";
 
 interface Props {
@@ -10,7 +10,10 @@ interface Props {
 }
 
 export function BlogClient({ posts }: Props) {
-  const allCategories = ["All", ...Array.from(new Set(posts.map((p) => p.category)))];
+  const allCategories = [
+    "All",
+    ...Array.from(new Set(posts.map((p) => p.category))),
+  ];
   const [activeCategory, setActiveCategory] = useState("All");
 
   const filtered =
@@ -45,7 +48,9 @@ export function BlogClient({ posts }: Props) {
       <section className="py-12 bg-background">
         <div className="container mx-auto px-4 lg:px-8">
           {filtered.length === 0 ? (
-            <p className="text-muted-foreground text-center py-16">No posts yet. Check back soon!</p>
+            <p className="text-muted-foreground text-center py-16">
+              No posts yet. Check back soon!
+            </p>
           ) : (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {filtered.map((post) => (
@@ -69,17 +74,30 @@ export function BlogClient({ posts }: Props) {
                     <h3 className="font-display text-lg font-bold text-foreground group-hover:text-primary transition-colors line-clamp-2">
                       {post.title}
                     </h3>
-                    <p className="text-sm text-muted-foreground line-clamp-2">{post.excerpt}</p>
+                    <p className="text-sm text-muted-foreground line-clamp-2">
+                      {post.excerpt}
+                    </p>
                     <div className="flex items-center justify-between pt-2 border-t border-border">
                       <div className="flex items-center gap-1 text-xs text-muted-foreground">
-                        <Calendar className="w-3 h-3" />
-                        {new Date(post.publishedDate).toLocaleDateString("en-US", {
-                          month: "short",
-                          day: "numeric",
-                          year: "numeric",
-                        })}
+                        <PremiumIcon
+                          icon={premiumIcons.calendar}
+                          className="w-3 h-3"
+                          strokeWidth={1.9}
+                        />
+                        {new Date(post.publishedDate).toLocaleDateString(
+                          "en-US",
+                          {
+                            month: "short",
+                            day: "numeric",
+                            year: "numeric",
+                          },
+                        )}
                       </div>
-                      <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all" />
+                      <PremiumIcon
+                        icon={premiumIcons.arrowRight}
+                        className="w-4 h-4 text-muted-foreground transition-all group-hover:translate-x-1 group-hover:text-primary"
+                        strokeWidth={1.8}
+                      />
                     </div>
                   </div>
                 </Link>

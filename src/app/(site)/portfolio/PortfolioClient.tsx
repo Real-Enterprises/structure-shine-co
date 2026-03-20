@@ -2,10 +2,17 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { MapPin } from "lucide-react";
+import { PremiumIcon, premiumIcons } from "@/components/icons/premium-icons";
 import type { Project } from "@/lib/content";
 
-const categories = ["All", "Residential", "Commercial", "Interior", "Grey Structure", "Turnkey"];
+const categories = [
+  "All",
+  "Residential",
+  "Commercial",
+  "Interior",
+  "Grey Structure",
+  "Turnkey",
+];
 
 interface Props {
   projects: Project[];
@@ -18,7 +25,9 @@ export function PortfolioClient({ projects }: Props) {
     activeCategory === "All"
       ? projects
       : projects.filter(
-          (p) => p.category.toLowerCase() === activeCategory.toLowerCase().replace(" ", "-")
+          (p) =>
+            p.category.toLowerCase() ===
+            activeCategory.toLowerCase().replace(" ", "-"),
         );
 
   return (
@@ -48,7 +57,9 @@ export function PortfolioClient({ projects }: Props) {
       <section className="py-12 bg-background">
         <div className="container mx-auto px-4 lg:px-8">
           {filteredProjects.length === 0 ? (
-            <p className="text-muted-foreground text-center py-16">No projects found in this category yet.</p>
+            <p className="text-muted-foreground text-center py-16">
+              No projects found in this category yet.
+            </p>
           ) : (
             <div className="grid md:grid-cols-2 gap-6">
               {filteredProjects.map((project) => (
@@ -83,7 +94,11 @@ export function PortfolioClient({ projects }: Props) {
                       {project.title}
                     </h3>
                     <div className="flex items-center gap-2 text-primary-foreground/60 text-sm">
-                      <MapPin className="w-3.5 h-3.5" />
+                      <PremiumIcon
+                        icon={premiumIcons.mapPin}
+                        className="w-3.5 h-3.5"
+                        strokeWidth={1.85}
+                      />
                       {project.location}
                     </div>
                   </div>

@@ -14,7 +14,7 @@ export function WhatsAppButton({ whatsappNumber }: Props) {
       className="fixed z-50 group right-4 md:right-6 bottom-[max(1rem,env(safe-area-inset-bottom))] md:bottom-6"
     >
       {/* Label */}
-      <span className="pointer-events-none absolute -top-10 left-1/2 -translate-x-1/2 inline-flex items-center gap-1.5 rounded-full border border-[#25D366]/20 bg-white/95 px-3.5 py-1.5 text-[11px] font-semibold leading-none tracking-[0.08em] text-slate-700 shadow-[0_8px_20px_rgba(15,23,42,0.12)] backdrop-blur-sm whitespace-nowrap md:text-xs">
+      <span className="pointer-events-none absolute -top-10 right-0 inline-flex items-center gap-1.5 rounded-full border border-[#25D366]/20 bg-white/95 px-3.5 py-1.5 text-[11px] font-semibold leading-none tracking-[0.08em] text-slate-700 shadow-[0_8px_20px_rgba(15,23,42,0.12)] backdrop-blur-sm whitespace-nowrap md:right-auto md:left-1/2 md:-translate-x-1/2 md:text-xs">
         <span className="h-1.5 w-1.5 rounded-full bg-[#25D366]" />
         Call Us Now
       </span>

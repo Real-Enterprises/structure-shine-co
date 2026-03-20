@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { PremiumIcon, premiumIcons } from "@/components/icons/premium-icons";
 import { Button } from "@/components/ui/button";
 import { cldHeroVideo } from "@/lib/cloudinary";
 
@@ -76,7 +76,11 @@ export function HeroSection({ videoPublicId }: { videoPublicId?: string }) {
               <Link href="/portfolio">
                 <Button variant="hero" size="lg">
                   View Projects
-                  <ArrowRight className="w-4 h-4" />
+                  <PremiumIcon
+                    icon={premiumIcons.arrowRight}
+                    className="w-4 h-4"
+                    strokeWidth={1.8}
+                  />
                 </Button>
               </Link>
               <Link href="/contact">

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowUpRight, MapPin } from "lucide-react";
+import { PremiumIcon, premiumIcons } from "@/components/icons/premium-icons";
 import { Button } from "@/components/ui/button";
 import type { Project } from "@/lib/content";
 
@@ -28,7 +28,11 @@ export function FeaturedProjects({ projects }: Props) {
             <Link href="/portfolio">
               <Button variant="heroLight">
                 See All
-                <ArrowUpRight className="w-4 h-4" />
+                <PremiumIcon
+                  icon={premiumIcons.arrowUpRight}
+                  className="w-4 h-4"
+                  strokeWidth={1.8}
+                />
               </Button>
             </Link>
           </div>
@@ -36,7 +40,9 @@ export function FeaturedProjects({ projects }: Props) {
 
         {/* Responsive Projects Grid */}
         {projects.length === 0 ? (
-          <p className="text-muted-foreground text-center py-12">No featured projects yet.</p>
+          <p className="text-muted-foreground text-center py-12">
+            No featured projects yet.
+          </p>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {projects.map((project) => (
@@ -71,7 +77,11 @@ export function FeaturedProjects({ projects }: Props) {
                     {project.title}
                   </h3>
                   <div className="flex items-center gap-2 text-primary-foreground/60 text-sm">
-                    <MapPin className="w-3.5 h-3.5" />
+                    <PremiumIcon
+                      icon={premiumIcons.mapPin}
+                      className="w-3.5 h-3.5"
+                      strokeWidth={1.85}
+                    />
                     {project.location}
                   </div>
                 </div>

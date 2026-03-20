@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { ArrowLeft, Calendar, User } from "lucide-react";
+import { PremiumIcon, premiumIcons } from "@/components/icons/premium-icons";
 import { Button } from "@/components/ui/button";
 import {
   getAllBlogPosts,
@@ -41,8 +41,15 @@ export default function BlogPostPage({ params }: Props) {
       <section className="relative pt-28 pb-12 bg-gradient-sky">
         <div className="container mx-auto px-4 lg:px-8">
           <Link href="/blog">
-            <Button variant="ghost" className="mb-6 text-muted-foreground hover:text-foreground">
-              <ArrowLeft className="w-4 h-4 mr-2" />
+            <Button
+              variant="ghost"
+              className="mb-6 text-muted-foreground hover:text-foreground"
+            >
+              <PremiumIcon
+                icon={premiumIcons.arrowLeft}
+                className="w-4 h-4 mr-2"
+                strokeWidth={1.9}
+              />
               Back to Blog
             </Button>
           </Link>
@@ -55,11 +62,19 @@ export default function BlogPostPage({ params }: Props) {
             </h1>
             <div className="flex flex-wrap items-center gap-6 text-sm text-muted-foreground">
               <span className="flex items-center gap-2">
-                <User className="w-4 h-4" />
+                <PremiumIcon
+                  icon={premiumIcons.user}
+                  className="w-4 h-4"
+                  strokeWidth={1.9}
+                />
                 {post.author}
               </span>
               <span className="flex items-center gap-2">
-                <Calendar className="w-4 h-4" />
+                <PremiumIcon
+                  icon={premiumIcons.calendar}
+                  className="w-4 h-4"
+                  strokeWidth={1.9}
+                />
                 {new Date(post.publishedDate).toLocaleDateString("en-US", {
                   month: "long",
                   day: "numeric",
@@ -88,7 +103,9 @@ export default function BlogPostPage({ params }: Props) {
       <section className="py-16 bg-background">
         <div className="container mx-auto px-4 lg:px-8">
           <article className="max-w-3xl mx-auto prose prose-lg dark:prose-invert">
-            <p className="text-muted-foreground leading-relaxed">{post.excerpt}</p>
+            <p className="text-muted-foreground leading-relaxed">
+              {post.excerpt}
+            </p>
           </article>
         </div>
       </section>
@@ -119,7 +136,9 @@ export default function BlogPostPage({ params }: Props) {
                     <h3 className="font-display font-bold text-foreground group-hover:text-primary transition-colors">
                       {rp.title}
                     </h3>
-                    <p className="text-sm text-muted-foreground mt-2 line-clamp-2">{rp.excerpt}</p>
+                    <p className="text-sm text-muted-foreground mt-2 line-clamp-2">
+                      {rp.excerpt}
+                    </p>
                   </div>
                 </Link>
               ))}
