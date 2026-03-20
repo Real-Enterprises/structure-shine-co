@@ -146,15 +146,11 @@ export default config({
           multiline: true,
           validation: { isRequired: true },
         }),
-        body: fields.document({
-          label: "Post Content",
-          formatting: true,
-          dividers: true,
-          links: true,
-          images: {
-            directory: "public/blog-images",
-            publicPath: "/blog-images/",
-          },
+        body: fields.text({
+          label: "Body JSON",
+          multiline: true,
+          description:
+            'Paste a JSON array of blog blocks here. Copy this prompt into ChatGPT or any AI: "Create a production-ready JSON array for a construction blog post body. Use only these block types: lead, heading, paragraph, bullets, callout, stats, table. For lead, heading, and paragraph use { type, text }. For bullets use { type: \"bullets\", title, bulletItems: [] }. For callout use { type: \"callout\", title, text }. For stats use { type: \"stats\", statItems: [{ label, value, note }] }. For table use { type: \"table\", tableRows: [{ area, positioning, expectation }] }. Return valid JSON only, no markdown, no code fences, no explanation."',
         }),
         seoTitle: fields.text({ label: "SEO Title (optional)" }),
         seoDescription: fields.text({

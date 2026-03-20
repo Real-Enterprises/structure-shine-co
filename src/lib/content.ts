@@ -37,10 +37,50 @@ export type BlogPost = {
   publishedDate: string;
   coverImage: string;
   excerpt: string;
-  body: unknown[] | string;
+  body: BlogBodyBlock[] | string;
   seoTitle?: string;
   seoDescription?: string;
 };
+
+export type BlogBodyBlock =
+  | {
+      type: "lead";
+      text: string;
+    }
+  | {
+      type: "heading";
+      text: string;
+    }
+  | {
+      type: "paragraph";
+      text: string;
+    }
+  | {
+      type: "bullets";
+      title?: string;
+      bulletItems: string[];
+    }
+  | {
+      type: "callout";
+      title: string;
+      text: string;
+    }
+  | {
+      type: "stats";
+      statItems: {
+        label: string;
+        value: string;
+        note: string;
+      }[];
+    }
+  | {
+      type: "table";
+      tableRows: {
+        area: string;
+        positioning: string;
+        expectation: string;
+      }[];
+    };
 
 export type Testimonial = {
   slug: string;
