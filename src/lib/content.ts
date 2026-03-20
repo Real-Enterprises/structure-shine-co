@@ -37,7 +37,7 @@ export type BlogPost = {
   publishedDate: string;
   coverImage: string;
   excerpt: string;
-  body: unknown[];
+  body: unknown[] | string;
   seoTitle?: string;
   seoDescription?: string;
 };
@@ -112,6 +112,52 @@ function readJsonDir<T>(dir: string, withSlug = true): T[] {
     });
 }
 
+function readBlogEntries(): BlogPost[] {
+  const fullPath = path.join(contentDir, "blog");
+  if (!fs.existsSync(fullPath)) return [];
+
+  return fs.readdirSync(fullPath, { withFileTypes: true }).flatMap((entry) => {
+    if (entry.isFile() && entry.name.endsWith(".json")) {
+      const slug = entry.name.replace(/\.json$/, "");
+      const raw = fs.readFileSync(path.join(fullPath, entry.name), "utf-8");
+      const data = JSON.parse(raw) as BlogPost;
+      const bodyPath = path.join(fullPath, slug, "body.mdoc");
+
+      return [
+        {
+          ...data,
+          slug,
+          body: fs.existsSync(bodyPath)
+            ? fs.readFileSync(bodyPath, "utf-8")
+            : data.body,
+        },
+      ];
+    }
+
+    if (entry.isDirectory()) {
+      const indexJsonPath = path.join(fullPath, entry.name, "index.json");
+      const bodyPath = path.join(fullPath, entry.name, "body.mdoc");
+
+      if (!fs.existsSync(indexJsonPath)) return [];
+
+      const raw = fs.readFileSync(indexJsonPath, "utf-8");
+      const data = JSON.parse(raw) as BlogPost;
+
+      return [
+        {
+          ...data,
+          slug: entry.name,
+          body: fs.existsSync(bodyPath)
+            ? fs.readFileSync(bodyPath, "utf-8")
+            : data.body,
+        },
+      ];
+    }
+
+    return [];
+  });
+}
+
 function readSingleton<T>(filename: string): T {
   const fullPath = path.join(contentDir, "singletons", filename);
   return JSON.parse(fs.readFileSync(fullPath, "utf-8")) as T;
@@ -138,7 +184,7 @@ export function getProjectsByCategory(category: string): Project[] {
 // ── Blog Posts ─────────────────────────────────────
 
 export function getAllBlogPosts(): BlogPost[] {
-  return readJsonDir<BlogPost>("blog")
+  return readBlogEntries()
     .filter((p) => p.status === "published")
     .sort(
       (a, b) =>
@@ -148,7 +194,7 @@ export function getAllBlogPosts(): BlogPost[] {
 }
 
 export function getBlogPostBySlug(slug: string): BlogPost | undefined {
-  const all = readJsonDir<BlogPost>("blog");
+  const all = readBlogEntries();
   return all.find((p) => p.slug === slug);
 }
 

@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import React from "react";
+import Markdoc from "@markdoc/markdoc";
 import { PremiumIcon, premiumIcons } from "@/components/icons/premium-icons";
 import { Button } from "@/components/ui/button";
 import {
@@ -25,6 +27,19 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: post.seoDescription || post.excerpt,
     openGraph: { images: [post.coverImage] },
   };
+}
+
+function renderBodyContent(body: unknown[] | string) {
+  if (typeof body !== "string" || !body.trim()) return null;
+
+  const ast = Markdoc.parse(body);
+  const content = Markdoc.transform(ast);
+
+  return (
+    <div className="prose prose-lg max-w-none dark:prose-invert prose-headings:font-display prose-headings:text-foreground prose-p:text-muted-foreground prose-a:text-primary prose-strong:text-foreground prose-li:text-muted-foreground prose-blockquote:border-l-primary prose-blockquote:text-foreground prose-table:w-full prose-th:border-border prose-td:border-border prose-img:rounded-2xl">
+      {Markdoc.renderers.react(content, React)}
+    </div>
+  );
 }
 
 export default function BlogPostPage({ params }: Props) {
@@ -87,25 +102,30 @@ export default function BlogPostPage({ params }: Props) {
       </section>
 
       {/* Featured Image */}
-      <section className="bg-background">
-        <div className="container mx-auto px-4 lg:px-8 -mt-2">
-          <div className="max-w-4xl mx-auto">
+      <section className="bg-background pb-10 pt-6 md:pt-8">
+        <div className="container mx-auto px-4 lg:px-8">
+          <div className="mx-auto max-w-3xl overflow-hidden rounded-[2rem] shadow-elevated lg:max-w-4xl">
             <img
               src={post.coverImage}
               alt={post.title}
-              className="w-full aspect-[2/1] object-cover rounded-2xl shadow-elevated"
+              className="h-[240px] w-full object-cover object-top md:h-[320px] lg:h-[380px]"
             />
           </div>
         </div>
       </section>
 
       {/* Content */}
-      <section className="py-16 bg-background">
+      <section className="bg-background pb-16 pt-4 md:pt-6">
         <div className="container mx-auto px-4 lg:px-8">
-          <article className="max-w-3xl mx-auto prose prose-lg dark:prose-invert">
-            <p className="text-muted-foreground leading-relaxed">
+          <article className="mx-auto max-w-3xl space-y-8">
+            <p className="text-lg leading-8 text-muted-foreground md:text-xl">
               {post.excerpt}
             </p>
+            {renderBodyContent(post.body) ?? (
+              <p className="text-base leading-8 text-muted-foreground md:text-lg">
+                {post.excerpt}
+              </p>
+            )}
           </article>
         </div>
       </section>
