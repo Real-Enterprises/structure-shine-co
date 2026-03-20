@@ -54,7 +54,7 @@ function renderBodyBlock(block: BlogBodyBlock, index: number) {
       return (
         <p
           key={`paragraph-${index}`}
-          className="text-base leading-8 text-muted-foreground md:text-lg"
+          className="text-base leading-8 text-foreground/80 md:text-lg"
         >
           {block.text}
         </p>
@@ -67,7 +67,7 @@ function renderBodyBlock(block: BlogBodyBlock, index: number) {
               {block.title}
             </h3>
           ) : null}
-          <ul className="space-y-3 border-l border-border/70 pl-5 text-muted-foreground">
+          <ul className="space-y-3 border-l border-border/70 pl-5 text-foreground/80">
             {block.bulletItems.map((item) => (
               <li
                 key={item}
@@ -88,7 +88,7 @@ function renderBodyBlock(block: BlogBodyBlock, index: number) {
           <h3 className="font-display text-lg font-bold text-foreground">
             {block.title}
           </h3>
-          <p className="mt-2 leading-7 text-muted-foreground">{block.text}</p>
+          <p className="mt-2 leading-7 text-foreground/80">{block.text}</p>
         </section>
       );
     case "stats":
@@ -102,7 +102,7 @@ function renderBodyBlock(block: BlogBodyBlock, index: number) {
               <p className="mt-2 font-display text-2xl font-bold text-foreground">
                 {item.value}
               </p>
-              <p className="mt-2 text-sm leading-6 text-muted-foreground">
+              <p className="mt-2 text-sm leading-6 text-foreground/70">
                 {item.note}
               </p>
             </div>
@@ -134,10 +134,10 @@ function renderBodyBlock(block: BlogBodyBlock, index: number) {
                     <td className="px-5 py-4 align-top font-medium text-foreground">
                       {row.area}
                     </td>
-                    <td className="px-5 py-4 align-top text-muted-foreground">
+                    <td className="px-5 py-4 align-top text-foreground/80">
                       {row.positioning}
                     </td>
-                    <td className="px-5 py-4 align-top text-muted-foreground">
+                    <td className="px-5 py-4 align-top text-foreground/80">
                       {row.expectation}
                     </td>
                   </tr>
@@ -185,7 +185,7 @@ function renderBodyContent(body: unknown[] | string) {
   const content = Markdoc.transform(ast);
 
   return (
-    <div className="prose prose-lg max-w-none dark:prose-invert prose-headings:font-display prose-headings:text-foreground prose-p:text-muted-foreground prose-a:text-primary prose-strong:text-foreground prose-li:text-muted-foreground prose-blockquote:border-l-primary prose-blockquote:text-foreground prose-table:w-full prose-th:border-border prose-td:border-border prose-img:rounded-2xl">
+    <div className="prose prose-lg max-w-none dark:prose-invert prose-headings:font-display prose-headings:text-foreground prose-p:text-foreground/80 prose-a:text-primary prose-strong:text-foreground prose-li:text-foreground/80 prose-blockquote:border-l-primary prose-blockquote:text-foreground prose-table:w-full prose-th:border-border prose-td:border-border prose-td:text-foreground/80 prose-img:rounded-2xl">
       {Markdoc.renderers.react(content, React)}
     </div>
   );
@@ -223,6 +223,9 @@ export default function BlogPostPage({ params }: Props) {
             <h1 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6 leading-tight">
               {post.title}
             </h1>
+            <p className="mb-6 max-w-2xl text-lg leading-8 text-foreground/75 md:text-xl">
+              {post.excerpt}
+            </p>
             <div className="flex flex-wrap items-center gap-6 text-sm text-muted-foreground">
               <span className="flex items-center gap-2">
                 <PremiumIcon
@@ -264,11 +267,8 @@ export default function BlogPostPage({ params }: Props) {
       <section className="bg-background pb-16 pt-4 md:pt-6">
         <div className="container mx-auto px-4 lg:px-8">
           <article className="mx-auto max-w-3xl space-y-8">
-            <p className="text-lg leading-8 text-muted-foreground md:text-xl">
-              {post.excerpt}
-            </p>
             {renderBodyContent(post.body) ?? (
-              <p className="text-base leading-8 text-muted-foreground md:text-lg">
+              <p className="text-base leading-8 text-foreground/80 md:text-lg">
                 {post.excerpt}
               </p>
             )}
