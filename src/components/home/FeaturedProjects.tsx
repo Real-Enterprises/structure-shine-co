@@ -1,53 +1,15 @@
-import { Link } from "react-router-dom";
-import { ArrowUpRight, MapPin, ChevronLeft, ChevronRight } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { PremiumIcon, premiumIcons } from "@/components/icons/premium-icons";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
-import projectCommercial from "@/assets/project-commercial.jpg";
-import projectInterior from "@/assets/project-interior.jpg";
-import projectResidential from "@/assets/project-residential.jpg";
-import projectGreyStructure from "@/assets/project-grey-structure.jpg";
+import type { Project } from "@/lib/content";
 
-const projects = [
-  {
-    id: 1,
-    title: "Lahore Office Tower",
-    category: "Commercial",
-    location: "Lahore",
-    image: projectCommercial,
-    status: "Completed",
-  },
-  {
-    id: 2,
-    title: "DHA Villa Interior",
-    category: "Interior",
-    location: "Islamabad",
-    image: projectInterior,
-    status: "Completed",
-  },
-  {
-    id: 3,
-    title: "Bahria Town Residence",
-    category: "Residential",
-    location: "Rawalpindi",
-    image: projectResidential,
-    status: "Completed",
-  },
-  {
-    id: 4,
-    title: "Gulberg Plaza",
-    category: "Grey Structure",
-    location: "Lahore",
-    image: projectGreyStructure,
-    status: "Ongoing",
-  },
-];
+interface Props {
+  projects: Project[];
+}
 
-export function FeaturedProjects() {
-  const [activeIndex, setActiveIndex] = useState(0);
-
-  const nextSlide = () => setActiveIndex((prev) => (prev + 1) % projects.length);
-  const prevSlide = () => setActiveIndex((prev) => (prev - 1 + projects.length) % projects.length);
-
+// Option B: Simple responsive grid — removed broken activeIndex state and prev/next buttons
+export function FeaturedProjects({ projects }: Props) {
   return (
     <section className="py-24 bg-card">
       <div className="container mx-auto px-4 lg:px-8">
@@ -62,75 +24,71 @@ export function FeaturedProjects() {
             </h2>
           </div>
           <div className="flex items-center gap-4">
-            <Link to="/portfolio">
+            <Link href="/portfolio">
               <Button variant="heroLight">
                 See All
-                <ArrowUpRight className="w-4 h-4" />
+                <PremiumIcon
+                  icon={premiumIcons.arrowUpRight}
+                  className="w-4 h-4"
+                  strokeWidth={1.8}
+                />
               </Button>
             </Link>
-            <div className="flex gap-2">
-              <button
-                onClick={prevSlide}
-                className="w-11 h-11 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:bg-secondary hover:text-foreground transition-colors"
-              >
-                <ChevronLeft className="w-5 h-5" />
-              </button>
-              <button
-                onClick={nextSlide}
-                className="w-11 h-11 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:bg-secondary hover:text-foreground transition-colors"
-              >
-                <ChevronRight className="w-5 h-5" />
-              </button>
-            </div>
           </div>
         </div>
 
-        {/* Projects Carousel */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          {projects.map((project, index) => (
-            <Link
-              key={project.id}
-              to={`/portfolio`}
-              className="group relative rounded-2xl overflow-hidden aspect-[3/4]"
-            >
-              <img
-                src={project.image}
-                alt={project.title}
-                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                loading="lazy"
-              />
-              
-              <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/30 to-transparent opacity-60 group-hover:opacity-80 transition-opacity" />
-
-              {/* Status Badge */}
-              <div className="absolute top-4 left-4">
-                <span
-                  className={`px-3 py-1.5 rounded-full text-xs font-medium backdrop-blur-sm ${
-                    project.status === "Completed"
-                      ? "bg-green-500/20 text-green-100"
-                      : "bg-accent/20 text-accent"
-                  }`}
-                >
-                  {project.status}
-                </span>
-              </div>
-
-              {/* Content */}
-              <div className="absolute bottom-0 left-0 right-0 p-5">
-                <span className="text-primary-foreground/70 text-xs font-medium uppercase tracking-wider mb-2 block">
-                  {project.category}
-                </span>
-                <h3 className="font-display text-lg font-semibold text-primary-foreground mb-2">
-                  {project.title}
-                </h3>
-                <div className="flex items-center gap-2 text-primary-foreground/60 text-sm">
-                  <MapPin className="w-3.5 h-3.5" />
-                  {project.location}
+        {/* Responsive Projects Grid */}
+        {projects.length === 0 ? (
+          <p className="text-muted-foreground text-center py-12">
+            No featured projects yet.
+          </p>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {projects.map((project) => (
+              <Link
+                key={project.slug}
+                href={`/projects/${project.category}/${project.slug}`}
+                className="group relative rounded-2xl overflow-hidden aspect-[3/4]"
+              >
+                <Image
+                  src={project.coverImage}
+                  alt={project.title}
+                  fill
+                  sizes="(min-width: 1024px) 22vw, (min-width: 640px) 44vw, 100vw"
+                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/40 to-transparent opacity-70" />
+                <div className="absolute top-4 left-4">
+                  <span
+                    className={`px-3 py-1.5 rounded-full text-xs font-medium backdrop-blur-sm ${
+                      project.status === "completed"
+                        ? "bg-green-500/20 text-green-100"
+                        : "bg-accent/30 text-accent"
+                    }`}
+                  >
+                    {project.status === "completed" ? "Completed" : "Ongoing"}
+                  </span>
                 </div>
-              </div>
-            </Link>
-          ))}
-        </div>
+                <div className="absolute bottom-0 left-0 right-0 p-6">
+                  <span className="text-primary-foreground/60 text-xs font-medium uppercase tracking-wider mb-2 block">
+                    {project.category}
+                  </span>
+                  <h3 className="font-display text-xl font-semibold text-primary-foreground mb-2">
+                    {project.title}
+                  </h3>
+                  <div className="flex items-center gap-2 text-primary-foreground/60 text-sm">
+                    <PremiumIcon
+                      icon={premiumIcons.mapPin}
+                      className="w-3.5 h-3.5"
+                      strokeWidth={1.85}
+                    />
+                    {project.location}
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );

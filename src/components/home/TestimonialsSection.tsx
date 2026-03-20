@@ -1,42 +1,32 @@
+"use client";
+
 import { useState } from "react";
-import { ChevronLeft, ChevronRight, Star } from "lucide-react";
+import {
+  FilledStarIcon,
+  PremiumIcon,
+  premiumIcons,
+} from "@/components/icons/premium-icons";
+import type { Testimonial } from "@/lib/content";
 
-const testimonials = [
-  {
-    id: 1,
-    name: "Ahmed Hassan",
-    company: "Hassan Developers",
-    text: "Real Enterprises transformed our vision into reality. Their attention to detail and commitment to quality is unmatched. The commercial plaza they built exceeded all expectations.",
-    rating: 5,
-    image: "AH",
-  },
-  {
-    id: 2,
-    name: "Fatima Khan",
-    company: "Private Residence",
-    text: "Building our dream home was a seamless experience with Real Enterprises. From design to final handover, they kept us informed every step. Highly recommended!",
-    rating: 5,
-    image: "FK",
-  },
-  {
-    id: 3,
-    name: "Muhammad Ali",
-    company: "Ali & Sons Trading",
-    text: "Professional, reliable, and efficient. Real Enterprises delivered our office building on time and within budget. The quality of construction is exceptional.",
-    rating: 5,
-    image: "MA",
-  },
-];
+interface Props {
+  testimonials: Testimonial[];
+}
 
-export function TestimonialsSection() {
+export function TestimonialsSection({ testimonials }: Props) {
   const [currentIndex, setCurrentIndex] = useState(0);
+
+  if (testimonials.length === 0) return null;
+
+  const current = testimonials[currentIndex];
 
   const nextTestimonial = () => {
     setCurrentIndex((prev) => (prev + 1) % testimonials.length);
   };
 
   const prevTestimonial = () => {
-    setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+    setCurrentIndex(
+      (prev) => (prev - 1 + testimonials.length) % testimonials.length,
+    );
   };
 
   return (
@@ -52,7 +42,8 @@ export function TestimonialsSection() {
               What Our Clients Say
             </h2>
             <p className="text-muted-foreground text-lg mb-8">
-              Don't just take our word for it. Here's what our satisfied clients have to say about working with Real Enterprises.
+              Don&apos;t just take our word for it. Here&apos;s what our
+              satisfied clients have to say about working with Real Enterprises.
             </p>
 
             {/* Stats */}
@@ -62,11 +53,16 @@ export function TestimonialsSection() {
                 { value: "4.9", label: "Avg Rating" },
                 { value: "200+", label: "Reviews" },
               ].map((stat) => (
-                <div key={stat.label} className="text-center p-4 bg-background rounded-xl">
+                <div
+                  key={stat.label}
+                  className="text-center p-4 bg-background rounded-xl"
+                >
                   <div className="font-display text-2xl font-bold text-foreground mb-1">
                     {stat.value}
                   </div>
-                  <div className="text-xs text-muted-foreground">{stat.label}</div>
+                  <div className="text-xs text-muted-foreground">
+                    {stat.label}
+                  </div>
                 </div>
               ))}
             </div>
@@ -77,29 +73,48 @@ export function TestimonialsSection() {
             <div className="bg-background rounded-2xl p-8 shadow-card border border-border">
               {/* Rating */}
               <div className="flex gap-1 mb-6">
-                {Array.from({ length: testimonials[currentIndex].rating }).map((_, i) => (
-                  <Star key={i} className="w-5 h-5 fill-accent text-accent" />
-                ))}
+                {Array.from({ length: parseInt(current.rating, 10) }).map(
+                  (_, i) => (
+                    <FilledStarIcon
+                      key={i}
+                      className="w-5 h-5 text-[#C8A951] drop-shadow-[0_1px_0_rgba(255,255,255,0.35)]"
+                    />
+                  ),
+                )}
               </div>
 
               {/* Quote */}
               <blockquote className="text-lg text-foreground leading-relaxed mb-8">
-                "{testimonials[currentIndex].text}"
+                &ldquo;{current.body}&rdquo;
               </blockquote>
 
               {/* Author */}
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-primary-foreground font-semibold">
-                    {testimonials[currentIndex].image}
-                  </div>
+                  {current.photo ? (
+                    <img
+                      src={current.photo}
+                      alt={current.clientName}
+                      className="w-12 h-12 rounded-full object-cover"
+                    />
+                  ) : (
+                    <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-primary-foreground font-semibold">
+                      {current.clientName
+                        .split(" ")
+                        .map((n) => n[0])
+                        .join("")
+                        .slice(0, 2)}
+                    </div>
+                  )}
                   <div>
                     <div className="font-semibold text-foreground">
-                      {testimonials[currentIndex].name}
+                      {current.clientName}
                     </div>
-                    <div className="text-sm text-muted-foreground">
-                      {testimonials[currentIndex].company}
-                    </div>
+                    {current.company && (
+                      <div className="text-sm text-muted-foreground">
+                        {current.company}
+                      </div>
+                    )}
                   </div>
                 </div>
 
@@ -110,14 +125,22 @@ export function TestimonialsSection() {
                     className="w-10 h-10 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:bg-secondary transition-colors"
                     aria-label="Previous"
                   >
-                    <ChevronLeft className="w-4 h-4" />
+                    <PremiumIcon
+                      icon={premiumIcons.chevronLeft}
+                      className="w-4 h-4"
+                      strokeWidth={1.95}
+                    />
                   </button>
                   <button
                     onClick={nextTestimonial}
                     className="w-10 h-10 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:bg-secondary transition-colors"
                     aria-label="Next"
                   >
-                    <ChevronRight className="w-4 h-4" />
+                    <PremiumIcon
+                      icon={premiumIcons.chevronRight}
+                      className="w-4 h-4"
+                      strokeWidth={1.95}
+                    />
                   </button>
                 </div>
               </div>
