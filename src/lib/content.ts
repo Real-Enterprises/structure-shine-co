@@ -6,8 +6,9 @@ const contentDir = path.join(process.cwd(), "src/content");
 // ── Types ──────────────────────────────────────────
 
 export type ProjectImage = {
-  url: string;
-  alt: string;
+  publicId?: string;
+  url?: string;
+  alt?: string;
 };
 
 export type Project = {

@@ -62,15 +62,21 @@ export default config({
         }),
         images: fields.array(
           fields.object({
+            publicId: fields.text({
+              label: "Image Public ID (Cloudinary)",
+              description:
+                "Recommended. Upload to Cloudinary and paste the public ID only, e.g. projects/dha/front-view",
+            }),
             url: fields.text({
-              label: "Image URL (Cloudinary)",
-              validation: { isRequired: true },
+              label: "Image URL (fallback)",
+              description:
+                "Optional fallback for legacy entries. Use only if a Cloudinary public ID is not available yet.",
             }),
             alt: fields.text({ label: "Image Description" }),
           }),
           {
             label: "Project Gallery",
-            description: "Upload images to Cloudinary, paste URLs here",
+            description: "Prefer Cloudinary public IDs for optimized delivery.",
             itemLabel: (props) => props.fields.alt.value || "Image",
           },
         ),
