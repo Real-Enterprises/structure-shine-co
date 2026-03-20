@@ -1,14 +1,19 @@
 "use client";
 
+import dynamic from "next/dynamic";
+import Image from "next/image";
 import { useMemo, useState } from "react";
 import { PremiumIcon, premiumIcons } from "@/components/icons/premium-icons";
-import Lightbox from "yet-another-react-lightbox";
-import Zoom from "yet-another-react-lightbox/plugins/zoom";
 
 type GalleryImage = {
   src: string;
   alt: string;
 };
+
+const ProjectGalleryLightbox = dynamic(
+  () => import("./ProjectGalleryLightbox"),
+  { ssr: false },
+);
 
 interface ProjectGalleryProps {
   title: string;
@@ -52,9 +57,12 @@ export function ProjectGallery({ title, images }: ProjectGalleryProps) {
         aria-label={`Open full-screen image for ${title}: ${images[0].alt}`}
         className="group relative block w-full overflow-hidden rounded-3xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
       >
-        <img
+        <Image
           src={images[0].src}
           alt={images[0].alt}
+          width={1200}
+          height={750}
+          sizes="(min-width: 1280px) 72rem, 100vw"
           className="aspect-[16/10] w-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
         />
         <span className="pointer-events-none absolute bottom-3 right-3 inline-flex min-h-9 items-center gap-2 rounded-full border border-border/60 bg-background/85 px-3 text-xs font-semibold text-foreground shadow-soft">
@@ -80,10 +88,11 @@ export function ProjectGallery({ title, images }: ProjectGalleryProps) {
                 aria-label={`Open full-screen image for ${title}: ${image.alt}`}
                 className="group relative h-28 min-w-[9rem] overflow-hidden rounded-xl border border-border/60 bg-card focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary md:h-32 md:min-w-0"
               >
-                <img
+                <Image
                   src={image.src}
                   alt={image.alt}
-                  loading="lazy"
+                  fill
+                  sizes="(min-width: 1024px) 20vw, (min-width: 768px) 24vw, 9rem"
                   className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
               </button>
@@ -92,22 +101,14 @@ export function ProjectGallery({ title, images }: ProjectGalleryProps) {
         </div>
       )}
 
-      <Lightbox
-        open={lightboxIndex >= 0}
-        close={() => setLightboxIndex(-1)}
-        index={Math.max(lightboxIndex, 0)}
-        slides={slides}
-        plugins={[Zoom]}
-        controller={{ closeOnBackdropClick: true }}
-        zoom={{
-          maxZoomPixelRatio: 3,
-          zoomInMultiplier: 2,
-          wheelZoomDistanceFactor: 100,
-          pinchZoomDistanceFactor: 120,
-          scrollToZoom: true,
-        }}
-        carousel={{ finite: images.length <= 1 }}
-      />
+      {lightboxIndex >= 0 && (
+        <ProjectGalleryLightbox
+          slides={slides}
+          index={lightboxIndex}
+          onClose={() => setLightboxIndex(-1)}
+          finite={images.length <= 1}
+        />
+      )}
     </div>
   );
 }

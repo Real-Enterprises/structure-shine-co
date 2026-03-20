@@ -1,5 +1,3 @@
-"use client";
-
 import Link from "next/link";
 import { PremiumIcon, premiumIcons } from "@/components/icons/premium-icons";
 import type { CompanyInfo } from "@/lib/content";
@@ -27,10 +25,6 @@ interface Props {
 }
 
 export function Footer({ companyInfo }: Props) {
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
-
   return (
     <footer className="bg-primary text-primary-foreground">
       {/* Main Footer */}
@@ -193,8 +187,8 @@ export function Footer({ companyInfo }: Props) {
               reserved.
             </p>
             <div className="flex items-center gap-6">
-              <button
-                onClick={scrollToTop}
+              <a
+                href="#site-top"
                 className="w-10 h-10 rounded-full bg-accent flex items-center justify-center text-accent-foreground hover:bg-accent/90 transition-colors"
                 aria-label="Scroll to top"
               >
@@ -203,7 +197,7 @@ export function Footer({ companyInfo }: Props) {
                   className="w-4 h-4"
                   strokeWidth={1.95}
                 />
-              </button>
+              </a>
             </div>
           </div>
         </div>

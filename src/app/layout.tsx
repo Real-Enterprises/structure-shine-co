@@ -1,8 +1,5 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import "yet-another-react-lightbox/styles.css";
-import { Providers } from "./providers";
-import { Toaster } from "@/components/ui/sonner";
 
 // TASK 2 — Root metadata
 export const metadata: Metadata = {
@@ -59,9 +56,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="font-sans antialiased">
-        <Providers>{children}</Providers>
-        <Toaster />
+      <body id="site-top" className="font-sans antialiased">
+        {children}
       </body>
     </html>
   );
