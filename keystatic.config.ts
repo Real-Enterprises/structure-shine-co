@@ -301,6 +301,11 @@ export default config({
             "From Google Maps → Share → Embed a map → copy the src URL only",
           multiline: true,
         }),
+        logoUrl: fields.text({
+          label: "Logo Image URL (Cloudinary or /assets path)",
+          description: "Paste a Cloudinary URL or a relative path like /assets/logo.png",
+          validation: { isRequired: true },
+        }),
         heroVideoPublicId: fields.text({
           label: "Hero Background Video ID (Cloudinary)",
           description:
