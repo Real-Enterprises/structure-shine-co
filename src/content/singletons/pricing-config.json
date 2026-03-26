@@ -4,17 +4,17 @@
   "tiers": [
     {
       "label": "Grey Structure",
-      "pricePerSqFt": 2500,
+      "pricePerSqFt": 3000,
       "isPopular": true
     },
     {
       "label": "Standard Finishing",
-      "pricePerSqFt": 3500,
+      "pricePerSqFt": 5200,
       "isPopular": false
     },
     {
       "label": "Premium Finishing",
-      "pricePerSqFt": 4500,
+      "pricePerSqFt": 5800,
       "isPopular": true
     }
   ]
