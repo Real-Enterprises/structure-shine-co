@@ -7,8 +7,10 @@ export const metadata: Metadata = {
   description:
     "Get in touch with Real Enterprises in Lahore for a free construction consultation. Residential, commercial, and interior projects. We respond within 24 hours.",
 };
+import { getCompanyInfo } from "@/lib/content";
 
 export default function ContactPage() {
+  const companyInfo = getCompanyInfo();
   return (
     <>
       {/* Hero */}
@@ -52,12 +54,13 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <p className="text-sm text-muted-foreground">Phone</p>
-                    {/* TODO: Replace with real number */}
                     <a
-                      href="tel:+923000000000"
+                      href={
+                        companyInfo.phone ? `tel:${companyInfo.phone}` : "#"
+                      }
                       className="font-medium text-foreground hover:text-accent transition-colors"
                     >
-                      +92 300 000 0000
+                      {companyInfo.phone || "+92 300 000 0000"}
                     </a>
                   </div>
                 </div>
@@ -74,12 +77,13 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <p className="text-sm text-muted-foreground">Email</p>
-                    {/* TODO: Confirm real email */}
                     <a
-                      href="mailto:info@realenterprises.pk"
+                      href={
+                        companyInfo.email ? `mailto:${companyInfo.email}` : "#"
+                      }
                       className="font-medium text-foreground hover:text-accent transition-colors"
                     >
-                      info@realenterprises.pk
+                      {companyInfo.email || "info@realenterprises.pk"}
                     </a>
                   </div>
                 </div>
@@ -96,9 +100,8 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <p className="text-sm text-muted-foreground">Office</p>
-                    {/* TODO: Replace with real office address */}
                     <p className="font-medium text-foreground">
-                      123 Main Boulevard, DHA Phase 5, Lahore
+                      {companyInfo.address || "Office address not configured"}
                     </p>
                   </div>
                 </div>
