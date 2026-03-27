@@ -88,6 +88,7 @@ export function VideoTestimonialsSection({ interviews }: Props) {
               className="w-full h-full object-cover"
               autoPlay
               playsInline
+              muted={muted}
               onEnded={handleEnded}
             >
               <source src={webm} type="video/webm" />
