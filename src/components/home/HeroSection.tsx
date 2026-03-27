@@ -91,9 +91,9 @@ export function HeroSection({ videoPublicId }: { videoPublicId?: string }) {
             {/* Stats Row */}
             <div className="flex flex-wrap gap-6 pt-4 animate-fade-up animation-delay-400">
               {[
-                { value: "500+", label: "Projects" },
-                { value: "200+", label: "Clients" },
-                { value: "15+", label: "Cities" },
+                { value: "1500+", label: "Projects" },
+                { value: "1000+", label: "Clients" },
+                { value: "10+", label: "Cities" },
               ].map((stat) => (
                 <div key={stat.label} className="flex items-center gap-3">
                   <span className="font-display text-2xl font-bold text-primary-foreground">

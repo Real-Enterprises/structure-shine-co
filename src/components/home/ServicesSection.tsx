@@ -12,6 +12,8 @@ interface Props {
 }
 
 export function ServicesSection({ services }: Props) {
+  const topServices = services.slice(0, 4);
+
   return (
     <section className="py-14 bg-primary text-primary-foreground">
       <div className="container mx-auto px-4 lg:px-8">
@@ -33,8 +35,8 @@ export function ServicesSection({ services }: Props) {
         </div>
 
         {/* Compact horizontal scroll on mobile, grid on desktop */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
-          {services.map((service) => {
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 lg:gap-4">
+          {topServices.map((service) => {
             const icon = service.iconName
               ? (serviceIconMap[service.iconName] ?? premiumIcons.home)
               : premiumIcons.home;
@@ -43,21 +45,18 @@ export function ServicesSection({ services }: Props) {
               <Link
                 key={service.slug}
                 href="/services"
-                className="group p-4 bg-primary-foreground/5 rounded-xl border border-primary-foreground/10 hover:bg-primary-foreground/10 hover:border-primary-foreground/20 transition-all duration-300 text-center"
+                className="group p-5 bg-primary-foreground/5 rounded-2xl border border-primary-foreground/10 hover:bg-primary-foreground/10 hover:border-accent/50 transition-all duration-300 text-center flex flex-col items-center justify-center min-h-[150px]"
               >
-                <div className="w-10 h-10 rounded-lg bg-primary-foreground/10 flex items-center justify-center text-primary-foreground group-hover:bg-accent group-hover:text-accent-foreground transition-colors mx-auto mb-3">
+                <div className="w-14 h-14 rounded-xl bg-primary-foreground/10 flex items-center justify-center text-primary-foreground group-hover:scale-110 group-hover:bg-accent group-hover:text-accent-foreground group-hover:shadow-[0_0_15px_rgba(var(--accent),0.4)] transition-all duration-300 mx-auto mb-4">
                   <PremiumIcon
                     icon={icon}
-                    className="w-4 h-4"
-                    strokeWidth={1.9}
+                    className="w-7 h-7"
+                    strokeWidth={1.75}
                   />
                 </div>
-                <h3 className="font-display text-sm font-semibold text-primary-foreground mb-1">
+                <h3 className="font-display text-sm sm:text-base font-semibold text-primary-foreground mb-1 group-hover:text-accent transition-colors duration-300">
                   {service.title}
                 </h3>
-                <p className="text-xs text-primary-foreground/50 leading-snug line-clamp-2">
-                  {service.description}
-                </p>
               </Link>
             );
           })}
