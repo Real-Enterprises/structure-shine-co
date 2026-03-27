@@ -257,9 +257,9 @@ export function getLatestBlogPosts(count = 3): BlogPost[] {
 // ── Testimonials ───────────────────────────────────
 
 export const getAllTestimonials = cache((): Testimonial[] =>
-  (readJsonDirCached("testimonials") as Testimonial[]).filter(
-    (t) => t.isVisible,
-  ),
+  (readJsonDirCached("testimonials") as Testimonial[])
+    .map((t) => ({ ...t, rating: t.rating ?? "5" }))
+    .filter((t) => t.isVisible),
 );
 
 // ── Client Interviews ──────────────────────────────
