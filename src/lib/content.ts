@@ -27,6 +27,7 @@ export type Project = {
   description: string;
   seoTitle?: string;
   seoDescription?: string;
+  order?: number;
 };
 
 export type BlogPost = {
@@ -41,6 +42,7 @@ export type BlogPost = {
   body: BlogBodyBlock[] | string;
   seoTitle?: string;
   seoDescription?: string;
+  order?: number;
 };
 
 export type BlogBodyBlock =
@@ -91,6 +93,7 @@ export type Testimonial = {
   rating: string;
   photo?: string;
   isVisible: boolean;
+  order?: number;
 };
 
 export type ClientInterview = {
@@ -102,6 +105,7 @@ export type ClientInterview = {
   photo?: string;
   videoPublicId: string;
   isVisible: boolean;
+  order?: number;
 };
 
 export type Service = {
@@ -214,9 +218,13 @@ const readSingletonCached = cache((filename: string) =>
 
 // ── Projects ───────────────────────────────────────
 
-export const getAllProjects = cache(
-  (): Project[] => readJsonDirCached("projects") as Project[],
-);
+export const getAllProjects = cache((): Project[] => {
+  const items = readJsonDirCached("projects") as Project[];
+  if (items.some((p) => p.order != null)) {
+    return [...items].sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
+  }
+  return items;
+});
 
 export const getProjectBySlug = cache((slug: string): Project | undefined =>
   getAllProjects().find((p) => p.slug === slug),
@@ -232,15 +240,16 @@ export function getProjectsByCategory(category: string): Project[] {
 
 // ── Blog Posts ─────────────────────────────────────
 
-export const getAllBlogPosts = cache((): BlogPost[] =>
-  readBlogEntries()
-    .filter((p) => p.status === "published")
-    .sort(
-      (a, b) =>
-        new Date(b.publishedDate).getTime() -
-        new Date(a.publishedDate).getTime(),
-    ),
-);
+export const getAllBlogPosts = cache((): BlogPost[] => {
+  const posts = readBlogEntries().filter((p) => p.status === "published");
+  if (posts.some((p) => p.order != null)) {
+    return [...posts].sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
+  }
+  return posts.sort(
+    (a, b) =>
+      new Date(b.publishedDate).getTime() - new Date(a.publishedDate).getTime(),
+  );
+});
 
 export const getBlogPostBySlug = cache((slug: string): BlogPost | undefined =>
   readBlogEntries().find((p) => p.slug === slug),
@@ -256,19 +265,32 @@ export function getLatestBlogPosts(count = 3): BlogPost[] {
 
 // ── Testimonials ───────────────────────────────────
 
-export const getAllTestimonials = cache((): Testimonial[] =>
-  (readJsonDirCached("testimonials") as Testimonial[])
-    .map((t) => ({ ...t, rating: t.rating ?? "5" }))
-    .filter((t) => t.isVisible),
-);
+export const getAllTestimonials = cache((): Testimonial[] => {
+  const items = (readJsonDirCached("testimonials") as Testimonial[]).map(
+    (t) => ({
+      ...t,
+      rating: t.rating ?? "5",
+    }),
+  );
+  if (items.some((t) => t.order != null)) {
+    return items
+      .filter((t) => t.isVisible)
+      .sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
+  }
+  return items.filter((t) => t.isVisible);
+});
 
 // ── Client Interviews ──────────────────────────────
 
-export const getClientInterviews = cache((): ClientInterview[] =>
-  (readJsonDirCached("client-interviews") as ClientInterview[]).filter(
-    (i) => i.isVisible,
-  ),
-);
+export const getClientInterviews = cache((): ClientInterview[] => {
+  const items = readJsonDirCached("client-interviews") as ClientInterview[];
+  if (items.some((i) => i.order != null)) {
+    return items
+      .filter((i) => i.isVisible)
+      .sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
+  }
+  return items.filter((i) => i.isVisible);
+});
 
 // ── Services ───────────────────────────────────────
 

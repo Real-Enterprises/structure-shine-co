@@ -84,9 +84,9 @@ export default function TestimonialsPage() {
                     />
                   ) : (
                     <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-primary-foreground font-semibold text-sm">
-                      {t.clientName
+                      {(t.clientName ?? t.slug ?? "")
                         .split(" ")
-                        .map((n) => n[0])
+                        .map((n) => n[0] || "")
                         .join("")}
                     </div>
                   )}

@@ -99,9 +99,9 @@ export function TestimonialsSection({ testimonials }: Props) {
                     />
                   ) : (
                     <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-primary-foreground font-semibold">
-                      {current.clientName
+                      {(current.clientName ?? current.slug ?? "")
                         .split(" ")
-                        .map((n) => n[0])
+                        .map((n) => n[0] || "")
                         .join("")
                         .slice(0, 2)}
                     </div>
