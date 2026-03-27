@@ -12,7 +12,7 @@ interface Props {
 }
 
 export function ServicesSection({ services }: Props) {
-  const topServices = services.slice(0, 4);
+  const displayed = services.slice(0, 5);
 
   return (
     <section className="py-14 bg-primary text-primary-foreground">
@@ -36,7 +36,7 @@ export function ServicesSection({ services }: Props) {
 
         {/* Compact horizontal scroll on mobile, grid on desktop */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 lg:gap-4">
-          {topServices.map((service) => {
+          {displayed.map((service, index) => {
             const icon = service.iconName
               ? (serviceIconMap[service.iconName] ?? premiumIcons.home)
               : premiumIcons.home;
@@ -45,7 +45,7 @@ export function ServicesSection({ services }: Props) {
               <Link
                 key={service.slug}
                 href="/services"
-                className="group p-5 bg-primary-foreground/5 rounded-2xl border border-primary-foreground/10 hover:bg-primary-foreground/10 hover:border-accent/50 transition-all duration-300 text-center flex flex-col items-center justify-center min-h-[150px]"
+                className={`group p-5 bg-primary-foreground/5 rounded-2xl border border-primary-foreground/10 hover:bg-primary-foreground/10 hover:border-accent/50 transition-all duration-300 text-center flex flex-col items-center justify-center min-h-[150px] ${index === 4 ? "hidden lg:flex" : ""}`}
               >
                 <div className="w-14 h-14 rounded-xl bg-primary-foreground/10 flex items-center justify-center text-primary-foreground group-hover:scale-110 group-hover:bg-accent group-hover:text-accent-foreground group-hover:shadow-[0_0_15px_rgba(var(--accent),0.4)] transition-all duration-300 mx-auto mb-4">
                   <PremiumIcon
