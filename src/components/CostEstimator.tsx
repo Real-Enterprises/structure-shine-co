@@ -130,14 +130,21 @@ export default function CostEstimator({ config }: Props) {
                     : "border-gray-200 bg-white hover:border-[#1A3C5E]/35"
                 }`}
               >
-                {t.isPopular && (
-                  <span className="absolute right-3 top-3 rounded-full bg-[#C8A951] px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.12em] text-white shadow-sm">
-                    Popular
-                  </span>
-                )}
-                <p className="pr-16 text-base font-semibold text-[#1A3C5E]">
-                  {t.label}
-                </p>
+                <div className="flex items-start justify-between gap-3">
+                  <div className="relative min-w-0">
+                    <p className="text-base font-semibold text-[#1A3C5E] truncate" title={t.label}>
+                      {t.label}
+                    </p>
+                    <div className="absolute left-0 bottom-full mb-2 hidden w-max max-w-[200px] whitespace-normal rounded-md bg-[#1A3C5E] px-2.5 py-1.5 text-xs text-white shadow-sm group-hover:block pointer-events-none z-10">
+                      {t.label}
+                    </div>
+                  </div>
+                  {t.isPopular && (
+                    <span className="shrink-0 inline-flex items-center justify-center rounded-full bg-gradient-to-r from-[#C8A951] to-[#D4B86A] px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.15em] text-white shadow-sm ring-1 ring-[#C8A951]/20">
+                      Popular
+                    </span>
+                  )}
+                </div>
                 <p className="mt-2 text-sm leading-relaxed text-slate-500">
                   {t.description}
                 </p>
