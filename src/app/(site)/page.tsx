@@ -26,6 +26,30 @@ export default function HomePage() {
   const companyInfo = getCompanyInfo();
   const pricingConfig = getPricingConfig();
 
+  const openingHoursSpecification =
+    companyInfo.officeHours && companyInfo.officeHours.length
+      ? companyInfo.officeHours.map((h) => ({
+          "@type": "OpeningHoursSpecification",
+          dayOfWeek: (h.days || "").split(",").map((d) => d.trim()),
+          opens: h.opens || "09:00",
+          closes: h.closes || "18:00",
+        }))
+      : [
+          {
+            "@type": "OpeningHoursSpecification",
+            dayOfWeek: [
+              "Monday",
+              "Tuesday",
+              "Wednesday",
+              "Thursday",
+              "Friday",
+              "Saturday",
+            ],
+            opens: "09:00",
+            closes: "18:00",
+          },
+        ];
+
   return (
     <>
       <script
@@ -53,21 +77,7 @@ export default function HomePage() {
               latitude: 31.5204,
               longitude: 74.3587,
             },
-            openingHoursSpecification: [
-              {
-                "@type": "OpeningHoursSpecification",
-                dayOfWeek: [
-                  "Monday",
-                  "Tuesday",
-                  "Wednesday",
-                  "Thursday",
-                  "Friday",
-                  "Saturday",
-                ],
-                opens: "09:00",
-                closes: "18:00",
-              },
-            ],
+            openingHoursSpecification: openingHoursSpecification,
             sameAs: [
               "https://facebook.com/realenterprises",
               "https://instagram.com/realenterprises",

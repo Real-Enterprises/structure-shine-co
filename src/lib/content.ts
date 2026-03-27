@@ -126,6 +126,7 @@ export type CompanyInfo = {
   linkedinUrl: string;
   googleMapsEmbedUrl: string;
   heroVideoPublicId?: string;
+  officeHours?: { days: string; opens: string; closes: string }[];
 };
 
 export type PricingTier = {

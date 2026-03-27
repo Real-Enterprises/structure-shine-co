@@ -292,6 +292,26 @@ export default config({
           label: "WhatsApp Number (digits only, with country code)",
           description: "e.g. 923001234567",
         }),
+        officeHours: fields.array(
+          fields.object({
+            days: fields.text({
+              label: "Days (comma separated)",
+              description: "e.g. Monday, Tuesday or Mon-Fri",
+            }),
+            opens: fields.text({
+              label: "Opens (24h)",
+              description: "HH:MM format, e.g. 09:00",
+            }),
+            closes: fields.text({
+              label: "Closes (24h)",
+              description: "HH:MM format, e.g. 18:00",
+            }),
+          }),
+          {
+            label: "Office Hours",
+            itemLabel: (props) => props.fields.days.value || "Hours",
+          },
+        ),
         facebookUrl: fields.text({ label: "Facebook URL" }),
         instagramUrl: fields.text({ label: "Instagram URL" }),
         linkedinUrl: fields.text({ label: "LinkedIn URL" }),
@@ -303,7 +323,8 @@ export default config({
         }),
         logoUrl: fields.text({
           label: "Logo Image URL (Cloudinary or /assets path)",
-          description: "Paste a Cloudinary URL or a relative path like /assets/logo.png",
+          description:
+            "Paste a Cloudinary URL or a relative path like /assets/logo.png",
           validation: { isRequired: true },
         }),
         heroVideoPublicId: fields.text({
