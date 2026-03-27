@@ -270,6 +270,7 @@ export const getAllTestimonials = cache((): Testimonial[] => {
     (t) => ({
       ...t,
       rating: t.rating ?? "5",
+      clientName: (t as any).clientName ?? (t as any).slug ?? "",
     }),
   );
   if (items.some((t) => t.order != null)) {
