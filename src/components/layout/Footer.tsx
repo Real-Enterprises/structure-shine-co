@@ -33,16 +33,20 @@ export function Footer({ companyInfo }: Props) {
           {/* Company Info */}
           <div className="space-y-6">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-accent rounded-xl flex items-center justify-center">
-                <span className="font-display font-bold text-accent-foreground text-lg">
-                  R
-                </span>
+              <div className="w-16 h-16 bg-black rounded-full flex items-center justify-center overflow-hidden">
+                <img
+                  src="/assets/logo-icon.png"
+                  alt="Logo icon"
+                  className="w-full h-full object-contain"
+                  style={{ padding: "5%" }}
+                  loading="eager"
+                />
               </div>
-              <div className="flex flex-col">
+              <div className="flex flex-col items-start">
                 <span className="font-display font-bold text-lg leading-tight">
                   Real Enterprises
                 </span>
-                <span className="text-[10px] tracking-[0.2em] uppercase text-primary-foreground/50">
+                <span className="text-[10px] tracking-[0.2em] uppercase text-primary-foreground/50 mt-1">
                   Est. 1999
                 </span>
               </div>

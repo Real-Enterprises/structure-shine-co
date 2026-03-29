@@ -52,16 +52,30 @@ export function Header({ phone }: Props) {
         <nav className="flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 group">
-            <div className="relative w-10 h-10 bg-primary rounded-xl flex items-center justify-center group-hover:scale-105 transition-transform">
-              <span className="font-display font-bold text-primary-foreground text-lg">
-                R
-              </span>
+            <div className="relative w-16 h-16 bg-black rounded-full flex items-center justify-center group-hover:scale-105 transition-transform overflow-hidden">
+              <img
+                src="/assets/logo-icon.png"
+                alt="Logo icon"
+                className="w-full h-full object-contain"
+                style={{ padding: "5%" }}
+                width={56}
+                height={56}
+                loading="eager"
+              />
             </div>
             <div className="hidden sm:flex flex-col">
               <span className="font-display font-bold text-lg leading-tight text-foreground">
                 Real Enterprises
               </span>
               <span className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground font-medium">
+                Est. 1999
+              </span>
+            </div>
+            <div className="sm:hidden flex flex-col items-center">
+              <span className="font-display font-bold text-base leading-tight text-foreground">
+                Real Enterprises
+              </span>
+              <span className="text-[8px] tracking-[0.2em] uppercase text-muted-foreground font-medium">
                 Est. 1999
               </span>
             </div>
@@ -88,19 +102,7 @@ export function Header({ phone }: Props) {
 
           {/* CTA */}
           <div className="hidden lg:flex items-center gap-4">
-            <a
-              href={`tel:${phone.replace(/\s/g, "")}`}
-              className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
-            >
-              <div className="w-9 h-9 rounded-full bg-secondary flex items-center justify-center">
-                <PremiumIcon
-                  icon={premiumIcons.call}
-                  className="w-4 h-4"
-                  strokeWidth={1.95}
-                />
-              </div>
-              <span className="hidden xl:inline">{phone}</span>
-            </a>
+            <span className="hidden xl:inline">{phone}</span>
             <Link href="/contact">
               <Button variant="hero">Get Quote</Button>
             </Link>

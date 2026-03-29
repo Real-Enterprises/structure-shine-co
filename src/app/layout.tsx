@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 // TASK 2 — Root metadata
@@ -58,6 +59,7 @@ export default function RootLayout({
     <html lang="en">
       <body id="site-top" className="font-sans antialiased">
         {children}
+        <Analytics />
       </body>
     </html>
   );
