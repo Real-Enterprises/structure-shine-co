@@ -91,7 +91,7 @@ export default function AboutPage() {
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
             <div className="relative">
               <img
-                src="/assets/about-team.jpg"
+                src="/assets/about-team.png"
                 alt="Real Enterprises team"
                 className="rounded-2xl shadow-card w-full"
                 loading="lazy"
