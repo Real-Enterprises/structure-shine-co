@@ -21,21 +21,31 @@ export function FeaturedProjects({ projects }: Props) {
   const desktopMax = Math.max(0, projects.length - DESKTOP_VISIBLE);
   const mobileMax = projects.length - 1;
 
+  const mobileScrollRef = useRef<HTMLDivElement>(null);
+
+  const handleMobileScroll = () => {
+    if (!mobileScrollRef.current) return;
+    const scrollLeft = mobileScrollRef.current.scrollLeft;
+    const width = mobileScrollRef.current.offsetWidth;
+    const newActive = Math.round(scrollLeft / width);
+    setMobileActive(newActive);
+  };
+
+  const scrollToMobile = (index: number) => {
+    if (!mobileScrollRef.current) return;
+    const width = mobileScrollRef.current.offsetWidth;
+    mobileScrollRef.current.scrollTo({
+      left: width * index,
+      behavior: "smooth",
+    });
+  };
+
   const prevDesktop = () => setDesktopActive((a) => Math.max(0, a - 1));
   const nextDesktop = () =>
     setDesktopActive((a) => Math.min(desktopMax, a + 1));
-  const prevMobile = () => setMobileActive((a) => Math.max(0, a - 1));
-  const nextMobile = () => setMobileActive((a) => Math.min(mobileMax, a + 1));
-
-  const handleTouchStart = (e: React.TouchEvent) => {
-    touchStartX.current = e.touches[0].clientX;
-  };
-  const handleTouchEnd = (e: React.TouchEvent) => {
-    if (touchStartX.current === null) return;
-    const diff = touchStartX.current - e.changedTouches[0].clientX;
-    if (Math.abs(diff) > 40) diff > 0 ? nextMobile() : prevMobile();
-    touchStartX.current = null;
-  };
+  const prevMobile = () => scrollToMobile(Math.max(0, mobileActive - 1));
+  const nextMobile = () =>
+    scrollToMobile(Math.min(mobileMax, mobileActive + 1));
 
   if (projects.length === 0) {
     return (
@@ -76,74 +86,72 @@ export function FeaturedProjects({ projects }: Props) {
       {/* ── MOBILE CAROUSEL (< lg) ────────────────────── */}
       <div className="lg:hidden">
         <div
-          className="overflow-hidden touch-pan-y"
-          onTouchStart={handleTouchStart}
-          onTouchEnd={handleTouchEnd}
+          ref={mobileScrollRef}
+          onScroll={handleMobileScroll}
+          className="flex overflow-x-auto overflow-y-hidden snap-x snap-mandatory scroll-smooth [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
         >
-          <div
-            className="flex will-change-transform transition-transform duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] motion-reduce:transition-none"
-            style={{ transform: `translate3d(-${mobileActive * 100}%, 0, 0)` }}
-          >
-            {projects.map((project, index) => {
-              const projectSize = formatProjectSize(project.size);
+          {projects.map((project, index) => {
+            const projectSize = formatProjectSize(project.size);
 
-              return (
-                <div key={project.slug} className="flex-shrink-0 w-full px-4">
-                  <Link
-                    href={`/projects/${project.category}/${project.slug}`}
-                    className="group relative block aspect-[4/5] overflow-hidden rounded-2xl bg-card shadow-xl"
-                  >
-                    <Image
-                      src={project.coverImage}
-                      alt={project.title}
-                      fill
-                      priority={index < 2}
-                      sizes="95vw"
-                      className="object-cover"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/15 to-transparent" />
-                    {/* Badges top-left */}
-                    <div className="absolute top-4 left-4 flex gap-2">
-                      <span className="text-[10px] font-bold text-white uppercase tracking-wider bg-accent/90 backdrop-blur-sm rounded-sm px-2.5 py-1">
-                        {project.category.replace(/-/g, " ")}
+            return (
+              <div
+                key={project.slug}
+                className="flex-shrink-0 w-full px-4 snap-center"
+              >
+                <Link
+                  href={`/projects/${project.category}/${project.slug}`}
+                  className="group relative block aspect-[4/5] overflow-hidden rounded-2xl bg-card shadow-xl"
+                >
+                  <Image
+                    src={project.coverImage}
+                    alt={project.title}
+                    fill
+                    priority={index < 2}
+                    sizes="95vw"
+                    className="object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/15 to-transparent" />
+                  {/* Badges top-left */}
+                  <div className="absolute top-4 left-4 flex gap-2">
+                    <span className="text-[10px] font-bold text-white uppercase tracking-wider bg-accent/90 backdrop-blur-sm rounded-sm px-2.5 py-1">
+                      {project.category.replace(/-/g, " ")}
+                    </span>
+                    {project.status === "completed" && (
+                      <span className="text-[10px] font-semibold text-green-100 uppercase tracking-wider border border-green-500/50 bg-green-500/30 backdrop-blur-sm rounded-sm px-2.5 py-1">
+                        Completed
                       </span>
-                      {project.status === "completed" && (
-                        <span className="text-[10px] font-semibold text-green-100 uppercase tracking-wider border border-green-500/50 bg-green-500/30 backdrop-blur-sm rounded-sm px-2.5 py-1">
-                          Completed
-                        </span>
-                      )}
-                    </div>
-                    {/* Bottom info */}
-                    <div className="absolute bottom-0 left-0 right-0 p-5">
-                      <h3 className="font-display text-xl font-bold text-white leading-tight mb-1.5 drop-shadow">
-                        {project.title}
-                      </h3>
-                      <div className="space-y-1.5 text-xs text-white/75">
-                        <div className="flex items-center gap-1.5">
+                    )}
+                  </div>
+                  {/* Bottom info */}
+                  <div className="absolute bottom-0 left-0 right-0 p-5">
+                    <h3 className="font-display text-xl font-bold text-white leading-tight mb-1.5 drop-shadow">
+                      {project.title}
+                    </h3>
+                    <div className="space-y-1.5 text-xs text-white/75">
+                      <div className="flex items-center gap-1.5">
+                        <PremiumIcon
+                          icon={premiumIcons.mapPin}
+                          className="w-3.5 h-3.5 text-accent flex-shrink-0"
+                          strokeWidth={2}
+                        />
+                        {project.location}
+                      </div>
+                      {projectSize && (
+                        <div className="flex items-center gap-1.5 text-white/80">
                           <PremiumIcon
-                            icon={premiumIcons.mapPin}
+                            icon={premiumIcons.expand}
                             className="w-3.5 h-3.5 text-accent flex-shrink-0"
                             strokeWidth={2}
                           />
-                          {project.location}
+                          {projectSize}
                         </div>
-                        {projectSize && (
-                          <div className="flex items-center gap-1.5 text-white/80">
-                            <PremiumIcon
-                              icon={premiumIcons.expand}
-                              className="w-3.5 h-3.5 text-accent flex-shrink-0"
-                              strokeWidth={2}
-                            />
-                            {projectSize}
-                          </div>
-                        )}
-                      </div>
+                      )}
                     </div>
-                  </Link>
-                </div>
-              );
-            })}
-          </div>
+                  </div>
+                </Link>
+              </div>
+            );
+          })}
         </div>
 
         {/* Mobile controls */}
@@ -153,7 +161,7 @@ export function FeaturedProjects({ projects }: Props) {
             {projects.map((_, i) => (
               <button
                 key={i}
-                onClick={() => setMobileActive(i)}
+                onClick={() => scrollToMobile(i)}
                 aria-label={`Go to project ${i + 1}`}
                 className={`rounded-full transition-all duration-300 ${
                   i === mobileActive
