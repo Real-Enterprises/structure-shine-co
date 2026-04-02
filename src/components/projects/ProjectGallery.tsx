@@ -63,7 +63,7 @@ export function ProjectGallery({ title, images }: ProjectGalleryProps) {
           width={1200}
           height={750}
           sizes="(min-width: 1280px) 72rem, 100vw"
-          className="aspect-[16/10] w-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+          className="aspect-[4/3] sm:aspect-[16/10] lg:aspect-[21/9] w-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
         />
         <span className="pointer-events-none absolute bottom-3 right-3 inline-flex min-h-9 items-center gap-2 rounded-full border border-border/60 bg-background/85 px-3 text-xs font-semibold text-foreground shadow-soft">
           <PremiumIcon
