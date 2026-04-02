@@ -154,7 +154,8 @@ function readJsonDir<T>(dir: string, withSlug = true): T[] {
     .map((f) => {
       const raw = fs.readFileSync(path.join(fullPath, f), "utf-8");
       const data = JSON.parse(raw);
-      return withSlug ? { ...data, slug: f.replace(".json", "") } : data;
+      const slug = f.replace(".json", "");
+      return withSlug ? { title: slug, ...data, slug } : data;
     });
 }
 
