@@ -4,7 +4,6 @@ import Link from "next/link";
 import React from "react";
 import Markdoc from "@markdoc/markdoc";
 import { PremiumIcon, premiumIcons } from "@/components/icons/premium-icons";
-import { Button } from "@/components/ui/button";
 import type { BlogBodyBlock } from "@/lib/content";
 import {
   getAllBlogPosts,
@@ -201,21 +200,20 @@ export default function BlogPostPage({ params }: Props) {
 
   return (
     <>
-      <section className="relative pt-28 pb-12 bg-gradient-sky">
-        <div className="container mx-auto px-4 lg:px-8">
-          <Link href="/blog">
-            <Button
-              variant="ghost"
-              className="mb-6 text-muted-foreground hover:text-foreground"
-            >
-              <PremiumIcon
-                icon={premiumIcons.arrowLeft}
-                className="w-4 h-4 mr-2"
-                strokeWidth={1.9}
-              />
-              Back to Blog
-            </Button>
+      <div className="border-b border-border/50 bg-background pt-28">
+        <div className="container mx-auto px-4 lg:px-8 py-3">
+          <Link
+            href="/blog"
+            className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors"
+          >
+            <PremiumIcon icon={premiumIcons.arrowLeft} className="w-4 h-4" strokeWidth={1.9} />
+            Back to Blog
           </Link>
+        </div>
+      </div>
+
+      <section className="relative pt-10 pb-12 bg-gradient-sky">
+        <div className="container mx-auto px-4 lg:px-8">
           <div className="max-w-3xl">
             <span className="inline-block bg-accent/10 text-accent-foreground text-xs font-semibold px-3 py-1 rounded-full mb-4">
               {post.category}

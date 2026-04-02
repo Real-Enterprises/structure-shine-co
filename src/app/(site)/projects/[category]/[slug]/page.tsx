@@ -159,25 +159,26 @@ export default function ProjectDetailPage({ params }: Props) {
 
   return (
     <>
+      {/* Breadcrumb */}
+      <div className="border-b border-border/50 bg-background pt-28">
+        <div className="container mx-auto px-4 lg:px-8">
+          <div className="max-w-6xl mx-auto py-3">
+            <Link
+              href="/portfolio"
+              className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors"
+            >
+              <PremiumIcon icon={premiumIcons.arrowLeft} className="w-4 h-4" strokeWidth={1.9} />
+              Back to Portfolio
+            </Link>
+          </div>
+        </div>
+      </div>
+
       {/* Hero */}
-      <section className="relative bg-gradient-sky pt-16 pb-4 md:pt-20 md:pb-6">
+      <section className="relative bg-gradient-sky pt-8 pb-4 md:pt-10 md:pb-6">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="max-w-6xl mx-auto">
-            <Link href="/portfolio" className="inline-flex">
-              <Button
-                variant="ghost"
-                className="h-10 rounded-full px-4 text-foreground/75 hover:text-foreground hover:bg-background/70"
-              >
-                <PremiumIcon
-                  icon={premiumIcons.arrowLeft}
-                  className="w-4 h-4 mr-2"
-                  strokeWidth={1.9}
-                />
-                Back to Portfolio
-              </Button>
-            </Link>
-
-            <div className="mt-3 max-w-4xl">
+            <div className="max-w-4xl">
               <span className="inline-flex min-h-8 items-center rounded-full bg-accent/12 px-3 text-xs font-semibold text-accent-foreground">
                 {categoryLabel}
               </span>
