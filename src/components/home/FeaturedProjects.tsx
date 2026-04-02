@@ -76,29 +76,33 @@ export function FeaturedProjects({ projects }: Props) {
       {/* ── MOBILE CAROUSEL (< lg) ────────────────────── */}
       <div className="lg:hidden">
         <div
-          className="overflow-hidden"
+          className="overflow-hidden touch-pan-y"
           onTouchStart={handleTouchStart}
           onTouchEnd={handleTouchEnd}
         >
           <div
-            className="flex transition-transform duration-500 ease-[cubic-bezier(0.25,1,0.5,1)]"
-            style={{ transform: `translateX(calc(-${mobileActive} * 100%))` }}
+            className="flex will-change-transform transition-transform duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] motion-reduce:transition-none [transform:translateZ(0)]"
+            style={{ transform: `translate3d(-${mobileActive * 100}%, 0, 0)` }}
           >
-            {projects.map((project) => {
+            {projects.map((project, index) => {
               const projectSize = formatProjectSize(project.size);
 
               return (
-                <div key={project.slug} className="flex-shrink-0 w-full px-4">
+                <div
+                  key={project.slug}
+                  className="flex-shrink-0 w-full px-4 [transform:translateZ(0)]"
+                >
                   <Link
                     href={`/projects/${project.category}/${project.slug}`}
-                    className="block relative aspect-[4/5] rounded-2xl overflow-hidden shadow-xl group"
+                    className="group relative block aspect-[4/5] overflow-hidden rounded-2xl bg-card shadow-xl [backface-visibility:hidden] [transform:translateZ(0)]"
                   >
                     <Image
                       src={project.coverImage}
                       alt={project.title}
                       fill
+                      priority={index < 2}
                       sizes="95vw"
-                      className="object-cover transition-transform duration-700 group-hover:scale-105"
+                      className="object-cover transition-transform duration-700 group-hover:scale-105 [backface-visibility:hidden] [transform:translateZ(0)]"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/15 to-transparent" />
                     {/* Badges top-left */}
