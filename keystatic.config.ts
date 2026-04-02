@@ -45,12 +45,14 @@ export default config({
           label: "Location (e.g. DHA Phase 6, Lahore)",
           validation: { isRequired: true },
         }),
-        startDate: fields.date({
+        startDate: fields.text({
           label: "Start Date",
+          description: "Format: MM/YYYY — e.g. 03/2023",
           validation: { isRequired: true },
         }),
-        completionDate: fields.date({
-          label: "Completion Date (leave blank if ongoing)",
+        completionDate: fields.text({
+          label: "Completion Date",
+          description: "Format: MM/YYYY — e.g. 01/2024. Leave blank if ongoing.",
         }),
         isFeatured: fields.checkbox({
           label: "Show on Homepage (Featured)",
