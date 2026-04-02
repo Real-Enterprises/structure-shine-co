@@ -80,11 +80,11 @@ export default config({
             }),
             kanal: fields.number({
               label: "Project Size",
-              description: "Use kanal for sizes below 8 kanal.",
+              description: "Use kanal for sizes below 10 kanal.",
               step: 0.5,
               validation: {
                 min: 1,
-                max: 7.5,
+                max: 10,
                 step: true,
               },
             }),
