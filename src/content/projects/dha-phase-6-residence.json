@@ -5,6 +5,10 @@
   "location": "DHA Phase 6, Lahore",
   "startDate": "03/2023",
   "completionDate": "01/2024",
+  "size": {
+    "discriminant": "marla",
+    "value": 10
+  },
   "isFeatured": true,
   "coverImage": "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800",
   "images": [

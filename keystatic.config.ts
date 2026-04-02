@@ -52,8 +52,54 @@ export default config({
         }),
         completionDate: fields.text({
           label: "Completion Date",
-          description: "Format: MM/YYYY — e.g. 01/2024. Leave blank if ongoing.",
+          description:
+            "Format: MM/YYYY — e.g. 01/2024. Leave blank if ongoing.",
         }),
+        size: fields.conditional(
+          fields.select({
+            label: "Project Size Unit",
+            defaultValue: "none",
+            options: [
+              { label: "No size", value: "none" },
+              { label: "Marla", value: "marla" },
+              { label: "Kanal", value: "kanal" },
+              { label: "Acre", value: "acre" },
+            ],
+          }),
+          {
+            none: fields.empty(),
+            marla: fields.number({
+              label: "Project Size",
+              description: "Use marla for sizes below 20 marla.",
+              step: 0.5,
+              validation: {
+                min: 0.5,
+                max: 19.5,
+                step: true,
+              },
+            }),
+            kanal: fields.number({
+              label: "Project Size",
+              description: "Use kanal for sizes below 8 kanal.",
+              step: 0.5,
+              validation: {
+                min: 1,
+                max: 7.5,
+                step: true,
+              },
+            }),
+            acre: fields.number({
+              label: "Project Size",
+              description: "Use acre for plots 1 acre and above.",
+              step: 0.25,
+              validation: {
+                min: 1,
+                max: 100,
+                step: true,
+              },
+            }),
+          },
+        ),
         isFeatured: fields.checkbox({
           label: "Show on Homepage (Featured)",
           defaultValue: false,

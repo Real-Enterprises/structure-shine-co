@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import { cache } from "react";
+import type { ProjectSize } from "./project-size";
 
 const contentDir = path.join(process.cwd(), "src/content");
 
@@ -20,6 +21,7 @@ export type Project = {
   location: string;
   startDate: string;
   completionDate?: string;
+  size?: ProjectSize;
   isFeatured: boolean;
   coverImage: string;
   images: ProjectImage[];

@@ -5,6 +5,10 @@
   "location": "DHA Phase 5, Lahore",
   "startDate": "05/2020",
   "completionDate": "10/2021",
+  "size": {
+    "discriminant": "marla",
+    "value": 10
+  },
   "isFeatured": true,
   "coverImage": "https://res.cloudinary.com/dsm8ysq8w/image/upload/v1774954249/0da1af81-757f-43a1-bc38-2e8c6de63b70_gmg72v.jpg",
   "images": [],

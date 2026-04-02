@@ -5,6 +5,10 @@
   "location": "DHA Phase 7, Lahore",
   "startDate": "08/2022",
   "completionDate": "02/2024",
+  "size": {
+    "discriminant": "kanal",
+    "value": 1
+  },
   "isFeatured": true,
   "coverImage": "https://res.cloudinary.com/dsm8ysq8w/image/upload/v1774948871/IMG_5842_usu0mo.jpg",
   "images": [],

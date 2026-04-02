@@ -5,6 +5,10 @@
   "location": "DHA Rahber, Lahore",
   "startDate": "05/2023",
   "completionDate": "03/2024",
+  "size": {
+    "discriminant": "marla",
+    "value": 5
+  },
   "isFeatured": true,
   "coverImage": "https://res.cloudinary.com/dsm8ysq8w/image/upload/v1774948782/IMG_5839_h2bmow.jpg",
   "images": [],

@@ -9,6 +9,7 @@ import {
   type ProjectImage,
 } from "@/lib/content";
 import { cldGallery } from "@/lib/cloudinary";
+import { formatProjectSize } from "@/lib/project-size";
 import YouTubeEmbed from "@/components/YouTubeEmbed";
 import { ProjectGallery } from "@/components/projects/ProjectGallery";
 
@@ -132,6 +133,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default function ProjectDetailPage({ params }: Props) {
   const project = getProjectBySlug(params.slug);
   if (!project) notFound();
+  const projectSize = formatProjectSize(project.size);
 
   const categoryLabel = project.category
     .replace(/-/g, " ")
@@ -167,7 +169,11 @@ export default function ProjectDetailPage({ params }: Props) {
               href="/portfolio"
               className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors"
             >
-              <PremiumIcon icon={premiumIcons.arrowLeft} className="w-4 h-4" strokeWidth={1.9} />
+              <PremiumIcon
+                icon={premiumIcons.arrowLeft}
+                className="w-4 h-4"
+                strokeWidth={1.9}
+              />
               Back to Portfolio
             </Link>
           </div>
@@ -207,6 +213,16 @@ export default function ProjectDetailPage({ params }: Props) {
                     ? ` – ${project.completionDate}`
                     : " – Ongoing"}
                 </span>
+                {projectSize && (
+                  <span className="inline-flex items-center gap-2">
+                    <PremiumIcon
+                      icon={premiumIcons.expand}
+                      className="h-4 w-4"
+                      strokeWidth={1.85}
+                    />
+                    {projectSize}
+                  </span>
+                )}
                 <span className="inline-flex items-center gap-2 capitalize">
                   <PremiumIcon
                     icon={premiumIcons.checkBadge}
