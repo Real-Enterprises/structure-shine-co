@@ -373,7 +373,7 @@ export default config({
           label: "Logo Image URL (Cloudinary or /assets path)",
           description:
             "Paste a Cloudinary URL or a relative path like /assets/logo.png",
-          validation: { isRequired: true },
+          validation: { isRequired: false },
         }),
         heroVideoPublicId: fields.text({
           label: "Hero Background Video ID (Cloudinary)",
