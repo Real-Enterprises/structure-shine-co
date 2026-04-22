@@ -24,7 +24,7 @@ export function WhatsAppButton({ whatsappNumber }: Props) {
       <span className="absolute inset-0 rounded-full bg-[#25D366]/10 ring-2 ring-[#25D366]/20 shadow-[0_0_0_8px_rgba(37,211,102,0.08)]" />
 
       {/* Button */}
-      <div className="relative flex items-center justify-center w-[72px] h-[72px] md:w-[78px] md:h-[78px] rounded-full bg-[#25D366] shadow-lg transition-[filter,box-shadow] duration-200 hover:brightness-105 active:brightness-95">
+      <div className="pointer-events-none relative flex items-center justify-center w-[72px] h-[72px] md:w-[78px] md:h-[78px] rounded-full bg-[#25D366] shadow-lg transition-[filter,box-shadow] duration-200 group-hover:brightness-105 group-active:brightness-95">
         <svg
           viewBox="0 0 24 24"
           aria-hidden="true"
