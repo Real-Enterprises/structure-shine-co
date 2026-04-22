@@ -12,6 +12,7 @@ export function WhatsAppButton({ whatsappNumber }: Props) {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Chat with us on WhatsApp"
+      title="WhatsApp"
       className="fixed z-50 group right-4 md:right-6 bottom-[max(1rem,env(safe-area-inset-bottom))] md:bottom-6"
     >
       {/* Label */}
@@ -21,7 +22,7 @@ export function WhatsAppButton({ whatsappNumber }: Props) {
       </span>
 
       {/* Static glow */}
-      <span className="absolute inset-0 rounded-full bg-[#25D366]/10 ring-2 ring-[#25D366]/20 shadow-[0_0_0_8px_rgba(37,211,102,0.08)]" />
+      <span className="pointer-events-none absolute inset-0 rounded-full bg-[#25D366]/10 ring-2 ring-[#25D366]/20 shadow-[0_0_0_8px_rgba(37,211,102,0.08)]" />
 
       {/* Button */}
       <div className="pointer-events-none relative flex items-center justify-center w-[72px] h-[72px] md:w-[78px] md:h-[78px] rounded-full bg-[#25D366] shadow-lg transition-[filter,box-shadow] duration-200 group-hover:brightness-105 group-active:brightness-95">
