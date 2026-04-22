@@ -7,6 +7,7 @@ export function WhatsAppButton({ whatsappNumber }: Props) {
 
   return (
     <a
+      id="whatsapp-button"
       href={waUrl}
       target="_blank"
       rel="noopener noreferrer"
