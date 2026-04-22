@@ -1,7 +1,7 @@
 interface Props {
   whatsappNumber: string;
 }
-
+// Added whatsappNumber as a prop to make the component reusable with different numbers.
 export function WhatsAppButton({ whatsappNumber }: Props) {
   const waUrl = `https://wa.me/${whatsappNumber}?text=Hi%2C%20I%27d%20like%20to%20enquire%20about%20a%20construction%20project`;
 
